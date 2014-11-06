@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.projectmanager.Projects" >
+
+        <item
+        android:id="@+id/menu_syncall"
+        android:icon="@drawable/ic_launcher"
+        android:title="@string/syncall"
+        />
+        
+        <item
+        android:id="@+id/menu_user"
+        android:icon="@drawable/ic_launcher"
+        android:title="@string/user"
+        />
+                
+         <item
+        android:id="@+id/menu_about"
+        android:icon="@drawable/ic_launcher"
+        android:title="@string/about"
+        />
+
+</menu>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:showDividers="middle"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp" >
+
+    <TextView
+        android:id="@+id/projectId"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="10"
+        android:gravity="left"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/projectName"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="70"
+        android:gravity="left"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/projectStatus"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="20"
+        android:gravity="left"
+        android:textSize="20sp" />
+
+</LinearLayout>

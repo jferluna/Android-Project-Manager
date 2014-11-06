@@ -9,8 +9,22 @@
     tools:context="com.vaquerosisd.projectmanager.MainActivity" >
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_above="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:textSize="30sp"
+        android:text="@string/app_name" />
+    
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingBottom="50dp"
+      	android:contentDescription="@string/imageDesc"
+        android:src="@drawable/ic_launcher" />
 
 </RelativeLayout>

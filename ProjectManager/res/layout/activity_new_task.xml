@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}" >
+
+        <TextView
+            android:id="@+id/textNewTask"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/celeste"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/new_task" />
+        
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textNewTask"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:text="@string/addTaskName" />
+		
+        <EditText
+            android:id="@+id/addTaskName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView1"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_marginTop="10dp"
+            android:ems="10" 
+            android:hint="@string/addTaskHint">
+            <requestFocus />
+        </EditText>
+        
+        <CheckBox
+            android:id="@+id/subtaskCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addTaskName"
+            android:layout_alignLeft="@+id/addTaskName"
+            android:layout_marginTop="20dp"
+            android:text="@string/subtask" />
+        
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/subtaskCheckbox"
+            android:layout_alignLeft="@+id/subtaskCheckbox"
+            android:layout_marginTop="20dp"
+            android:text="@string/nestUnder" />
+        
+        <EditText
+            android:id="@+id/nestUnder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView2"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:inputType="none"
+            android:hint="@string/nestUnderHint"/>
+
+        <Button
+            android:id="@+id/addTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nestUnder"
+            android:layout_alignLeft="@+id/nestUnder"
+            android:layout_marginTop="27dp"
+            android:text="@string/addTaskButton" />
+
+</RelativeLayout>

@@ -1,0 +1,85 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/celeste"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin" >
+
+        <EditText
+            android:id="@+id/searchProjectName"
+            android:inputType="text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_weight="100"
+            android:ems="10"
+            android:padding="5dp"
+            android:layout_marginRight="5dp"
+            android:hint="@string/projectFindHint" />
+        
+        <ImageButton
+            android:id="@+id/cancelSearch"
+            android:layout_weight="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="@string/imageDesc"
+            android:visibility="gone"
+            android:src="@drawable/ic_action_cancel" />
+
+        <ImageButton
+            android:id="@+id/searchProject"
+            android:layout_weight="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="@string/imageDesc"
+            android:src="@drawable/ic_action_search" />
+
+        <ImageButton
+            android:id="@+id/deleteProject"
+           	android:layout_weight="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="@string/imageDesc"
+            android:src="@drawable/ic_action_discard" />
+
+        <ImageButton
+            android:id="@+id/addProject"
+            android:layout_weight="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="@string/imageDesc"
+            android:src="@drawable/ic_action_new" />
+        
+        <ImageButton
+            android:id="@+id/gotoProjectTasks"
+            android:layout_weight="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="@string/imageDesc"
+            android:src="@drawable/ic_action_forward" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/projectList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+</LinearLayout>

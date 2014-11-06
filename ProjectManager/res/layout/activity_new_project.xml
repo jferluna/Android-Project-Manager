@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}" >
+	
+    <!-- Top Bar -->
+    <TextView
+        android:id="@+id/newProject"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/celeste"
+        android:gravity="center"
+		android:padding="10dp"
+        android:text="@string/new_project" />
+    
+    <!-- Activity Content -->
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newProject"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/project_name" />
+
+    <EditText
+        android:id="@+id/projectName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/textView1"
+        android:paddingTop="20dp"
+        android:ems="10" 
+        android:hint="@string/addProjectHint">
+        <requestFocus />
+    </EditText>
+    
+    <TextView
+        android:id="@+id/textUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/projectName"
+        android:layout_alignLeft="@id/projectName"
+        android:layout_marginTop="25dp"
+        android:text="@string/status" />
+
+    <EditText
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textUsername"
+        android:layout_alignLeft="@+id/textUsername"
+        android:paddingTop="20dp"
+        android:ems="10" 
+        android:hint="@string/addstatusHint">
+    </EditText>
+
+    <Button
+        android:id="@+id/addProject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/status"
+        android:layout_below="@+id/status"
+        android:layout_marginTop="20dp"
+        android:text="@string/addProjectButton" />
+
+</RelativeLayout>
