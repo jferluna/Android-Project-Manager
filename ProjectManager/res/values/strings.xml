@@ -47,5 +47,11 @@
     <string name="title_activity_users">Users</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_main">MainActivity</string>
+    
+    <!-- Menus Strings -->
+    <string name="searchProjectItem">Project </string>
+    <string name="searchProjectMenu">Search Project</string>
+    <string name="deleteProjectMenu">Delete Project</string>
+    <string name="addProjectMenu">Add Project</string>
 
 </resources>
