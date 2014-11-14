@@ -1,7 +1,6 @@
 package com.vaquerosisd.projectmanager;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.vaquerosisd.adapters.ProjectListViewAdapter;
@@ -9,6 +8,7 @@ import com.vaquerosisd.database.ProjectOperations;
 import com.vaquerosisd.dialog.DeleteProjectDialog;
 import com.vaquerosisd.object.PhotoRef;
 import com.vaquerosisd.object.Project;
+import com.vaquerosisd.object.User;
 
 
 
@@ -31,11 +31,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
-public class ProjectList extends Activity {
+public class ProjectList extends Activity implements WebserviceCallback {
 	
 	ProjectOperations db;					//Database Operations
 	Project selectedProject;				//Last selected Project on ListView
@@ -45,6 +43,8 @@ public class ProjectList extends Activity {
 	
 	boolean searching = false;
 	
+
+	static private final int LOGIN = 0;
 	static private final int ADD_PROJECT_REQUEST = 5;
 
 	//Funciones definidas	
@@ -152,6 +152,12 @@ public class ProjectList extends Activity {
 		
 	} //End of onCreate
 	
+	@Override
+	protected void onResume() {
+		checkUser();
+		super.onResume();
+	}
+	
 	public List<Project> getProjectsForListView(){
 		List<Project> list = db.getAllProjects();
 		return list;
@@ -204,19 +210,37 @@ public class ProjectList extends Activity {
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
 		if(resultCode == RESULT_OK) {
 			//Reloads the ListView when adding a new project on NewProject.class
 			if(requestCode == ADD_PROJECT_REQUEST) {
 				projectAdapter.clear();
 				projectAdapter.addAll(getProjectsForListView());
 				projectAdapter.notifyDataSetChanged();
+			} else if (requestCode == LOGIN) {
+				checkUser();
 			}
 		}    
     }
 	
+	//User Logging
+	private User currentUser;
 	
-	// metodos para el menu
-	//
+	public void callback(int code){
+		System.out.println("Webserive code response: " + Integer.toString(code));
+		checkUser();
+	}
+	
+	public void checkUser() {
+		
+		currentUser = User.getUser(ProjectList.this);
+
+		if (currentUser == null) // no hay sesion logeada
+			Toast.makeText(getApplicationContext(), "Currently Logged Off", Toast.LENGTH_SHORT).show();
+
+	}
+	
+	//Action Bar Menu
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -230,14 +254,13 @@ public class ProjectList extends Activity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-
 		
 		switch (item.getItemId())
 		{
 		case R.id.menu_about:
 			//start about activity
-			Intent intent = new Intent(ProjectList.this, About.class);
-			startActivity(intent);
+			Intent intentAbout = new Intent(ProjectList.this, About.class);
+			startActivity(intentAbout);
 			return true;
 			
 		case R.id.menu_syncall:
@@ -245,14 +268,30 @@ public class ProjectList extends Activity {
 			return true;
 			
 		case R.id.menu_user:
-			//start user activity
-			Intent i = new Intent(ProjectList.this, Users.class);
-			startActivity(i);
+			if(currentUser != null)
+				currentUser.logOut();
+			else {
+				Intent intentLogin = new Intent(ProjectList.this, Login.class);
+				startActivityForResult(intentLogin, LOGIN);
+			}
+			
 			return true;
 			
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		MenuItem logMenuItem = menu.findItem(R.id.menu_user);
+        if (currentUser == null) {
+        	logMenuItem.setTitle("Log In");
+        } else {
+        	logMenuItem.setTitle("Log Out from " + currentUser.getUsername());
+        }
+        
+		return super.onPrepareOptionsMenu(menu);
 	}
 
 } //end project class

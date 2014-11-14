@@ -4,5 +4,6 @@
     <color name="black_overlay">#66000000</color>
     <color name="white">#ffffff</color>
     <color name="celeste">#87C9E6</color>
+    <color name="warning">#F02438</color>
     
 </resources>

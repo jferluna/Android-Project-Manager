@@ -14,7 +14,7 @@
             android:text="@string/new_task" />
         
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textNewTask"
@@ -26,8 +26,8 @@
             android:id="@+id/addTaskName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView1"
-            android:layout_alignLeft="@+id/textView1"
+            android:layout_below="@+id/textNombre"
+            android:layout_alignLeft="@+id/textNombre"
             android:layout_marginTop="10dp"
             android:ems="10" 
             android:hint="@string/addTaskHint">

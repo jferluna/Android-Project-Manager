@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-feature android:name="android.hardware.CAMERA" android:required="true" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -54,11 +55,6 @@
         <activity
             android:name=".About"
             android:label="@string/title_activity_about"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
-            android:name=".Users"
-            android:label="@string/title_activity_users"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity

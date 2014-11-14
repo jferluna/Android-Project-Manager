@@ -53,6 +53,20 @@ public class PhotoManager extends Activity {
 		
 		photoDisplay = (ImageView)findViewById(R.id.photoDisplay);
 		
+		photoDisplay.setOnTouchListener(new OnSwipeListener(this) {
+			@Override
+		    public void onSwipeRight() {
+				moveToPreviousPhoto();
+		        Toast.makeText(PhotoManager.this, "right", Toast.LENGTH_SHORT).show();
+		    }
+			
+			@Override
+		    public void onSwipeLeft() {
+				moveToNextPhoto();
+		        Toast.makeText(PhotoManager.this, "left", Toast.LENGTH_SHORT).show();
+		    }
+		});
+		
 		Button takePhoto = (Button) findViewById(R.id.takePhoto);
 		nextPhoto = (Button) findViewById(R.id.nextPhoto);
 		previousPhoto = (Button) findViewById(R.id.previousPhoto);

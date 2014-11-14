@@ -24,7 +24,7 @@
         android:layout_below="@+id/textTask" >
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/btnSignIn"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
     </LinearLayout>
     
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textNombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -53,8 +53,8 @@
         android:id="@+id/editStartDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_toRightOf="@+id/textView1"
+        android:layout_below="@+id/textNombre"
+        android:layout_toRightOf="@+id/textNombre"
         android:ems="10" >
         <requestFocus />
         
