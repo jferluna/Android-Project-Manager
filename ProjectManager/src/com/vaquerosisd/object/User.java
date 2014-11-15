@@ -209,8 +209,21 @@ public class User {
 	}
 	
 	
+	//
+	// Obtiene arreglo de projects para el user
+	public void getProjects(){
+		
+	}
+	
+	
+	
+	
+	
+	
+	//
 	// Clase para obtener datos de manera asincrona del WebService en JSON
-
+	//
+	
 	public class GetData extends AsyncTask<String, Void, JSONObject> {
 		private ProgressDialog dialog;
 		Context context;
@@ -271,7 +284,7 @@ public class User {
         			editor.putString("auth_token", json.getString("auth_token"));
         			editor.commit();
         			
-        			callerActivity.callback(Integer.parseInt(string_code));
+        			callerActivity.callback(new JsonWrapper(json));
         			
         			break;
         			
@@ -281,11 +294,11 @@ public class User {
 					editor = prefs.edit();
 					editor.clear();
 					editor.commit();
-					callerActivity.callback(Integer.parseInt(string_code));
+					callerActivity.callback(new JsonWrapper(json));
 					
 					default: // Status ERROR
 						System.out.println("ERROR IN API CALL: " + string_code);
-						callerActivity.callback(Integer.parseInt(string_code));
+						callerActivity.callback(new JsonWrapper(json));
 						break;
 						
 				}	// end switch

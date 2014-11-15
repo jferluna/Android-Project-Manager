@@ -1,8 +1,11 @@
 package com.vaquerosisd.projectmanager;
 
+import com.vaquerosisd.object.JsonWrapper;
+
 public interface WebserviceCallback {
 	
-	void callback(int code);
+	
+	void callback(JsonWrapper jw);
 	
 
 }

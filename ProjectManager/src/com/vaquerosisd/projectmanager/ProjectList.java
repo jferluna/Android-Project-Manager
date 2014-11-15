@@ -6,6 +6,7 @@ import java.util.List;
 import com.vaquerosisd.adapters.ProjectListViewAdapter;
 import com.vaquerosisd.database.ProjectOperations;
 import com.vaquerosisd.dialog.DeleteProjectDialog;
+import com.vaquerosisd.object.JsonWrapper;
 import com.vaquerosisd.object.PhotoRef;
 import com.vaquerosisd.object.Project;
 import com.vaquerosisd.object.User;
@@ -226,8 +227,8 @@ public class ProjectList extends Activity implements WebserviceCallback {
 	//User Logging
 	private User currentUser;
 	
-	public void callback(int code){
-		System.out.println("Webserive code response: " + Integer.toString(code));
+	public void callback(JsonWrapper jw){
+		System.out.println("Webserive code response: " + jw.getInt("code"));
 		checkUser();
 	}
 	

@@ -1,5 +1,6 @@
 package com.vaquerosisd.projectmanager;
 
+import com.vaquerosisd.object.JsonWrapper;
 import com.vaquerosisd.object.User;
 
 import android.app.Activity;
@@ -17,11 +18,11 @@ public class Login extends Activity implements WebserviceCallback{
 	
 	// Funcion de retorno de la llamada al webservice
 	// descrita en la interface WebserviceCallback
-	public void callback(int code){
-		System.out.println("Webserive code response: " + Integer.toString(code));
+	public void callback(JsonWrapper jw){
+		System.out.println("Webserive code response: " + jw.getInt("code"));
 		
 		// checar codigo de overtwrite?
-		if (code == 2)
+		if (jw.getInt("code")== 2)
 		{
 			Toast.makeText(Login.this, "Ya hay un usuario logeado, sobreescribir?", Toast.LENGTH_SHORT).show();
 			force_login = true;
