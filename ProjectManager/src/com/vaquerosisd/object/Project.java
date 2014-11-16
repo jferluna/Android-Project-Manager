@@ -31,42 +31,82 @@ Authors:
 package com.vaquerosisd.object;
 
 public class Project {
-	private int projectId;
-	private String ProjectName;
-	private String ProjectStatus;
+	private int id;
+	private String name;
+	private String startDate;
+	private String dueDate;
+	private String status;
+	private int openTasks;
+	private int totalTasks;
 	
 	public Project() {
 	}
 	
-	public Project(int projectId, String projectName, String projectStatus) {
+	public Project(int id, String name, String status, String startDate, String dueDate, int openTasks, int totalTasks) {
 		super();
-		this.projectId = projectId;
-		this.ProjectName = projectName;
-		this.ProjectStatus = projectStatus;
+		this.id = id;
+		this.name = name;
+		this.startDate = startDate;
+		this.dueDate = dueDate;
+		this.status = status;
+		this.openTasks = openTasks;
+		this.totalTasks = totalTasks;
 	}
 
-	public int getProjectId() {
-		return projectId;
+	public int getOpenTasks() {
+		return openTasks;
 	}
 
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
+	public void setOpenTasks(int openTasks) {
+		this.openTasks = openTasks;
 	}
 
-	public String getProjectName() {
-		return ProjectName;
+	public int getTotalTasks() {
+		return totalTasks;
 	}
 
-	public void setProjectName(String projectName) {
-		ProjectName = projectName;
+	public void setTotalTasks(int totalTasks) {
+		this.totalTasks = totalTasks;
 	}
 
-	public String getProjectStatus() {
-		return ProjectStatus;
+	public String getStartDate() {
+		return startDate;
 	}
 
-	public void setProjectStatus(String projectStatus) {
-		ProjectStatus = projectStatus;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getDueDate() {
+		return dueDate;
+	}
+
+	public void setDueDate(String dueDate) {
+		this.dueDate = dueDate;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }

@@ -33,6 +33,7 @@ package com.vaquerosisd.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 	
@@ -43,7 +44,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String TABLE_PROJECTS = "projects";
 	public static final String PROJECTS_COLUMN_PROJECT_ID = "_projectID";
 	public static final String PROJECTS_COLUMN_PROJECT_NAME = "ProjectName";
+	public static final String PROJECTS_COLUMN_PROJECT_STARTDATE = "StartDate";
+	public static final String PROJECTS_COLUMN_PROJECT_DUEDATE = "DueDate";
 	public static final String PROJECTS_COLUMN_PROJECT_STATUS = "Status";
+	public static final String PROJECTS_COLUMN_OPEN_TASKS = "OpenTasks";
+	public static final String PROJECTS_COLUMN_TOTAL_TASK = "TotalTasks";
 	//Task Table Constants
 	public static final String TABLE_TASKS = "tasks";
 	public static final String TASKS_COLUMN_TASK_ID = "_taskID";
@@ -59,11 +64,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
+	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_PROJECTS_TABLE = "CREATE TABLE " + TABLE_PROJECTS + " ( " + PROJECTS_COLUMN_PROJECT_ID + " INTEGER PRIMARY KEY, " + PROJECTS_COLUMN_PROJECT_NAME + " TEXT, " + PROJECTS_COLUMN_PROJECT_STATUS + " TEXT)";
-		String CREATE_TASKS_TABLE = "CREATE TABLE " + TABLE_TASKS + " ( " + TASKS_COLUMN_TASK_ID + " INTEGER PRIMARY KEY, " + TASKS_COLUMN_TASK_NAME + " TEXT, " + TASKS_COLUMN_PROJECT_ID + " INTEGER)";
-		String CREATE_PHOTOS_TABLE = "CREATE TABLE " + TABLE_PHOTOS + " ( " + PHOTOS_COLUMN_PHOTO_ID + " INTEGER PRIMARY KEY, " + PHOTOS_COLUMN_PHOTO_PATH + " TEXT, " + PHOTOS_COLUMN_PROJECT_ID + " INTEGER)";
+		String CREATE_PROJECTS_TABLE = "CREATE TABLE " + TABLE_PROJECTS + " ( " + 
+											PROJECTS_COLUMN_PROJECT_ID + " INTEGER PRIMARY KEY, " + 
+											PROJECTS_COLUMN_PROJECT_NAME + " TEXT, " + 
+											PROJECTS_COLUMN_PROJECT_STARTDATE + " TEXT, " + 
+											PROJECTS_COLUMN_PROJECT_DUEDATE + " TEXT, " + 
+											PROJECTS_COLUMN_PROJECT_STATUS + " TEXT, " + 
+											PROJECTS_COLUMN_OPEN_TASKS + " INTEGER, " + 
+											PROJECTS_COLUMN_TOTAL_TASK + " INTEGER)";
+		String CREATE_TASKS_TABLE = "CREATE TABLE " + TABLE_TASKS + " ( " + 
+											TASKS_COLUMN_TASK_ID + " INTEGER PRIMARY KEY, " + 
+											TASKS_COLUMN_TASK_NAME + " TEXT, " + 
+											TASKS_COLUMN_PROJECT_ID + " INTEGER)";
+		String CREATE_PHOTOS_TABLE = "CREATE TABLE " + TABLE_PHOTOS + " ( " + 
+											PHOTOS_COLUMN_PHOTO_ID + " INTEGER PRIMARY KEY, " + 
+											PHOTOS_COLUMN_PHOTO_PATH + " TEXT, " + 
+											PHOTOS_COLUMN_PROJECT_ID + " INTEGER)";
+		
+		Log.i("DB projects table onCreate", CREATE_PROJECTS_TABLE);
+		Log.i("DB tasks table onCreate", CREATE_TASKS_TABLE);
+		Log.i("DB photo table onCreate", CREATE_PHOTOS_TABLE);
 		
 		db.execSQL(CREATE_PROJECTS_TABLE);
 		db.execSQL(CREATE_TASKS_TABLE);

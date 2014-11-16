@@ -21,7 +21,7 @@
 	    android:icon="@drawable/ic_action_discard"
 	    android:title="@string/deleteProjectMenu"
 	    android:visible="false"
-	    android:showAsAction="ifRoom"/>
+	    android:showAsAction="always"/>
 	
 	<item 
 	    android:id="@+id/actionBar_addProjectIcon"
@@ -39,12 +39,12 @@
         android:id="@+id/actionBar_menu_user"
         android:icon="@drawable/ic_launcher"
         android:title="@string/user"
-        android:showAsAction="never" />
+        android:showAsAction="collapseActionView" />
                 
     <item
         android:id="@+id/actionBar_menu_about"
         android:icon="@drawable/ic_launcher"
         android:title="@string/about"
-        android:showAsAction="never" />
+        android:showAsAction="collapseActionView" />
 
 </menu>

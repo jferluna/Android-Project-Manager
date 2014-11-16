@@ -10,6 +10,7 @@
     
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-feature android:name="android.hardware.CAMERA" android:required="true" />
 
     <application
@@ -34,7 +35,8 @@
         <activity
             android:name=".NewProject"
             android:label="@string/title_activity_new_project"
-            android:windowSoftInputMode="stateHidden" >
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName="com.vaquerosisd.projectmanager.ProjectList" >
         </activity>
         <activity
             android:name=".NewTask"

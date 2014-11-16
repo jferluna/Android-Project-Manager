@@ -53,7 +53,11 @@ public class ProjectOperations {
 	public static final String TABLE_PROJECTS = "projects";
 	public static final String PROJECTS_COLUMN_PROJECT_ID = "_projectID";
 	public static final String PROJECTS_COLUMN_PROJECT_NAME = "ProjectName";
+	public static final String PROJECTS_COLUMN_PROJECT_STARTDATE = "StartDate";
+	public static final String PROJECTS_COLUMN_PROJECT_DUEDATE = "DueDate";
 	public static final String PROJECTS_COLUMN_PROJECT_STATUS = "Status";
+	public static final String PROJECTS_COLUMN_OPEN_TASKS = "OpenTasks";
+	public static final String PROJECTS_COLUMN_TOTAL_TASK = "TotalTasks";
 	//Task Table Constants
 	public static final String TABLE_TASKS = "tasks";
 	public static final String TASKS_COLUMN_TASK_ID = "_taskID";
@@ -83,10 +87,14 @@ public class ProjectOperations {
 	//Project Table Operations
 	//--------------------------------------------------------------------------------
 	
-	public void addProject(String projectName, String status) {
+	public void addProject(String projectName, String status, String[] startDate, String[] dueDate) {
 		ContentValues values = new ContentValues();
 		values.put(PROJECTS_COLUMN_PROJECT_NAME, projectName);
 		values.put(PROJECTS_COLUMN_PROJECT_STATUS, status);
+		values.put(PROJECTS_COLUMN_PROJECT_STARTDATE, startDate[0] + "/" + startDate[1] + "/" + startDate[2]);
+		values.put(PROJECTS_COLUMN_PROJECT_DUEDATE, dueDate[0] + "/" + dueDate[1] + "/" + dueDate[2]);
+		values.put(PROJECTS_COLUMN_OPEN_TASKS, 0);
+		values.put(PROJECTS_COLUMN_TOTAL_TASK, 0);
 		db.insert(TABLE_PROJECTS, null, values);
 	}
 	
@@ -111,11 +119,34 @@ public class ProjectOperations {
 		Cursor cursor =  db.rawQuery(query, null);
 		cursor.moveToPosition(-1);
 		
+		int index;
+		
 		while(cursor.move(1) == true) {
 			project = new Project();
-			project.setProjectId(cursor.getInt(0));
-			project.setProjectName(cursor.getString(1));
-			project.setProjectStatus(cursor.getString(2));
+			
+			//Get all project columns
+			index = cursor.getColumnIndex(PROJECTS_COLUMN_PROJECT_ID);
+			project.setId(cursor.getInt(index));
+			
+			index = cursor.getColumnIndex(PROJECTS_COLUMN_PROJECT_NAME);
+			project.setName(cursor.getString(index));
+			
+			index = cursor.getColumnIndex(PROJECTS_COLUMN_PROJECT_STATUS);
+			project.setStatus(cursor.getString(index));
+			
+			index = cursor.getColumnIndex(PROJECTS_COLUMN_PROJECT_STARTDATE);
+			project.setStartDate(cursor.getString(index));
+			
+			index = cursor.getColumnIndex(PROJECTS_COLUMN_PROJECT_DUEDATE);
+			project.setDueDate(cursor.getString(index));
+			
+			index = cursor.getColumnIndex(PROJECTS_COLUMN_OPEN_TASKS);
+			project.setOpenTasks(cursor.getInt(index));
+			
+			index = cursor.getColumnIndex(PROJECTS_COLUMN_TOTAL_TASK);
+			project.setTotalTasks(cursor.getInt(index));
+			
+			//Add project to list
 			projectList.add(project);
 		}
 		cursor.close();
@@ -126,16 +157,36 @@ public class ProjectOperations {
 	public List<Project> getAllProjects() {
 		List<Project> projectList = new ArrayList<Project>();
 		Project project;
+		int index;
 		
-		String query = "Select * FROM " + TABLE_PROJECTS + ";";
+		String query = "Select * FROM " + TABLE_PROJECTS + " ORDER BY " + PROJECTS_COLUMN_PROJECT_STARTDATE + ";";
 		Cursor cursor = db.rawQuery(query, null);
 		cursor.moveToPosition(-1);
 		
 		while(cursor.move(1) == true) {
 			project = new Project();
-			project.setProjectId(cursor.getInt(0));
-			project.setProjectName(cursor.getString(1));
-			project.setProjectStatus(cursor.getString(2));
+			
+			index = cursor.getColumnIndex(PROJECTS_COLUMN_PROJECT_ID);
+			project.setId(cursor.getInt(index));
+			
+			index = cursor.getColumnIndex(PROJECTS_COLUMN_PROJECT_NAME);
+			project.setName(cursor.getString(index));
+			
+			index = cursor.getColumnIndex(PROJECTS_COLUMN_PROJECT_STATUS);
+			project.setStatus(cursor.getString(index));
+			
+			index = cursor.getColumnIndex(PROJECTS_COLUMN_PROJECT_STARTDATE);
+			project.setStartDate(cursor.getString(index));
+			
+			index = cursor.getColumnIndex(PROJECTS_COLUMN_PROJECT_DUEDATE);
+			project.setDueDate(cursor.getString(index));
+			
+			index = cursor.getColumnIndex(PROJECTS_COLUMN_OPEN_TASKS);
+			project.setOpenTasks(cursor.getInt(index));
+			
+			index = cursor.getColumnIndex(PROJECTS_COLUMN_TOTAL_TASK);
+			project.setTotalTasks(cursor.getInt(index));
+			
 			projectList.add(project);
 		}
 		cursor.close();

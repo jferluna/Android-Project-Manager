@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +24,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -37,17 +39,16 @@ import android.view.inputmethod.InputMethodManager;
 public class ProjectList extends Activity {
 	
 	ProjectOperations db;					//Database Operations
-	Project selectedProject;				//Last selected Project on ListView
-	View selectedRow;						//Last selected row in ListView
 	ProjectListViewAdapter projectAdapter;	//ListView adapter
-	EditText searchProjectEditText;			//SearchBox of project
+	Project selectedProject;				//Selected project object
+	View selectedRow;						//View of selected row in ListView
 	
 	boolean searching = false;
 	boolean projectSelected = false;
 	
 	static private final int ADD_PROJECT_REQUEST = 5;
 
-	//Funciones definidas	
+	//Defined functions	
 	public void syncAll(){
 		Toast.makeText(ProjectList.this, "Sincronizar todo", Toast.LENGTH_SHORT).show();
 	}
@@ -66,39 +67,46 @@ public class ProjectList extends Activity {
 		projectAdapter = new ProjectListViewAdapter(getApplicationContext(), R.layout.listrow_project, getProjectsForListView());
 		projectListView.setAdapter(projectAdapter);
 		
-//		gotoProyectTasks.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				if(selectedProject != null) {
-//					Intent intent = new Intent(ProjectList.this, TaskList.class);
-//					intent.putExtra("ProjectID", selectedProject.getProjectId());
-//					intent.putExtra("ProjectName", selectedProject.getProjectName());
-//					Log.i("DEBUG", String.valueOf(selectedProject.getProjectId()));
-//					startActivity(intent);
-//				} else {
-//					Toast.makeText(getApplicationContext(), "Select a project", Toast.LENGTH_SHORT).show();
-//				}
-//			}
-//		});
-		
-		
 		projectListView.setOnItemClickListener(new OnItemClickListener() {
+			
 			@Override
-        	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-        		selectedProject = (Project) projectAdapter.getItem(arg2);
-        		if(selectedRow != null)
-        			selectedRow.setBackgroundColor(Color.TRANSPARENT);
-        		selectedRow = projectAdapter.getView(arg2, arg1, null);
-        		selectedRow.setBackgroundColor(Color.LTGRAY);
-        		projectSelected = true;
+        	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				
+				//Launches TaskList activity of the clicked project.
+        		Project project = (Project) projectAdapter.getItem(position);
+        		if(selectedRow != null){
+        			selectedRow.findViewById(R.id.listProject_information).setBackgroundColor(Color.TRANSPARENT);
+            		selectedRow = null;
+        		}
+        		Intent intent = new Intent(ProjectList.this, TaskList.class);
+				intent.putExtra("ProjectID", project.getId());
+				intent.putExtra("ProjectName", project.getName());
+				startActivity(intent);
+			}
+			
+		});
+		
+		projectListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+				
+				//Gets pointer to project object and row view. Launch request to refresh actionBar UI according to selected context.
+				selectedProject = (Project) projectAdapter.getItem(position);
+				if(selectedRow != null)
+					selectedRow.findViewById(R.id.listProject_information).setBackgroundColor(Color.WHITE);
+				selectedRow = projectAdapter.getView(position, view, null);
+        		selectedRow.findViewById(R.id.listProject_information).setBackgroundColor(Color.parseColor("#42A5F5"));
+				projectSelected = true;
         		invalidateOptionsMenu();
-        	}
+				return true;
+			}
 			
 		});
 		
 	} //End of onCreate
 	
+	//Gets all projects in a list object.
 	public List<Project> getProjectsForListView(){
 		List<Project> list = db.getAllProjects();
 		return list;
@@ -112,15 +120,13 @@ public class ProjectList extends Activity {
 		projectAdapter.notifyDataSetChanged();
 	}
 	
-	//Delete the project and refresh the ListView
+	//Delete the project and its information. Reload the ListView.
 	public void deleteProject() {
 		
-		String projectName = selectedProject.getProjectName();
-		int projectID = selectedProject.getProjectId();
-		
-		deleteProjectPhotos();
-		
-		Log.i("DEBUG", projectName);
+		String projectName = selectedProject.getName();
+		int projectID = selectedProject.getId();
+
+		deleteProjectPhotos();		
 		db.deleteProjectPhotos(projectID);
 		db.deleteProject(projectName, projectID);
 		projectAdapter.clear();
@@ -128,13 +134,16 @@ public class ProjectList extends Activity {
 		projectAdapter.notifyDataSetChanged();
 		projectSelected = false;
 		selectedProject = null;
+		selectedRow.findViewById(R.id.listProject_information).setBackgroundColor(Color.TRANSPARENT);
+		selectedRow = null;
 		invalidateOptionsMenu();
 	}
 	
+	//Deletes all the project related photos
 	private void deleteProjectPhotos()
 	{
 		List<PhotoRef> photosList;
-		int projectID = selectedProject.getProjectId();
+		int projectID = selectedProject.getId();
 		
 		photosList = db.getAllPhotos(projectID);
 		
@@ -164,33 +173,71 @@ public class ProjectList extends Activity {
 		}    
     }
 	
+	@Override
+	public void onBackPressed(){
+		if(searching) {
+			//Clears the searched projects
+			projectAdapter.clear();
+			projectAdapter.addAll(getProjectsForListView());
+			projectAdapter.notifyDataSetChanged();
+			//Clears up navigation
+			getActionBar().setDisplayHomeAsUpEnabled(false);
+			searching = false;
+			//Request to refresh ActionBar UI
+			invalidateOptionsMenu();
+			return;
+		} else if (projectSelected) {
+			//Clears pointer to selected row and removes all enhanced view properties
+			selectedRow.findViewById(R.id.listProject_information).setBackgroundColor(Color.WHITE);
+			selectedRow = null;
+			projectSelected = false;
+			//Request to refresh ActionBar UI
+			invalidateOptionsMenu();
+			return;
+		} else {
+			//Default onBackPressed action
+			super.onBackPressed();
+		}
+	}
+	
 	//**************************************************************************************
 	//Menu methods
 	//**************************************************************************************
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+		// Inflate the menu
 		getMenuInflater().inflate(R.menu.project_menu, menu);
 		
+		//Shows keyboard input on screen
 		if(searching) {
 			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 			imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,0);
 		}
 		
 		
-		MenuItem cancelSearchItem = menu.findItem(R.id.actionBar_searchProjectItem);
-		Button cancelSearchProject = (Button) cancelSearchItem.getActionView().findViewById(R.id.actionBar_cancelSearch);
 		MenuItem searchItem = menu.findItem(R.id.actionBar_searchProjectItem);
-		final EditText searchProject = (EditText) searchItem.getActionView().findViewById(R.id.actionBar_searchProjectEditText);
+		Button clearSearchProject = (Button) searchItem.getActionView().findViewById(R.id.actionBar_clearSearch);
+		final AutoCompleteTextView searchProject = (AutoCompleteTextView) searchItem.getActionView().findViewById(R.id.actionBar_searchProjectEditText);
 		
-		//Cancel behavior
-		cancelSearchProject.setOnClickListener(new OnClickListener() {
+		//AutocompleteTextView behavior
+		List<Project> projectTemp = db.getAllProjects();
+		String[] projects = new String[projectTemp.size()];
+		for(int i = 0; i < projectTemp.size(); i++){
+			projects[i] = projectTemp.get(i).getName();
+		}
+		ArrayAdapter<String> projectsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, projects);
+		searchProject.setAdapter(projectsAdapter);
+		searchProject.setThreshold(1);
+		
+		
+		//Clear text of search AutoCompleteTextView
+		clearSearchProject.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				getActionBar().setDisplayShowTitleEnabled(true);
 				searchProject.setText("");
 			}
+			
 		});
 		
 		//Search project
@@ -205,8 +252,6 @@ public class ProjectList extends Activity {
 					//Hide keyboard
 					InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 					imm.hideSoftInputFromWindow(searchProject.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
-					
-					searching = true;
 					return true;
 				}
 				return false;
@@ -273,14 +318,19 @@ public class ProjectList extends Activity {
 	public boolean onPrepareOptionsMenu (Menu menu){
 		if(projectSelected) {
 			MenuItem deleteProject = menu.findItem(R.id.actionBar_deleteProjectIcon);
-			deleteProject.setVisible(projectSelected);
-		} else if (searching) {
+			deleteProject.setVisible(true);
+		} else {
+			MenuItem deleteProject = menu.findItem(R.id.actionBar_deleteProjectIcon);
+			deleteProject.setVisible(false);
+		}
+		
+		if (searching) {
 			getActionBar().setDisplayShowTitleEnabled(false);
 			MenuItem searchProjectIcon = menu.findItem(R.id.actionBar_searchProjectIcon);
 			searchProjectIcon.setVisible(false);
 			MenuItem searchProjectEditText = menu.findItem(R.id.actionBar_searchProjectItem);
 			searchProjectEditText.setVisible(true);
-		} else if(!searching) {
+		} else {
 			getActionBar().setDisplayShowTitleEnabled(true);
 			MenuItem searchItem = menu.findItem(R.id.actionBar_searchProjectItem);
 			final EditText searchProject = (EditText) searchItem.getActionView().findViewById(R.id.actionBar_searchProjectEditText);
