@@ -14,8 +14,8 @@ import android.graphics.Typeface;
 
 public class MainActivity extends Activity {
 
-	private long splashDelayOnline = 3000;
-	private long splashDelayOffline = 3000;
+	private long splashDelayOnline = 600;
+	private long splashDelayOffline = 600;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

@@ -1,34 +1,139 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:showDividers="middle"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp" >
+    android:paddingLeft="2dp"
+    android:paddingRight="2dp"
+    android:paddingBottom="10dp"
+    android:showDividers="middle" >
+    
+    <View
+        android:layout_width="2dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="0"
+        android:background="@drawable/shadow_box_left"/>
 
-    <TextView
-        android:id="@+id/projectId"
-        android:layout_height="wrap_content"
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="10"
-        android:gravity="left"
-        android:textSize="20sp" />
+        android:layout_height="wrap_content"
+        android:layout_weight="100"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/projectName"
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:layout_weight="70"
-        android:gravity="left"
-        android:textSize="20sp" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/listProject_ImageBackgroundColor" >
+            
+            <View
+		        android:layout_width="fill_parent"
+		        android:layout_height="0.1dp"
+		        android:background="#FFBBBBBB"/>
 
-    <TextView
-        android:id="@+id/projectStatus"
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:layout_weight="20"
-        android:gravity="left"
-        android:textSize="20sp" />
+            <ImageView
+                android:id="@+id/listProject_ProjectImage"
+                android:layout_width="fill_parent"
+                android:layout_height="250dp"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/imageDesc"
+                android:scaleType="centerCrop"
+                android:src="@drawable/project1" />
+
+            <TextView
+                android:id="@+id/listProject_ProjectName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/listProject_ProjectImage"
+                android:layout_alignLeft="@id/listProject_ProjectImage"
+                android:background="@color/listProject_NameBackgroundColor"
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:textColor="@color/listProject_NameColor"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/listProject_information"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+            
+             <TextView
+                android:id="@+id/listProject_StartDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:gravity="left"
+                android:padding="5dp"
+                android:textSize="20sp" />
+             
+              <TextView
+                android:id="@+id/listProject_DueDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/listProject_StartDate"
+                android:gravity="left"
+                android:padding="5dp"
+                android:textSize="20sp" />            
+
+            <TextView
+                android:id="@+id/listProject_ProjectStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="left"
+                android:padding="5dp"
+                android:textSize="20sp" />
+            
+            <TextView
+                android:id="@+id/listProject_OpenTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/listProject_ProjectStatus"
+                android:gravity="left"
+                android:padding="5dp"
+                android:textSize="20sp" />
+            
+            <TextView
+                android:id="@+id/listProject_TotalTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/listProject_OpenTasks"
+                android:gravity="left"
+                android:padding="5dp"
+                android:textSize="20sp" />
+            
+        </RelativeLayout>
+        
+        <View
+	        android:layout_width="fill_parent"
+	        android:layout_height="5dp"
+	        android:background="@drawable/shadow_box_vertical"/>
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="100" >
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="100"
+            android:background="@drawable/shadow_box_horizontal" />
+        
+        <View
+	        android:layout_width="fill_parent"
+	        android:layout_height="5dp"
+	        android:layout_weight="0"
+	        android:background="@drawable/shadow_box_corner"/>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -7,6 +7,7 @@ import java.util.List;
 import com.vaquerosisd.database.ProjectOperations;
 import com.vaquerosisd.dialog.DeletePhotoDialog;
 import com.vaquerosisd.object.PhotoRef;
+import com.vaquerosisd.utils.OnSwipeListener;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -36,7 +36,6 @@ import com.vaquerosisd.object.Project;
 import com.vaquerosisd.projectmanager.R;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,20 +63,21 @@ public class ProjectListViewAdapter extends ArrayAdapter<Project> {
 			row = inflater.inflate(layoutResourceId, parent, false);
 		}
 		
-		TextView projectId = (TextView) row.findViewById(R.id.projectId);
-		TextView projectName = (TextView) row.findViewById(R.id.projectName);
-		TextView projectStatus = (TextView) row.findViewById(R.id.projectStatus);
+		TextView projectName = (TextView) row.findViewById(R.id.listProject_ProjectName);
+		TextView startDate = (TextView) row.findViewById(R.id.listProject_StartDate);
+		TextView dueDate = (TextView) row.findViewById(R.id.listProject_DueDate);
+		TextView projectStatus = (TextView) row.findViewById(R.id.listProject_ProjectStatus);
+		TextView openTasks = (TextView) row.findViewById(R.id.listProject_OpenTasks);
+		TextView totalTasks = (TextView) row.findViewById(R.id.listProject_TotalTasks);
 		
 		if(!projectList.isEmpty()) {
 			Project project = projectList.get(position);
-			
-			projectId.setText(String.valueOf(project.getProjectId()));
-			projectName.setText(project.getProjectName());
-			projectStatus.setText(project.getProjectStatus());
-			
-			projectId.setTextColor(Color.parseColor("#000000"));
-			projectName.setTextColor(Color.parseColor("#000000"));
-			projectStatus.setTextColor(Color.parseColor("#000000"));
+			projectName.setText(project.getName());
+			startDate.setText("Start Date: " + project.getStartDate());
+			dueDate.setText("Due date: " + project.getDueDate());
+			projectStatus.setText("Status: " + project.getStatus());
+			openTasks.setText("Open tasks: " + project.getOpenTasks());
+			totalTasks.setText("Total tasks: " + project.getTotalTasks());
 		}
 		
 		return row;
