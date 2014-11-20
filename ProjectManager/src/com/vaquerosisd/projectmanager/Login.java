@@ -18,11 +18,11 @@ public class Login extends Activity implements WebserviceCallback{
 	
 	// Funcion de retorno de la llamada al webservice
 	// descrita en la interface WebserviceCallback
-	public void callback(JsonWrapper jw){
-		System.out.println("Webserive code response: " + jw.getInt("code"));
+	public void callback(JsonWrapper response){
+		System.out.println("Webserive code response: " + response.getInt("code"));
 		
 		// checar codigo de overtwrite?
-		if (jw.getInt("code")== 2)
+		if (response.getCode() == 2)
 		{
 			Toast.makeText(Login.this, "Ya hay un usuario logeado, sobreescribir?", Toast.LENGTH_SHORT).show();
 			force_login = true;

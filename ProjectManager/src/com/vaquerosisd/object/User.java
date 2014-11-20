@@ -1,8 +1,14 @@
 package com.vaquerosisd.object;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import com.vaquerosisd.database.ProjectOperations;
 import com.vaquerosisd.projectmanager.WebserviceCallback;
 
 import android.app.Activity;
@@ -15,6 +21,15 @@ public class User {
 	
 	private WebserviceCallback callerActivity;
 	private SharedPreferences.Editor editor;
+	
+	private final String api_host = "http://projectmanager-api.herokuapp.com/";
+	private final String route_login = "login/create";
+	private final String route_forcelogin = "login/overwrite";
+	private final String route_logout = "login/destroy";
+	private final String route_get = "projects/get";
+	private final String route_sync = "projects/sync";
+	
+	private ProjectOperations db;
 	
 	static SharedPreferences prefs;
 	
@@ -158,9 +173,22 @@ public class User {
 	public void logIn(String password) {
 
 
-		String urlString = "https://projectmanager-api.herokuapp.com/login/create?nombre="
-				+ this.nombre + "&password=" + password;
-		new GetData(context).execute(urlString);
+		String urlString = api_host + route_login;
+		
+		JSONObject request = new JSONObject();
+		JSONObject json = new JSONObject();
+		
+		try {
+			request.put("nombre", nombre);
+			request.put("password", password);
+			json.put("request", request);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		new GetData(context).execute(urlString, json.toString());
 
 		// checa si el usuario no es null (los privates)
 		if (this.nombre == null) {
@@ -178,9 +206,23 @@ public class User {
 	public void forceLogIn(String password) {
 
 
-		String urlString = "https://projectmanager-api.herokuapp.com/login/overwrite?nombre="
-				+ this.nombre + "&password=" + password;
-		new GetData(context).execute(urlString);
+		String urlString = api_host + route_forcelogin;
+		
+		
+		JSONObject request = new JSONObject();
+		JSONObject json = new JSONObject();
+		
+		try {
+			request.put("nombre", nombre);
+			request.put("password", password);
+			json.put("request", request);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		new GetData(context).execute(urlString, json.toString());
 
 		// checa si el usuario no es null (los privates)
 		if (this.nombre != null) {
@@ -201,10 +243,21 @@ public class User {
 		//final SharedPreferences prefs;
 		//prefs = this.context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
 		
-		String urlString = "https://projectmanager-api.herokuapp.com/login/destroy?auth_token="
-				+ User.prefs.getString("auth_token", "");
+		String urlString = api_host + route_logout;
+		
+		JSONObject request = new JSONObject();
+		JSONObject json = new JSONObject();
+		
+		try {
+			request.put("auth_token", auth_token);
+			json.put("request", request);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 				
-				new GetData(context).execute(urlString);	// Peticion al webservice
+		new GetData(context).execute(urlString, json.toString());	// Peticion al webservice
 		
 	}
 	
@@ -213,9 +266,81 @@ public class User {
 	// Obtiene arreglo de projects para el user
 	public void getProjects(){
 		
+		String urlString = api_host + route_get;
+				//+ User.prefs.getString("auth_token", "");
+		
+		db = new ProjectOperations(context);
+		db.open();
+		
+		JSONObject request = new JSONObject();
+		JSONObject json = new JSONObject();
+		
+		try {
+			request.put("auth_token", auth_token);
+			json.put("request", request);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		db.close();
+		
+		new GetData(context).execute(urlString, json.toString());
+		
 	}
 	
-	
+	//
+	// Obtiene arreglo de tasks para el proyecto de usuario definido
+	public void sync(){
+		
+		String urlString = api_host + route_sync;
+		
+		db = new ProjectOperations(context);
+		db.open();
+		
+		List<Project> list_projects = db.getAllProjects();
+		List<Task> list_tasks = db.getAllTasks();
+		
+		JSONObject request = new JSONObject();
+		JSONObject json = new JSONObject();
+		JSONArray projects = new JSONArray();
+		JSONArray tasks = new JSONArray();
+		
+		System.out.println(JsonWrapper.project(list_projects.get(0)).toString());
+		System.out.println("project array");
+		
+		try {
+			
+			request.put("auth_token", auth_token);
+			
+			Iterator<Project> iterator = list_projects.iterator();
+			
+			while (iterator.hasNext()){
+				JSONObject j = JsonWrapper.project(iterator.next());
+				projects.put(j);
+			}
+			
+			
+			Iterator<Task> iteratortask = list_tasks.iterator();
+			
+			while (iteratortask.hasNext()){
+				JSONObject t = JsonWrapper.task(iteratortask.next());
+				tasks.put(t);
+			}
+			
+			request.put("projects", projects);
+			request.put("tasks", tasks);
+			json.put("request", request);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		db.close();
+		
+		new GetData(context).execute(urlString, json.toString());
+		
+	}
 	
 	
 	
@@ -237,11 +362,11 @@ public class User {
 
 			WebServiceManager wsm = new WebServiceManager();
 
-			JSONObject json;
+			JSONObject response;
 
 			try {
-				json = wsm.getJSONFromUrl(urls[0]);
-				return json;
+				response = wsm.getJSONFromUrl(urls[0], urls[1]);
+				return response;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -265,7 +390,7 @@ public class User {
 			// JSONObject dataJsonObject= null;
 
 			try {
-				// dataJsonObject = json.getJSONObject("auth_token");
+				
 				if (json == null)
 					System.out.println("User: NULL JSON response");
 
@@ -295,6 +420,12 @@ public class User {
 					editor.clear();
 					editor.commit();
 					callerActivity.callback(new JsonWrapper(json));
+					
+					break;
+					
+				case 6: // Status OK, API succeded
+					System.out.println("USER: API call succeded:");
+					break;
 					
 					default: // Status ERROR
 						System.out.println("ERROR IN API CALL: " + string_code);

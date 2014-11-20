@@ -51,10 +51,16 @@ public class ProjectList extends Activity implements WebserviceCallback {
 
 	static private final int LOGIN = 0;
 	static private final int ADD_PROJECT_REQUEST = 5;
+	
+	//User Logging
+	private User currentUser;
 
 	//Defined functions	
 	public void syncAll(){
 		Toast.makeText(ProjectList.this, "Sincronizar todo", Toast.LENGTH_SHORT).show();
+		
+		currentUser.sync();
+		
 	}
 	
 	@Override
@@ -187,11 +193,14 @@ public class ProjectList extends Activity implements WebserviceCallback {
 		}    
     }
 	
-	//User Logging
-	private User currentUser;
 	
-	public void callback(JsonWrapper jw){
-		System.out.println("Webserive code response: " + jw.getInt("code"));
+	public void callback(JsonWrapper response){
+		System.out.println("Webserive code response: " + response.getCode());
+		
+		if (response.getCode() == 6){
+			Toast.makeText(getApplicationContext(), "Content Synced", Toast.LENGTH_SHORT).show();
+		}
+		
 		checkUser();
 	}
 	
