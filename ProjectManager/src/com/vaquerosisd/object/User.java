@@ -306,7 +306,7 @@ public class User {
 		JSONArray projects = new JSONArray();
 		JSONArray tasks = new JSONArray();
 		
-		System.out.println(JsonWrapper.project(list_projects.get(0)).toString());
+		//System.out.println(JsonWrapper.project(list_projects.get(0)).toString());
 		System.out.println("project array");
 		
 		try {
