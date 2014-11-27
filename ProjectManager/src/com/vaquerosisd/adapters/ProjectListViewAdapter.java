@@ -63,6 +63,7 @@ public class ProjectListViewAdapter extends ArrayAdapter<Project> {
 			row = inflater.inflate(layoutResourceId, parent, false);
 		}
 		
+//		ImageView coverPhoto = (ImageView) row.findViewById(R.id.listProject_ProjectImage);
 		TextView projectName = (TextView) row.findViewById(R.id.listProject_ProjectName);
 		TextView startDate = (TextView) row.findViewById(R.id.listProject_StartDate);
 		TextView dueDate = (TextView) row.findViewById(R.id.listProject_DueDate);
@@ -73,11 +74,12 @@ public class ProjectListViewAdapter extends ArrayAdapter<Project> {
 		if(!projectList.isEmpty()) {
 			Project project = projectList.get(position);
 			projectName.setText(project.getName());
-			startDate.setText("Start Date: " + project.getStartDate());
-			dueDate.setText("Due date: " + project.getDueDate());
+			startDate.setText("Start Date: " + project.getDayStartDate() + "/" + project.getMonthStartDate() + "/" + project.getYearStartDate());
+			dueDate.setText("Due date: " + project.getDayDueDate() + "/" + project.getMonthDueDate() + "/" + project.getYearDueDate());
 			projectStatus.setText("Status: " + project.getStatus());
 			openTasks.setText("Open tasks: " + project.getOpenTasks());
 			totalTasks.setText("Total tasks: " + project.getTotalTasks());
+
 		}
 		
 		return row;

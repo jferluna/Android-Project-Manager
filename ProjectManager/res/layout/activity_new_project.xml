@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     tools:context="${relativePackage}.${activityClass}" >
 	
-    <!-- Activity Content -->
     <TextView
 
         android:id="@+id/uselessId_ProjectName"
@@ -13,14 +12,15 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="25dp"
+        android:singleLine="true"
         android:text="@string/project_name" />
 
     <EditText
-        android:id="@+id/newProject_projectName"
+        android:id="@+id/newProject_ProjectName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/uselessId_ProjectName"
-        android:layout_alignLeft="@+id/uselessId_ProjectName"
+        android:layout_below="@id/uselessId_ProjectName"
+        android:layout_alignLeft="@id/uselessId_ProjectName"
         android:paddingTop="20dp"
         android:ems="10" 
         android:hint="@string/addProjectHint">
@@ -29,61 +29,61 @@
     
     <TextView
 
-        android:id="@+id/uselessId_status"
+        android:id="@+id/uselessId_Status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/newProject_projectName"
-        android:layout_alignLeft="@id/newProject_projectName"
+        android:layout_below="@id/newProject_ProjectName"
+        android:layout_alignLeft="@id/newProject_ProjectName"
         android:layout_marginTop="25dp"
         android:text="@string/status" />
 
     <Spinner
-        android:id="@+id/newProject_statusSpinner"
+        android:id="@+id/newProject_StatusSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/uselessId_status"
-        android:layout_alignLeft="@+id/uselessId_status"
+        android:layout_below="@id/uselessId_Status"
+        android:layout_alignLeft="@id/uselessId_Status"
         android:paddingTop="20dp"
-        android:ems="10" 
-        android:hint="@string/addstatusHint">
+        android:ems="10" >
     </Spinner>
     
     <TextView
-        android:id="@+id/uselessId_startDate"
+        android:id="@+id/uselessId_StartDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/newProject_statusSpinner"
-        android:layout_alignLeft="@id/newProject_statusSpinner"
+        android:layout_below="@id/newProject_StatusSpinner"
+        android:layout_alignLeft="@id/newProject_StatusSpinner"
         android:layout_marginTop="25dp"
         android:text="@string/projectStartDate" />
     
 	<EditText
-        android:id="@+id/newProject_startDate"
+        android:id="@+id/newProject_StartDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/uselessId_startDate"
-        android:layout_alignLeft="@+id/uselessId_startDate"
+        android:layout_below="@id/uselessId_StartDate"
+        android:layout_alignLeft="@id/uselessId_StartDate"
         android:paddingTop="30dp"
         android:inputType="date"
         android:ems="5"
+        android:focusable="false"
         android:hint="@string/dateHint">
     </EditText>
     
 	<TextView
-        android:id="@+id/uselessId_dueDate"
+        android:id="@+id/uselessId_DueDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/newProject_startDate"
-        android:layout_alignLeft="@id/newProject_startDate"
+        android:layout_below="@id/newProject_StartDate"
+        android:layout_alignLeft="@id/newProject_StartDate"
         android:layout_marginTop="25dp"
         android:text="@string/projectDueDate" />
     
 	<EditText
-        android:id="@+id/newProject_dueDate"
+        android:id="@+id/newProject_DueDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/uselessId_dueDate"
-        android:layout_alignLeft="@+id/uselessId_dueDate"
+        android:layout_below="@id/uselessId_DueDate"
+        android:layout_alignLeft="@id/uselessId_DueDate"
         android:paddingTop="30dp"
         android:inputType="date"
         android:ems="5"
@@ -95,8 +95,8 @@
         android:id="@+id/addProject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/newProject_dueDate"
-        android:layout_below="@+id/newProject_dueDate"
+        android:layout_alignLeft="@id/newProject_DueDate"
+        android:layout_below="@id/newProject_DueDate"
         android:layout_marginTop="20dp"
         android:text="@string/addProjectButton" />
 

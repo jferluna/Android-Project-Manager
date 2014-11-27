@@ -1,32 +1,33 @@
 package com.vaquerosisd.dialog;
 
-import java.util.Calendar;
-
-import com.vaquerosisd.projectmanager.NewProject;
-
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.widget.DatePicker;
 
-public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
-	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		// Use the current date as the default date in the picker
-		final Calendar c = Calendar.getInstance();
-		int year = c.get(Calendar.YEAR);
-		int month = c.get(Calendar.MONTH);
-		int day = c.get(Calendar.DAY_OF_MONTH);
-		
-		// Create a new instance of DatePickerDialog and return it
-		return new DatePickerDialog(getActivity(), (NewProject)getActivity(), year, month, day);
+public class DatePickerFragment extends DialogFragment {
+	private int year, month, day;
+	OnDateSetListener onDateSet;
+	
+	public DatePickerFragment() {
 	}
 	
 	@Override
-	public void onDateSet(DatePicker view, int year, int month, int day) {
-	// Do something with the date chosen by the user
+	 public void setArguments(Bundle args) {
+		super.setArguments(args);
+		year = args.getInt("year");
+		month = args.getInt("month");
+		day = args.getInt("day");
+	 }
+	
+	public void setCallBack(OnDateSetListener ondate) {
+	  onDateSet = ondate;
+	 }
+	
+	@Override
+	public Dialog onCreateDialog(Bundle savedInstanceState) {
+		return new DatePickerDialog(getActivity(), onDateSet, year, month, day);
 	}
-
 }

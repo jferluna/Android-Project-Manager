@@ -4,45 +4,51 @@
     tools:context="com.projectmanager.Projects" >
     
     <item 
-        android:id="@+id/actionBar_searchProjectItem"
+        android:id="@+id/actionBar_SearchProjectItem"
         android:title="@string/searchProjectItem"
         android:showAsAction="always"
         android:visible="false"
-       	android:actionLayout="@layout/menu_search_project"/>
+       	android:actionLayout="@layout/menu_search"/>
     
 	<item 
-	    android:id="@+id/actionBar_searchProjectIcon"
+	    android:id="@+id/actionBar_SearchProjectIcon"
 	    android:icon="@drawable/ic_action_search"
 	    android:title="@string/searchProjectMenu"
 	    android:showAsAction="always" />
 	
 	<item 
-	    android:id="@+id/actionBar_deleteProjectIcon"
+	    android:id="@+id/actionBar_DeleteProjectIcon"
 	    android:icon="@drawable/ic_action_discard"
 	    android:title="@string/deleteProjectMenu"
 	    android:visible="false"
 	    android:showAsAction="always"/>
 	
 	<item 
-	    android:id="@+id/actionBar_addProjectIcon"
+	    android:id="@+id/actionBar_AddProjectIcon"
 	    android:icon="@drawable/ic_action_new"
 	    android:title="@string/addProjectMenu"
 	    android:showAsAction="always"/>
 	
+	<item 
+	    android:id="@+id/actionBar_EditProjectIcon"
+	    android:icon="@drawable/ic_action_edit"
+	    android:title="@string/addProjectMenu"
+	    android:showAsAction="always"/>
+	
 	<item
-        android:id="@+id/actionBar_menu_syncall"
+        android:id="@+id/actionBar_Menu_Syncall"
         android:icon="@drawable/ic_launcher"
         android:title="@string/syncall"
         android:showAsAction="collapseActionView" />
         
     <item
-        android:id="@+id/actionBar_menu_user"
+        android:id="@+id/actionBar_Menu_User"
         android:icon="@drawable/ic_launcher"
         android:title="@string/user"
         android:showAsAction="collapseActionView" />
                 
     <item
-        android:id="@+id/actionBar_menu_about"
+        android:id="@+id/actionBar_Menu_About"
         android:icon="@drawable/ic_launcher"
         android:title="@string/about"
         android:showAsAction="collapseActionView" />

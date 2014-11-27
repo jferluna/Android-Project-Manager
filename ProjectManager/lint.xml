@@ -2,5 +2,6 @@
 <lint>
     <issue id="InflateParams">
         <ignore path="src/com/vaquerosisd/dialog/CustomStatus.java" />
+        <ignore path="src/com/vaquerosisd/dialog/EditProject.java" />
     </issue>
 </lint>

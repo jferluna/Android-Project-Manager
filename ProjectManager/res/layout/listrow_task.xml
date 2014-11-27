@@ -1,30 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listTask_row"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:weightSum="100"
     android:showDividers="middle" >
 
     <TextView
-        android:id="@+id/taskId"
+        android:id="@+id/listTask_TaskName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/taskName"
+        android:id="@+id/listTask_Status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="70"
+        android:layout_below="@id/listTask_TaskName"
+        android:layout_alignParentLeft="true"
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/taskProjectId"
+        android:id="@+id/listTask_Priority"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="20"
+        android:layout_below="@id/listTask_Status"
+        android:layout_alignParentLeft="true"
         android:textSize="20sp" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/listTask_PercentajeDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/listTask_StartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/listTask_PercentajeDone"
+        android:layout_alignParentRight="true"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/listTask_DueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/listTask_StartDate"
+        android:layout_alignParentRight="true"
+        android:textSize="20sp" />
+
+</RelativeLayout>

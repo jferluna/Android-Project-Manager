@@ -1,1 +1,0 @@
-Entregables de release final

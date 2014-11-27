@@ -42,18 +42,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "projectManager.db";
 	//Project Table Constants
 	public static final String TABLE_PROJECTS = "projects";
-	public static final String PROJECTS_COLUMN_PROJECT_ID = "_projectID";
+	public static final String PROJECTS_COLUMN_PROJECT_ID = "projectID";
 	public static final String PROJECTS_COLUMN_PROJECT_NAME = "ProjectName";
-	public static final String PROJECTS_COLUMN_PROJECT_STARTDATE = "StartDate";
-	public static final String PROJECTS_COLUMN_PROJECT_DUEDATE = "DueDate";
+	public static final String PROJECTS_COLUMN_STARTDATE_YEAR = "yearStartDate";
+	public static final String PROJECTS_COLUMN_STARTDATE_MONTH = "monthStartDate";
+	public static final String PROJECTS_COLUMN_STARTDATE_DAY = "dayStartDate";
+	public static final String PROJECTS_COLUMN_DUEDATE_YEAR = "yearDueDate";
+	public static final String PROJECTS_COLUMN_DUEDATE_MONTH = "monthDueDate";
+	public static final String PROJECTS_COLUMN_DUEDATE_DAY = "dayDueDate";
 	public static final String PROJECTS_COLUMN_PROJECT_STATUS = "Status";
 	public static final String PROJECTS_COLUMN_OPEN_TASKS = "OpenTasks";
 	public static final String PROJECTS_COLUMN_TOTAL_TASK = "TotalTasks";
+	public static final String PROJECTS_COLUMN_COVER_PATH = "CoverPath";
 	//Task Table Constants
 	public static final String TABLE_TASKS = "tasks";
-	public static final String TASKS_COLUMN_TASK_ID = "_taskID";
-	public static final String TASKS_COLUMN_TASK_NAME = "taskName";
+	public static final String TASKS_COLUMN_TASK_ID = "taskID";
 	public static final String TASKS_COLUMN_PROJECT_ID = "projectID";
+	public static final String TASKS_COLUMN_TASK_NAME = "taskName";
+	public static final String TASKS_COLUMN_STATUS = "status";
+	public static final String TASKS_COLUMN_PRIORITY = "priority";
+	public static final String TASKS_COLUMN_PERCENTAJE_DONE = "percentageDone";
+	public static final String TASKS_COLUMN_STARTDATE_YEAR = "yearStartDate";
+	public static final String TASKS_COLUMN_STARTDATE_MONTH = "monthStartDate";
+	public static final String TASKS_COLUMN_STARTDATE_DAY = "dayStartDate";
+	public static final String TASKS_COLUMN_DUEDATE_YEAR = "yearDueDate";
+	public static final String TASKS_COLUMN_DUEDATE_MONTH = "monthDueDate";
+	public static final String TASKS_COLUMN_DUEDATE_DAY = "dayDueDate";
+	public static final String TASKS_COLUMN_PHOTO_PATH = "photoPath";
+	public static final String TASKS_COLUMN_DESCRIPTION = "description";
 	//Photos table Constants
 	public static final String TABLE_PHOTOS = "PHOTOs";
 	public static final String PHOTOS_COLUMN_PHOTO_ID = "_photoID";
@@ -70,15 +86,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		String CREATE_PROJECTS_TABLE = "CREATE TABLE " + TABLE_PROJECTS + " ( " + 
 											PROJECTS_COLUMN_PROJECT_ID + " INTEGER PRIMARY KEY, " + 
 											PROJECTS_COLUMN_PROJECT_NAME + " TEXT, " + 
-											PROJECTS_COLUMN_PROJECT_STARTDATE + " TEXT, " + 
-											PROJECTS_COLUMN_PROJECT_DUEDATE + " TEXT, " + 
+											PROJECTS_COLUMN_STARTDATE_YEAR + " INTEGER, " +
+											PROJECTS_COLUMN_STARTDATE_MONTH + " INTEGER, " +
+											PROJECTS_COLUMN_STARTDATE_DAY + " INTEGER, " +
+											PROJECTS_COLUMN_DUEDATE_YEAR + " INTEGER, " + 
+											PROJECTS_COLUMN_DUEDATE_MONTH + " INTEGER, " +
+											PROJECTS_COLUMN_DUEDATE_DAY + " INTEGER, " +
 											PROJECTS_COLUMN_PROJECT_STATUS + " TEXT, " + 
 											PROJECTS_COLUMN_OPEN_TASKS + " INTEGER, " + 
-											PROJECTS_COLUMN_TOTAL_TASK + " INTEGER)";
+											PROJECTS_COLUMN_TOTAL_TASK + " INTEGER, " +
+											PROJECTS_COLUMN_COVER_PATH + " TEXT)";
+		
 		String CREATE_TASKS_TABLE = "CREATE TABLE " + TABLE_TASKS + " ( " + 
 											TASKS_COLUMN_TASK_ID + " INTEGER PRIMARY KEY, " + 
-											TASKS_COLUMN_TASK_NAME + " TEXT, " + 
-											TASKS_COLUMN_PROJECT_ID + " INTEGER)";
+											TASKS_COLUMN_PROJECT_ID + " INTEGER, " +
+											TASKS_COLUMN_TASK_NAME + " TEXT, " +
+											TASKS_COLUMN_STATUS + " TEXT, " +
+											TASKS_COLUMN_PRIORITY + " TEXT, " +
+											TASKS_COLUMN_PERCENTAJE_DONE + " INTEGER, " +
+											TASKS_COLUMN_STARTDATE_YEAR + " INTEGER, " + 
+											TASKS_COLUMN_STARTDATE_MONTH + " INTEGER, " + 
+											TASKS_COLUMN_STARTDATE_DAY + " INTEGER, " + 
+											TASKS_COLUMN_DUEDATE_YEAR + " INTEGER, " + 
+											TASKS_COLUMN_DUEDATE_MONTH + " INTEGER, " + 
+											TASKS_COLUMN_DUEDATE_DAY + " INTEGER, " + 
+											TASKS_COLUMN_PHOTO_PATH + " TEXT, " + 
+											TASKS_COLUMN_DESCRIPTION + " TEXT);";
+
 		String CREATE_PHOTOS_TABLE = "CREATE TABLE " + TABLE_PHOTOS + " ( " + 
 											PHOTOS_COLUMN_PHOTO_ID + " INTEGER PRIMARY KEY, " + 
 											PHOTOS_COLUMN_PHOTO_PATH + " TEXT, " + 

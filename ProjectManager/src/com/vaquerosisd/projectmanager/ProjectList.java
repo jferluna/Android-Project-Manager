@@ -6,6 +6,7 @@ import java.util.List;
 import com.vaquerosisd.adapters.ProjectListViewAdapter;
 import com.vaquerosisd.database.ProjectOperations;
 import com.vaquerosisd.dialog.DeleteProjectDialog;
+import com.vaquerosisd.dialog.EditProject;
 import com.vaquerosisd.object.JsonWrapper;
 import com.vaquerosisd.object.PhotoRef;
 import com.vaquerosisd.object.Project;
@@ -13,6 +14,7 @@ import com.vaquerosisd.object.User;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -45,17 +47,13 @@ public class ProjectList extends Activity implements WebserviceCallback {
 	Project selectedProject;				//Selected project object
 	View selectedRow;						//View of selected row in ListView
 	
+	//Actions occurring
 	boolean searching = false;
 	boolean projectSelected = false;
 	
-
+	//Constants
 	static private final int LOGIN = 0;
 	static private final int ADD_PROJECT_REQUEST = 5;
-
-	//Defined functions	
-	public void syncAll(){
-		Toast.makeText(ProjectList.this, "Sincronizar todo", Toast.LENGTH_SHORT).show();
-	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +65,7 @@ public class ProjectList extends Activity implements WebserviceCallback {
 		db.open();
 		
 		//ListView
-		final ListView projectListView = (ListView) findViewById(R.id.projectList);
+		final ListView projectListView = (ListView) findViewById(R.id.listProject_ProjectList);
 		projectAdapter = new ProjectListViewAdapter(getApplicationContext(), R.layout.listrow_project, getProjectsForListView());
 		projectListView.setAdapter(projectAdapter);
 		
@@ -109,6 +107,11 @@ public class ProjectList extends Activity implements WebserviceCallback {
 		});
 		
 	} //End of onCreate
+	
+	//Defined functions	
+	public void syncAll(){
+		Toast.makeText(ProjectList.this, "Sincronizar todo", Toast.LENGTH_SHORT).show();
+	}
 	
 	@Override
 	protected void onResume() {
@@ -247,9 +250,9 @@ public class ProjectList extends Activity implements WebserviceCallback {
 		}
 		
 		
-		MenuItem searchItem = menu.findItem(R.id.actionBar_searchProjectItem);
-		Button clearSearchProject = (Button) searchItem.getActionView().findViewById(R.id.actionBar_clearSearch);
-		final AutoCompleteTextView searchProject = (AutoCompleteTextView) searchItem.getActionView().findViewById(R.id.actionBar_searchProjectEditText);
+		MenuItem searchItem = menu.findItem(R.id.actionBar_SearchProjectItem);
+		Button clearSearchProject = (Button) searchItem.getActionView().findViewById(R.id.actionBar_ClearSearch);
+		final AutoCompleteTextView searchProject = (AutoCompleteTextView) searchItem.getActionView().findViewById(R.id.actionBar_SearchItemEditText);
 		
 		//AutocompleteTextView behavior
 		List<Project> projectTemp = db.getAllProjects();
@@ -310,34 +313,44 @@ public class ProjectList extends Activity implements WebserviceCallback {
 			invalidateOptionsMenu();
 			return true;
 			
-		case R.id.actionBar_searchProjectIcon:
+		case R.id.actionBar_SearchProjectIcon:
 			ActionBar actionBar = getActionBar();
 		    actionBar.setDisplayHomeAsUpEnabled(true);
 			searching = true;
 			invalidateOptionsMenu();
 			return true;
 
-		case R.id.actionBar_deleteProjectIcon:
+		case R.id.actionBar_DeleteProjectIcon:
 			if(selectedProject != null)
 				DeleteProjectDialog.newInstance().show(getFragmentManager(), "dialog");
 			return true;
 			
-		case R.id.actionBar_addProjectIcon:
+		case R.id.actionBar_AddProjectIcon:
 			Intent addProjectIntent = new Intent(ProjectList.this, NewProject.class);
 			startActivityForResult(addProjectIntent, ADD_PROJECT_REQUEST);
 			return true;
 			
-		case R.id.actionBar_menu_about:
+		case R.id.actionBar_EditProjectIcon:
+			int id = selectedProject.getId();
+			DialogFragment editProjectDialog = EditProject.newInstance(id);
+			editProjectDialog.show(getFragmentManager(), "NoticeDialogFragment");
+
+			projectAdapter.clear();
+			projectAdapter.addAll(getProjectsForListView());
+			projectAdapter.notifyDataSetChanged();
+			return true;
+			
+		case R.id.actionBar_Menu_About:
 			//start about activity
 			Intent intentAbout = new Intent(ProjectList.this, About.class);
 			startActivity(intentAbout);
 			return true;
 			
-		case R.id.actionBar_menu_syncall:
+		case R.id.actionBar_Menu_Syncall:
 			syncAll();
 			return true;
 			
-		case R.id.actionBar_menu_user:
+		case R.id.actionBar_Menu_User:
 			if(currentUser != null)
 				currentUser.logOut();
 			else {
@@ -354,31 +367,35 @@ public class ProjectList extends Activity implements WebserviceCallback {
 	@Override
 	public boolean onPrepareOptionsMenu (Menu menu){
 		if(projectSelected) {
-			MenuItem deleteProject = menu.findItem(R.id.actionBar_deleteProjectIcon);
+			MenuItem deleteProject = menu.findItem(R.id.actionBar_DeleteProjectIcon);
 			deleteProject.setVisible(true);
+			MenuItem editProjectIcon = menu.findItem(R.id.actionBar_EditProjectIcon);
+			editProjectIcon.setVisible(true);
 		} else {
-			MenuItem deleteProject = menu.findItem(R.id.actionBar_deleteProjectIcon);
+			MenuItem deleteProject = menu.findItem(R.id.actionBar_DeleteProjectIcon);
 			deleteProject.setVisible(false);
+			MenuItem editProjectIcon = menu.findItem(R.id.actionBar_EditProjectIcon);
+			editProjectIcon.setVisible(false);
 		}
 		
 		if (searching) {
 			getActionBar().setDisplayShowTitleEnabled(false);
-			MenuItem searchProjectIcon = menu.findItem(R.id.actionBar_searchProjectIcon);
+			MenuItem searchProjectIcon = menu.findItem(R.id.actionBar_SearchProjectIcon);
 			searchProjectIcon.setVisible(false);
-			MenuItem searchProjectEditText = menu.findItem(R.id.actionBar_searchProjectItem);
+			MenuItem searchProjectEditText = menu.findItem(R.id.actionBar_SearchProjectItem);
 			searchProjectEditText.setVisible(true);
 		} else {
 			getActionBar().setDisplayShowTitleEnabled(true);
-			MenuItem searchItem = menu.findItem(R.id.actionBar_searchProjectItem);
-			final EditText searchProject = (EditText) searchItem.getActionView().findViewById(R.id.actionBar_searchProjectEditText);
+			MenuItem searchItem = menu.findItem(R.id.actionBar_SearchProjectItem);
+			final EditText searchProject = (EditText) searchItem.getActionView().findViewById(R.id.actionBar_SearchItemEditText);
 			searchProject.setText("");
-			MenuItem searchProjectIcon = menu.findItem(R.id.actionBar_searchProjectIcon);
+			MenuItem searchProjectIcon = menu.findItem(R.id.actionBar_SearchProjectIcon);
 			searchProjectIcon.setVisible(true);
-			MenuItem searchProjectEditText = menu.findItem(R.id.actionBar_searchProjectItem);
+			MenuItem searchProjectEditText = menu.findItem(R.id.actionBar_SearchProjectItem);
 			searchProjectEditText.setVisible(false);
 		}
 		
-		MenuItem logMenuItem = menu.findItem(R.id.actionBar_menu_user);
+		MenuItem logMenuItem = menu.findItem(R.id.actionBar_Menu_User);
 		if (currentUser == null) {
         	logMenuItem.setTitle("Log In");
         } else {

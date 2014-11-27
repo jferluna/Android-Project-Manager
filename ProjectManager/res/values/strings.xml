@@ -57,18 +57,39 @@
     <string name="username">Username:</string>
     <string name="password">Password:</string>
     <string name="sign_in">Sign In</string>
+    
+    <string name="photos">Photos</string>
 
+    <!-- NewTask Strings -->
+    <string name="priority">Priority:</string>
+    <string name="percentage">Percentage done:</string>
+    <string name="taskStartDate">Task start date:</string>
+    <string name="taskDueDate">Task due date:</string>
+    <string name="taskDescription">Task description:</string>
+    <string name="descriptionHint">Task description</string>
     
     <!-- Menus Strings -->
     <string name="searchProjectItem">Project </string>
+    <string name="searchTaskItem">Task </string>
     <string name="searchProjectMenu">Search Project</string>
+    <string name="searchTaskMenu">Search Task</string>
     <string name="deleteProjectMenu">Delete Project</string>
+    <string name="deleteTaskMenu">Delete Task</string>
     <string name="addProjectMenu">Add Project</string>
+    <string name="addTaskMenu">Add Task</string>
+    <string name="projectPhotos">Project Photos</string>
     
     <!-- Dialog -->
     <string name="statusHint">Status Option</string>
     <string name="dialogOk">OK</string>
     <string name="dialogCancel">Cancel</string>
-
-
+    <string name="updateDialog">Update</string>
+    
+    <!-- Warnings Toast -->
+    <string name="projectUpdated">Project was updated</string>
+    <string name="projectAdded">"Project added"</string>
+    <string name="taskAdded">Task added</string>
+    <string name="dueDateError">Due date is before start date!</string>
+    <string name="incomplete">There is missing information!</string>
+    
 </resources>

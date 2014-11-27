@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    
+    <!-- Edit Project name  -->
+	
+    <TextView
+        android:id="@+id/useless_EditProject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="25dp"
+        android:text="@string/project_name" />
+    
+    <EditText
+        android:id="@+id/dialog_EditProject_Project"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/useless_EditProject"
+        android:layout_toRightOf="@id/useless_EditProject"
+        android:layout_marginLeft="5dp"
+        android:inputType="text"
+        android:maxLines="1"
+        android:ems="10" >
+        <requestFocus />
+    </EditText>
+    
+    <!-- Edit Project Status -->
+
+    <TextView
+        android:id="@+id/useless_EditStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/useless_EditProject"
+        android:layout_below="@id/useless_EditProject"
+        android:layout_marginTop="30dp"
+        android:text="@string/status" />
+    
+    <Spinner
+        android:id="@+id/dialog_EditProject_Status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/useless_EditStatus"
+        android:layout_toRightOf="@id/useless_EditStatus"
+        android:layout_marginLeft="5dp" />
+
+    <!-- Edit Project Start Date -->
+    
+    <TextView
+        android:id="@+id/useless_EditStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/useless_EditStatus"
+        android:layout_below="@id/useless_EditStatus"
+        android:layout_marginTop="30dp"
+        android:text="@string/projectStartDate" />
+    
+    <EditText
+        android:id="@+id/dialog_EditProject_StartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/useless_EditStartDate"
+        android:layout_toRightOf="@id/useless_EditStartDate"
+        android:ems="10"
+        android:focusable="false"
+        android:inputType="date" />
+
+    <!-- Edit Project Due Date -->
+    
+    <TextView
+        android:id="@+id/useless_EditDueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/useless_EditStartDate"
+        android:layout_below="@id/useless_EditStartDate"
+        android:layout_marginTop="30dp"
+        android:text="@string/projectDueDate" />
+
+    <EditText
+        android:id="@+id/dialog_EditProject_DueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/useless_EditDueDate"
+        android:layout_toRightOf="@id/useless_EditDueDate"
+        android:ems="10"
+        android:focusable="false"
+        android:inputType="date" />
+    
+</RelativeLayout>

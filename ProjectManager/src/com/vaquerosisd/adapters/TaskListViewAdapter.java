@@ -34,20 +34,29 @@ public class TaskListViewAdapter extends ArrayAdapter<Task> {
 			row = inflater.inflate(layoutResourceId, parent, false);
 		}
 		
-		TextView taskId = (TextView) row.findViewById(R.id.taskId);
-		TextView taskName = (TextView) row.findViewById(R.id.taskName);
-		TextView projectId = (TextView) row.findViewById(R.id.taskProjectId);
+		TextView taskName = (TextView) row.findViewById(R.id.listTask_TaskName);
+		TextView status = (TextView) row.findViewById(R.id.listTask_Status);
+		TextView priority = (TextView) row.findViewById(R.id.listTask_Priority);
+		TextView percentajeDone = (TextView) row.findViewById(R.id.listTask_PercentajeDone);
+		TextView startDate = (TextView) row.findViewById(R.id.listTask_StartDate);
+		TextView dueDate = (TextView) row.findViewById(R.id.listTask_DueDate); 
 		
 		if(!taskList.isEmpty()) {
 			Task task = taskList.get(position);
 			
-			taskId.setText(String.valueOf(task.getTaskId()));
 			taskName.setText(task.getTaskName());
-			projectId.setText(String.valueOf(task.getProjectId()));
+			status.setText(task.getStatus());
+			priority.setText(task.getPriority());
+			percentajeDone.setText(String.valueOf(task.getPercentage()));
+			startDate.setText("Start Date: " + task.getYearStartDate() + "/" + task.getMonthStartDate() + "/" + task.getDayStartDate());
+			dueDate.setText("Due Date: " + task.getYearDueDate() + "/" + task.getMonthDueDate() + "/" + task.getDayDueDate());
 			
-			taskId.setTextColor(Color.parseColor("#000000"));
 			taskName.setTextColor(Color.parseColor("#000000"));
-			projectId.setTextColor(Color.parseColor("#000000"));
+			status.setTextColor(Color.parseColor("#000000"));
+			priority.setTextColor(Color.parseColor("#000000"));
+			percentajeDone.setTextColor(Color.parseColor("#000000"));
+			startDate.setTextColor(Color.parseColor("#000000"));
+			dueDate.setTextColor(Color.parseColor("#000000"));
 		}
 		
 		return row;

@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="16"
         android:targetSdkVersion="19" />
     
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -42,7 +42,8 @@
         <activity
             android:name=".NewTask"
             android:label="@string/title_activity_new_task"
-            android:windowSoftInputMode="stateHidden" >
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName="com.vaquerosisd.projectmanager.TaskList" >
         </activity>
         <activity
             android:name=".ContentTask"
@@ -52,7 +53,7 @@
         <activity
             android:name=".TaskList"
             android:label="@string/title_activity_tasks_list"
-            android:windowSoftInputMode="stateHidden" >
+            android:parentActivityName="com.vaquerosisd.projectmanager.ProjectList" >
         </activity>
         <activity
             android:name=".About"

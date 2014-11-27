@@ -1,1 +1,0 @@
-Minutas del equipo

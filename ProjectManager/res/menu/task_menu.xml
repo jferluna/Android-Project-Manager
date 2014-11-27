@@ -1,0 +1,56 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.projectmanager.Projects" >
+    
+    <item 
+        android:id="@+id/actionBar_searchTaskItem"
+        android:title="@string/searchTaskItem"
+        android:showAsAction="always"
+        android:visible="false"
+       	android:actionLayout="@layout/menu_search"/>
+    
+	<item 
+	    android:id="@+id/actionBar_searchTaskIcon"
+	    android:icon="@drawable/ic_action_search"
+	    android:title="@string/searchTaskMenu"
+	    android:showAsAction="always" />
+	
+	<item 
+	    android:id="@+id/actionBar_deleteTaskIcon"
+	    android:icon="@drawable/ic_action_discard"
+	    android:title="@string/deleteTaskMenu"
+	    android:visible="false"
+	    android:showAsAction="always"/>
+	
+	<item 
+	    android:id="@+id/actionBar_addTaskIcon"
+	    android:icon="@drawable/ic_action_new"
+	    android:title="@string/addTaskMenu"
+	    android:showAsAction="always"/>
+	
+	<item 
+	    android:id="@+id/actionBar_projectPhotos"
+	    android:icon="@drawable/ic_action_camera"
+	    android:title="@string/projectPhotos"
+	    android:showAsAction="always"/>
+	
+	<item
+        android:id="@+id/actionBar_menu_syncall"
+        android:icon="@drawable/ic_launcher"
+        android:title="@string/syncall"
+        android:showAsAction="collapseActionView" />
+        
+    <item
+        android:id="@+id/actionBar_menu_user"
+        android:icon="@drawable/ic_launcher"
+        android:title="@string/user"
+        android:showAsAction="collapseActionView" />
+                
+    <item
+        android:id="@+id/actionBar_menu_about"
+        android:icon="@drawable/ic_launcher"
+        android:title="@string/about"
+        android:showAsAction="collapseActionView" />
+
+</menu>

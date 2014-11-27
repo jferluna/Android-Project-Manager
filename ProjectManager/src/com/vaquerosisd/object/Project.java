@@ -33,56 +33,37 @@ package com.vaquerosisd.object;
 public class Project {
 	private int id;
 	private String name;
-	private String startDate;
-	private String dueDate;
+	private int yearStartDate;
+	private int monthStartDate;
+	private int dayStartDate;
+	private int yearDueDate;
+	private int monthDueDate;
+	private int dayDueDate;
 	private String status;
 	private int openTasks;
 	private int totalTasks;
+	private String coverPath;
 	
 	public Project() {
 	}
-	
-	public Project(int id, String name, String status, String startDate, String dueDate, int openTasks, int totalTasks) {
+
+	public Project(int id, String name, int yearStartDate, int monthStartDate,
+			int dayStartDate, int yearDueDate, int monthDueDate,
+			int dyaDueDate, String status, int openTasks, int totalTasks,
+			String coverPath) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.startDate = startDate;
-		this.dueDate = dueDate;
+		this.yearStartDate = yearStartDate;
+		this.monthStartDate = monthStartDate;
+		this.dayStartDate = dayStartDate;
+		this.yearDueDate = yearDueDate;
+		this.monthDueDate = monthDueDate;
+		this.dayDueDate = dyaDueDate;
 		this.status = status;
 		this.openTasks = openTasks;
 		this.totalTasks = totalTasks;
-	}
-
-	public int getOpenTasks() {
-		return openTasks;
-	}
-
-	public void setOpenTasks(int openTasks) {
-		this.openTasks = openTasks;
-	}
-
-	public int getTotalTasks() {
-		return totalTasks;
-	}
-
-	public void setTotalTasks(int totalTasks) {
-		this.totalTasks = totalTasks;
-	}
-
-	public String getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-
-	public String getDueDate() {
-		return dueDate;
-	}
-
-	public void setDueDate(String dueDate) {
-		this.dueDate = dueDate;
+		this.coverPath = coverPath;
 	}
 
 	public int getId() {
@@ -101,6 +82,54 @@ public class Project {
 		this.name = name;
 	}
 
+	public int getYearStartDate() {
+		return yearStartDate;
+	}
+
+	public void setYearStartDate(int yearStartDate) {
+		this.yearStartDate = yearStartDate;
+	}
+
+	public int getMonthStartDate() {
+		return monthStartDate;
+	}
+
+	public void setMonthStartDate(int monthStartDate) {
+		this.monthStartDate = monthStartDate;
+	}
+
+	public int getDayStartDate() {
+		return dayStartDate;
+	}
+
+	public void setDayStartDate(int dayStartDate) {
+		this.dayStartDate = dayStartDate;
+	}
+
+	public int getYearDueDate() {
+		return yearDueDate;
+	}
+
+	public void setYearDueDate(int yearDueDate) {
+		this.yearDueDate = yearDueDate;
+	}
+
+	public int getMonthDueDate() {
+		return monthDueDate;
+	}
+
+	public void setMonthDueDate(int monthDueDate) {
+		this.monthDueDate = monthDueDate;
+	}
+
+	public int getDayDueDate() {
+		return dayDueDate;
+	}
+
+	public void setDayDueDate(int dayDueDate) {
+		this.dayDueDate = dayDueDate;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -108,6 +137,32 @@ public class Project {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public int getOpenTasks() {
+		return openTasks;
+	}
+
+	public void setOpenTasks(int openTasks) {
+		this.openTasks = openTasks;
+	}
+
+	public int getTotalTasks() {
+		return totalTasks;
+	}
+
+	public void setTotalTasks(int totalTasks) {
+		this.totalTasks = totalTasks;
+	}
+
+	public String getCoverPath() {
+		return coverPath;
+	}
+
+	public void setCoverPath(String coverPath) {
+		this.coverPath = coverPath;
+	}
+	
+	
 	
 }
 
