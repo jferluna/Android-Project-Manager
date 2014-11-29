@@ -7,6 +7,7 @@ import com.vaquerosisd.projectmanager.R;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ public class TaskListViewAdapter extends ArrayAdapter<Task> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View row = convertView;
+		Typeface typefaceTitle = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-LightItalic.ttf");
 		
 		if(row == null) {
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -39,7 +41,8 @@ public class TaskListViewAdapter extends ArrayAdapter<Task> {
 		TextView priority = (TextView) row.findViewById(R.id.listTask_Priority);
 		TextView percentajeDone = (TextView) row.findViewById(R.id.listTask_PercentajeDone);
 		TextView startDate = (TextView) row.findViewById(R.id.listTask_StartDate);
-		TextView dueDate = (TextView) row.findViewById(R.id.listTask_DueDate); 
+		TextView dueDate = (TextView) row.findViewById(R.id.listTask_DueDate);
+		taskName.setTypeface(typefaceTitle);
 		
 		if(!taskList.isEmpty()) {
 			Task task = taskList.get(position);

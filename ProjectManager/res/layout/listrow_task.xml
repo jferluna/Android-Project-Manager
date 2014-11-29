@@ -11,7 +11,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:textSize="20sp" />
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="3dp"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/listTask_Status"
@@ -19,6 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/listTask_TaskName"
         android:layout_alignParentLeft="true"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
         android:textSize="20sp" />
 
     <TextView
@@ -27,6 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/listTask_Status"
         android:layout_alignParentLeft="true"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="10dp"
         android:textSize="20sp" />
 
     <TextView
@@ -34,6 +43,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="3dp"
         android:textSize="20sp" />
 
     <TextView
@@ -42,6 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/listTask_PercentajeDone"
         android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
         android:textSize="20sp" />
 
     <TextView
@@ -50,6 +65,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/listTask_StartDate"
         android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="10dp"
         android:textSize="20sp" />
 
 </RelativeLayout>
