@@ -22,6 +22,7 @@ public class DeleteTaskDialog extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    	
     	getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
     	
     	View rootView = inflater.inflate(R.layout.dialog_delete_project, container, false);

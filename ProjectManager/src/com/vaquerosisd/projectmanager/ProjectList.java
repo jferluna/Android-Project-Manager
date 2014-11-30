@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,6 +58,17 @@ public class ProjectList extends Activity implements WebserviceCallback {
 	//Constants
 	static private final int LOGIN = 0;
 	static private final int ADD_PROJECT_REQUEST = 5;
+	
+	//User Logging
+	private User currentUser;
+
+	//Defined functions	
+	public void syncAll(){
+		Toast.makeText(ProjectList.this, "Sincronizar todo", Toast.LENGTH_SHORT).show();
+		
+		currentUser.sync();
+		
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -112,10 +124,6 @@ public class ProjectList extends Activity implements WebserviceCallback {
 	} //End of onCreate
 	
 	//Defined functions	
-	public void syncAll(){
-		Toast.makeText(ProjectList.this, "Sincronizar todo", Toast.LENGTH_SHORT).show();
-	}
-	
 	@Override
 	protected void onResume() {
 		checkUser();
@@ -193,11 +201,14 @@ public class ProjectList extends Activity implements WebserviceCallback {
 		}    
     }
 	
-	//User Logging
-	private User currentUser;
 	
-	public void callback(JsonWrapper jw){
-		System.out.println("Webserive code response: " + jw.getInt("code"));
+	public void callback(JsonWrapper response){
+		System.out.println("Webserive code response: " + response.getCode());
+		
+		if (response.getCode() == 6){
+			Toast.makeText(getApplicationContext(), "Content Synced", Toast.LENGTH_SHORT).show();
+		}
+		
 		checkUser();
 	}
 	
@@ -325,6 +336,7 @@ public class ProjectList extends Activity implements WebserviceCallback {
 
 		case R.id.actionBar_DeleteProjectIcon:
 			if(selectedProject != null){
+				Log.i("Debug", "entro");
 				AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
 				builder.setTitle("Delete project");
 				builder.setMessage("Are you sure to delete project: " + selectedProject.getName());
@@ -335,6 +347,7 @@ public class ProjectList extends Activity implements WebserviceCallback {
 					}
 				});
 				builder.create();
+				Log.i("Debug", "entro2");
 			}
 //				DeleteProjectDialog.newInstance().show(getFragmentManager(), "dialog");
 			return true;

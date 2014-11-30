@@ -1,9 +1,11 @@
 package com.vaquerosisd.object;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.CookieManager;
 import java.net.CookieStore;
 import java.net.HttpCookie;
@@ -11,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.SocketException;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 import android.os.AsyncTask;
 
@@ -31,7 +34,7 @@ public class WebServiceManager{
 	    // Metodos JSON
 	    
 	  //Metodo para obtener una respuesta Json de un webservice
-		public JSONObject getJSONFromUrl(String url) throws SocketException{
+		public JSONObject getJSONFromUrl(String url, String json) throws SocketException{
 		
 	    JSONObject jsonObject = null;
 		//HttpURLConnection urlConnection = null;
@@ -42,8 +45,18 @@ public class WebServiceManager{
 			
 			urlConnection =(HttpURLConnection)myUrl.openConnection();
 			
-			//urlConnection.setDoOutput(true);
-			urlConnection.setRequestMethod("GET");
+			urlConnection.setDoOutput(true);
+			urlConnection.setDoInput(true);
+			urlConnection.setRequestMethod("POST");
+			urlConnection.setRequestProperty("Content-Type", "application/json");
+			urlConnection.setRequestProperty("Accept", "application/json");
+			
+			OutputStreamWriter out= new OutputStreamWriter(urlConnection.getOutputStream());
+			System.out.println(json);
+			out.write(json);
+			out.flush();
+			out.close();
+			
 			urlConnection.connect();
 			
 			int responseCode = urlConnection.getResponseCode();

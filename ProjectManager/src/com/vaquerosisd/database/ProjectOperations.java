@@ -444,6 +444,29 @@ public class ProjectOperations {
 		return taskList;
 	}
 	
+	//
+	// GET ALL TASKS from ALL projects
+	public List<Task> getAllTasks() {
+		List<Task> taskList = new ArrayList<Task>();
+		Task task;
+		
+		String query = "Select * FROM " + TABLE_TASKS  + ";";
+		Log.i("DEBUG", query);
+		Cursor cursor = db.rawQuery(query, null);
+		cursor.moveToPosition(-1);
+
+		while(cursor.move(1) == true) {
+			task = new Task();
+			task.setTaskId(cursor.getInt(0));
+			task.setTaskName(cursor.getString(1));
+			task.setProjectId(cursor.getInt(2));
+			taskList.add(task);
+		}
+		cursor.close();
+		
+		return taskList;
+	}
+	
 	//--------------------------------------------------------------------------------
 	//PHOTOs Table Operations
 	//--------------------------------------------------------------------------------
