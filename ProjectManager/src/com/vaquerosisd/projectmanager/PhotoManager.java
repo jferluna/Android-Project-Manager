@@ -24,7 +24,7 @@ import android.widget.Toast;
 public class PhotoManager extends Activity {
 	
 	ProjectOperations db;		//Database Operations
-	String projectId;			//Project ID where the picture belong
+	int projectId;			//Project ID where the picture belong
 	String projectName;			//Project name associated to the Project ID
 	
 	List<PhotoRef> photosList;
@@ -49,7 +49,7 @@ public class PhotoManager extends Activity {
 		
 		//Get intent from Projects.class
 		Bundle data = getIntent().getExtras();
-		projectId = data.getString("ProjectID");
+		projectId = data.getInt("ProjectID");
 		projectName = data.getString("ProjectName");
 		
 		photoDisplay = (ImageView)findViewById(R.id.photoDisplay);
@@ -131,13 +131,22 @@ public class PhotoManager extends Activity {
 	
 	public void deletePhoto()
 	{
-		File photoFile = new File(storageDir + "/" + photosList.get(photoIndex).getPhotoPath());
-		if(photoFile.exists())
-			photoFile.delete();
+		String localPath = photosList.get(photoIndex).getPhotoPath();
+		File photoFile = new File(storageDir + "/" + localPath);
 		
 		db.deletePhoto(photosList.get(photoIndex).getPhotoId());
 		getPhotosList();
 		setPhoto();
+		
+		if(photoFile.exists())
+		{
+			photoFile.delete();
+			
+			//Notify gallery manager
+			Intent intent = new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" +  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)));
+			sendBroadcast(intent);
+		}
+		
 	}
 	
 	public void setPhoto()
@@ -188,7 +197,7 @@ public class PhotoManager extends Activity {
 	{
 		do
 		{
-			photosList = db.getAllPhotos(Integer.parseInt(projectId));
+			photosList = db.getAllPhotos(projectId);
 			photoIndex = photosList.size() - 1;
 		} while(!validatePhoto());
 	}
@@ -218,9 +227,16 @@ public class PhotoManager extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         
     	if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-    		db.addPhoto(currentPhotoPath, Integer.parseInt(projectId));
+    		db.addPhoto(currentPhotoPath, projectId);
     		getPhotosList();
     		setPhoto();
+    		
+    		//Testing
+    		//Intent selectPictureIntent = new Intent(Intent.ACTION_PICK);
+            //selectPictureIntent.setType("image/*");
+            
+    		Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file:" + storageDir + "/" + currentPhotoPath));     
+    		sendBroadcast(intent);
         }
     }
 	

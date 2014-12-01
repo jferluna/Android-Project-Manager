@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">ProjectManager</string>
+    <string name="app_name">Project Manager</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="imageDesc">Image</string>
@@ -93,6 +93,10 @@
     <string name="taskAdded">Task added</string>
     <string name="dueDateError">Due date is before start date!</string>
     <string name="incomplete">There is missing information!</string>
+    <string name="createAccount">Create a New Account</string>
+    <string name="addAccountName">Account Name</string>
+    <string name="addEmail">Email Address</string>
+    <string name="registerAccountButton">Register Account</string>
     
     <!-- VoiceNote Fragment -->
     <string name="voiceAppChooser">Open voice note with</string>
