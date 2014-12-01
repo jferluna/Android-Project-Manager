@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+	<TextView
+        android:id="@+id/useless_Status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/currentStatus" />
+	
+	<Spinner
+        android:id="@+id/fragmentGeneral_Status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/useless_Status"
+        android:layout_below="@id/useless_Status"
+        android:layout_marginTop="10dp" />
+    
+    <TextView
+        android:id="@+id/useless_Priority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/fragmentGeneral_Status"
+        android:layout_below="@id/fragmentGeneral_Status"
+        android:layout_marginTop="15dp"
+        android:text="@string/priority" />
+    
+    <Spinner
+        android:id="@+id/fragmentGeneral_Priority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/useless_Priority"
+        android:layout_below="@id/useless_Priority"
+        android:layout_marginTop="10dp" />
+    
+     <TextView
+        android:id="@+id/useless_Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/fragmentGeneral_Priority"
+        android:layout_below="@id/fragmentGeneral_Priority"
+        android:layout_marginTop="15dp"
+        android:text="@string/taskDescription" />
+
+     <EditText
+         android:id="@+id/fragmentGeneral_Description"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignLeft="@id/useless_Description"
+        android:layout_below="@id/useless_Description"
+         android:layout_marginTop="10dp"
+         android:inputType="textMultiLine" >
+
+         <requestFocus />
+     </EditText>
+
+</RelativeLayout>

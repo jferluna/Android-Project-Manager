@@ -42,15 +42,13 @@ public class Project {
 	private String status;
 	private int openTasks;
 	private int totalTasks;
-	private String coverPath;
+	private String contentPath;
 	
 	public Project() {
 	}
 
-	public Project(int id, String name, int yearStartDate, int monthStartDate,
-			int dayStartDate, int yearDueDate, int monthDueDate,
-			int dyaDueDate, String status, int openTasks, int totalTasks,
-			String coverPath) {
+	public Project(int id, String name, int yearStartDate, int monthStartDate, int dayStartDate, int yearDueDate, 
+			int monthDueDate, int dyaDueDate, String status, int openTasks, int totalTasks,	String contentPath) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -63,7 +61,7 @@ public class Project {
 		this.status = status;
 		this.openTasks = openTasks;
 		this.totalTasks = totalTasks;
-		this.coverPath = coverPath;
+		this.contentPath = contentPath;
 	}
 
 	public int getId() {
@@ -154,12 +152,12 @@ public class Project {
 		this.totalTasks = totalTasks;
 	}
 
-	public String getCoverPath() {
-		return coverPath;
+	public String getContentPath() {
+		return contentPath;
 	}
 
-	public void setCoverPath(String coverPath) {
-		this.coverPath = coverPath;
+	public void setContentPath(String contentPath) {
+		this.contentPath = contentPath;
 	}
 	
 	

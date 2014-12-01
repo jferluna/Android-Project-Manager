@@ -48,7 +48,8 @@
         <activity
             android:name=".ContentTask"
             android:label="@string/title_activity_task"
-            android:windowSoftInputMode="stateHidden" >
+            android:windowSoftInputMode="stateHidden" 
+            android:exported="true" >
         </activity>
         <activity
             android:name=".TaskList"

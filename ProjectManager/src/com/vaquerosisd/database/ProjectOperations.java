@@ -62,7 +62,7 @@ public class ProjectOperations {
 	public static final String PROJECTS_COLUMN_PROJECT_STATUS = "Status";
 	public static final String PROJECTS_COLUMN_OPEN_TASKS = "OpenTasks";
 	public static final String PROJECTS_COLUMN_TOTAL_TASK = "TotalTasks";
-	public static final String PROJECTS_COLUMN_COVER_PATH = "CoverPath";
+	public static final String PROJECTS_COLUMN_CONTENT_PATH = "ContentPath";
 	
 	//Task Table Constants
 	public static final String TABLE_TASKS = "tasks";
@@ -80,6 +80,7 @@ public class ProjectOperations {
 	public static final String TASKS_COLUMN_DUEDATE_DAY = "dayDueDate";
 	public static final String TASKS_COLUMN_PHOTO_PATH = "photoPath";
 	public static final String TASKS_COLUMN_DESCRIPTION = "description";
+	public static final String TASKS_COLUMN_CONTENT_PATH = "contentPath";
 	//Photos table Constants
 	public static final String TABLE_PHOTOS = "photos";
 	public static final String PHOTOS_COLUMN_PHOTO_ID = "_photoID";
@@ -104,7 +105,7 @@ public class ProjectOperations {
 	//Project Table Operations
 	//--------------------------------------------------------------------------------
 	
-	public void addProject(String projectName, String status, int[] startDate, int[] dueDate, String coverPath) {
+	public void addProject(String projectName, String status, int[] startDate, int[] dueDate, String contentPath) {
 		ContentValues values = new ContentValues();
 		values.put(PROJECTS_COLUMN_PROJECT_NAME, projectName);
 		values.put(PROJECTS_COLUMN_PROJECT_STATUS, status);
@@ -116,7 +117,7 @@ public class ProjectOperations {
 		values.put(PROJECTS_COLUMN_DUEDATE_DAY, dueDate[2]);
 		values.put(PROJECTS_COLUMN_OPEN_TASKS, 0);
 		values.put(PROJECTS_COLUMN_TOTAL_TASK, 0);
-		values.put(PROJECTS_COLUMN_COVER_PATH, coverPath);
+		values.put(PROJECTS_COLUMN_CONTENT_PATH, contentPath);
 		db.insert(TABLE_PROJECTS, null, values);
 	}
 	
@@ -187,8 +188,8 @@ public class ProjectOperations {
 			project.setOpenTasks(getOpenTasksForProjectId(project.getId()));
 			project.setTotalTasks(getTotalTasksForProjectId(project.getId()));
 			
-			index = cursor.getColumnIndex(PROJECTS_COLUMN_COVER_PATH);
-			project.setCoverPath(cursor.getString(index));
+			index = cursor.getColumnIndex(PROJECTS_COLUMN_CONTENT_PATH);
+			project.setContentPath(cursor.getString(index));
 			
 			//Add project to list
 			projectList.add(project);
@@ -235,8 +236,8 @@ public class ProjectOperations {
 			project.setOpenTasks(getOpenTasksForProjectId(project.getId()));
 			project.setTotalTasks(getTotalTasksForProjectId(project.getId()));
 			
-			index = cursor.getColumnIndex(PROJECTS_COLUMN_COVER_PATH);
-			project.setCoverPath(cursor.getString(index));
+			index = cursor.getColumnIndex(PROJECTS_COLUMN_CONTENT_PATH);
+			project.setContentPath(cursor.getString(index));
 		}
 		cursor.close();
 		
@@ -280,8 +281,8 @@ public class ProjectOperations {
 			project.setOpenTasks(getOpenTasksForProjectId(project.getId()));
 			project.setTotalTasks(getTotalTasksForProjectId(project.getId()));
 			
-			index = cursor.getColumnIndex(PROJECTS_COLUMN_COVER_PATH);
-			project.setCoverPath(cursor.getString(index));
+			index = cursor.getColumnIndex(PROJECTS_COLUMN_CONTENT_PATH);
+			project.setContentPath(cursor.getString(index));
 			
 			projectList.add(project);
 		}
@@ -307,12 +308,19 @@ public class ProjectOperations {
 		return cursor.getCount();	
 	}
 	
+	public String getProjectContentPath (int id) {
+		String query = "SELECT " + PROJECTS_COLUMN_CONTENT_PATH + " FROM " + TABLE_PROJECTS + " WHERE " + PROJECTS_COLUMN_PROJECT_ID + " = " + id + ";";
+		Cursor cursor = db.rawQuery(query, null);
+		cursor.moveToFirst();
+		return cursor.getString(0);
+	}
+	
 	//--------------------------------------------------------------------------------
 	//Tasks Table Operations
 	//--------------------------------------------------------------------------------
 	
 	public void addTask(int projectId, String taskName, String status, String priority, int percentageDone, int[] startDate, 
-			int[] dueDate, String photoPath, String description) {
+			int[] dueDate, String photoPath, String description, String contentPath) {
 		ContentValues values = new ContentValues();
 		values.put(TASKS_COLUMN_PROJECT_ID, projectId);
 		values.put(TASKS_COLUMN_TASK_NAME, taskName);
@@ -327,6 +335,7 @@ public class ProjectOperations {
 		values.put(TASKS_COLUMN_DUEDATE_DAY, startDate[2]);
 		values.put(TASKS_COLUMN_PHOTO_PATH, photoPath);
 		values.put(TASKS_COLUMN_DESCRIPTION, description);
+		values.put(TASKS_COLUMN_CONTENT_PATH, contentPath);
 		db.insert(TABLE_TASKS, null, values);
 	}
 	
@@ -382,6 +391,8 @@ public class ProjectOperations {
 			task.setPhotoPath(cursor.getString(index));
 			index = cursor.getColumnIndex(TASKS_COLUMN_DESCRIPTION);
 			task.setDescription(cursor.getString(index));
+			index = cursor.getColumnIndex(TASKS_COLUMN_CONTENT_PATH);
+			task.setContentPath(cursor.getString(index));
 			
 			taskList.add(task);
 		}
@@ -436,12 +447,71 @@ public class ProjectOperations {
 			task.setPhotoPath(cursor.getString(index));
 			index = cursor.getColumnIndex(TASKS_COLUMN_DESCRIPTION);
 			task.setDescription(cursor.getString(index));
+			index = cursor.getColumnIndex(TASKS_COLUMN_CONTENT_PATH);
+			task.setContentPath(cursor.getString(index));
 			
 			taskList.add(task);
 		}
 		cursor.close();
 		
 		return taskList;
+	}
+	
+	public Task getTaskById(int taskId) {
+		Task task = new Task();
+		String query = "SELECT * FROM " + TABLE_TASKS + " WHERE " + TASKS_COLUMN_TASK_ID + " = " + taskId + ";";
+		Log.i("DB getTaskById", query);
+		Cursor cursor = db.rawQuery(query, null);
+		cursor.moveToPosition(-1);
+		int index;
+
+		while(cursor.move(1) == true) {
+			
+			index = cursor.getColumnIndex(TASKS_COLUMN_TASK_ID);
+			task.setTaskId(cursor.getInt(index));
+			index = cursor.getColumnIndex(TASKS_COLUMN_PROJECT_ID);
+			task.setProjectId(cursor.getInt(index));
+			
+			index = cursor.getColumnIndex(TASKS_COLUMN_TASK_NAME);
+			task.setTaskName(cursor.getString(index));
+			index = cursor.getColumnIndex(TASKS_COLUMN_STATUS);
+			task.setStatus(cursor.getString(index));
+			index = cursor.getColumnIndex(TASKS_COLUMN_PRIORITY);
+			task.setPriority(cursor.getString(index));
+			index = cursor.getColumnIndex(TASKS_COLUMN_PERCENTAJE_DONE);
+			task.setPercentage(cursor.getInt(index));
+			
+			index = cursor.getColumnIndex(TASKS_COLUMN_STARTDATE_YEAR);
+			task.setYearStartDate(cursor.getInt(index));
+			index = cursor.getColumnIndex(TASKS_COLUMN_STARTDATE_MONTH);
+			task.setMonthStartDate(cursor.getInt(index));
+			index = cursor.getColumnIndex(TASKS_COLUMN_STARTDATE_DAY);
+			task.setDayStartDate(cursor.getInt(index));
+			
+			index = cursor.getColumnIndex(TASKS_COLUMN_DUEDATE_YEAR);
+			task.setYearDueDate(cursor.getInt(index));
+			index = cursor.getColumnIndex(TASKS_COLUMN_DUEDATE_MONTH);
+			task.setYearDueDate(cursor.getInt(index));
+			index = cursor.getColumnIndex(TASKS_COLUMN_DUEDATE_DAY);
+			task.setYearDueDate(cursor.getInt(index));
+			
+			index = cursor.getColumnIndex(TASKS_COLUMN_PHOTO_PATH);
+			task.setPhotoPath(cursor.getString(index));
+			index = cursor.getColumnIndex(TASKS_COLUMN_DESCRIPTION);
+			task.setDescription(cursor.getString(index));
+			index = cursor.getColumnIndex(TASKS_COLUMN_CONTENT_PATH);
+			task.setContentPath(cursor.getString(index));
+		}
+		cursor.close();
+		
+		return task;
+	}
+	
+	public String getTaskContentPath (int id) {
+		String query = "SELECT " + TASKS_COLUMN_CONTENT_PATH + " FROM " + TABLE_TASKS + " WHERE " + TASKS_COLUMN_PROJECT_ID + " = " + id + ";";
+		Cursor cursor = db.rawQuery(query, null);
+		cursor.moveToFirst();
+		return cursor.getString(0);
 	}
 	
 	//--------------------------------------------------------------------------------

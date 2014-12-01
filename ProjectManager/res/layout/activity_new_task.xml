@@ -1,170 +1,150 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="${relativePackage}.${activityClass}" >
-   
-        <TextView
-            android:id="@+id/uselessId_TaskName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="30dp"
-            android:maxLines="1"
-            android:text="@string/addTaskName" />
-		
-        <EditText
-            android:id="@+id/newTask_TaskName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/uselessId_TaskName"
-            android:layout_alignLeft="@id/uselessId_TaskName"
-            android:layout_marginTop="10dp"
-            android:ems="10" 
-            android:hint="@string/addTaskHint">
-            <requestFocus />
-        </EditText>
-        
-        <TextView
+    android:layout_height="match_parent" >
+    
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:padding="30dp" >
+	
+	    <TextView
+	        android:id="@+id/uselessId_TaskName"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:maxLines="1"
+	        android:text="@string/addTaskName" />
+	
+	    <EditText
+	        android:id="@+id/newTask_TaskName"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dp"
+	        android:ems="10"
+	        android:hint="@string/addTaskHint" >
+	
+	        <requestFocus />
+	    </EditText>
+	
+	    <TextView
 	        android:id="@+id/uselessId_Status"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@id/newTask_TaskName"
-	        android:layout_alignLeft="@id/newTask_TaskName"
 	        android:layout_marginTop="25dp"
 	        android:text="@string/status" />
-
+	
 	    <Spinner
 	        android:id="@+id/newTask_StatusSpinner"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@id/uselessId_Status"
-	        android:layout_alignLeft="@id/uselessId_Status"
-	        android:paddingTop="20dp"
-	        android:ems="10" >
+	        android:ems="10"
+	        android:paddingTop="20dp" >
 	    </Spinner>
-	    
+	
 	    <TextView
 	        android:id="@+id/uselessId_Priority"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@id/newTask_StatusSpinner"
-	        android:layout_alignLeft="@id/newTask_StatusSpinner"
 	        android:layout_marginTop="25dp"
 	        android:text="@string/priority" />
-
+	
 	    <Spinner
 	        android:id="@+id/newTask_Priority"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@id/uselessId_Priority"
-	        android:layout_alignLeft="@id/uselessId_Priority"
-	        android:paddingTop="20dp"
-	        android:ems="10" >
+	        android:ems="10"
+	        android:paddingTop="20dp" >
 	    </Spinner>
-	    
+	
 	    <TextView
 	        android:id="@+id/uselessId_PercentageDone"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@id/newTask_Priority"
-	        android:layout_alignLeft="@id/newTask_Priority"
 	        android:layout_marginTop="25dp"
 	        android:text="@string/percentage" />
-	    
+	
 	    <EditText
-            android:id="@+id/newTask_PercentageDone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/uselessId_PercentageDone"
-            android:layout_alignLeft="@id/uselessId_PercentageDone"
-            android:layout_marginTop="10dp"
-            android:ems="10" 
-            android:hint="@string/addTaskHint">
-            <requestFocus />
-        </EditText>
-	    
+	        android:id="@+id/newTask_PercentageDone"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dp"
+	        android:ems="10"
+	        android:hint="@string/addTaskHint" >
+	
+	        <requestFocus />
+	    </EditText>
+	
 	    <SeekBar
-            android:id="@+id/newTask_PercentageDoneSeekBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/newTask_PercentageDone"
-	        android:layout_alignLeft="@id/newTask_PercentageDone" />
-	    
+	        android:id="@+id/newTask_PercentageDoneSeekBar"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" />
+	
 	    <TextView
 	        android:id="@+id/uselessId_StartDate"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@id/newTask_PercentageDoneSeekBar"
-	        android:layout_alignLeft="@id/newTask_PercentageDoneSeekBar"
 	        android:layout_marginTop="25dp"
 	        android:text="@string/taskStartDate" />
-	    
-		<EditText
+	
+	    <EditText
 	        android:id="@+id/newTask_StartDate"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@id/uselessId_StartDate"
-	        android:layout_alignLeft="@id/uselessId_StartDate"
-	        android:paddingTop="30dp"
-	        android:inputType="date"
 	        android:ems="5"
 	        android:focusable="false"
-	        android:hint="@string/dateHint">
+	        android:hint="@string/dateHint"
+	        android:inputType="date"
+	        android:paddingTop="30dp" >
 	    </EditText>
-	    
-		<TextView
+	
+	    <TextView
 	        android:id="@+id/uselessId_DueDate"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@id/newTask_StartDate"
-	        android:layout_alignLeft="@id/newTask_StartDate"
 	        android:layout_marginTop="25dp"
 	        android:text="@string/taskDueDate" />
-	    
-		<EditText
+	
+	    <EditText
 	        android:id="@+id/newTask_DueDate"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@id/uselessId_DueDate"
-	        android:layout_alignLeft="@id/uselessId_DueDate"
-	        android:paddingTop="30dp"
-	        android:inputType="date"
 	        android:ems="5"
 	        android:focusable="false"
-	        android:hint="@string/dateHint">
+	        android:hint="@string/dateHint"
+	        android:inputType="date"
+	        android:paddingTop="30dp" >
 	    </EditText>
-	    
-		 <TextView
-            android:id="@+id/uselessId_Description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/newTask_DueDate"
-            android:layout_alignLeft="@id/newTask_DueDate"
-            android:layout_marginTop="25dp"
-            android:text="@string/taskDescription" />
-		
-        <EditText
-            android:id="@+id/newTask_Description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/uselessId_Description"
-            android:layout_alignLeft="@id/uselessId_Description"
-            android:layout_marginTop="10dp"
-            android:ems="10" 
-            android:inputType="textMultiLine"
-            android:text=""
-            android:hint="@string/descriptionHint">
-            <requestFocus />
-        </EditText>
-	            
-        <Button
-            android:id="@+id/newTask_AddTask"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/newTask_Description"
-            android:layout_alignLeft="@+id/newTask_Description"
-            android:layout_marginTop="30dp"
-            android:text="@string/addTaskButton" />
-
-</RelativeLayout>
+	
+	    <TextView
+	        android:id="@+id/uselessId_Description"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="25dp"
+	        android:text="@string/taskDescription" />
+	
+	    <EditText
+	        android:id="@+id/newTask_Description"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dp"
+	        android:ems="10"
+	        android:hint="@string/descriptionHint"
+	        android:inputType="textMultiLine"
+	        android:text="" >
+	
+	        <requestFocus />
+	    </EditText>
+	
+	    <Button
+	        android:id="@+id/newTask_AddTask"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="30dp"
+	        android:text="@string/addTaskButton" />
+	
+	</LinearLayout>
+    
+</ScrollView>

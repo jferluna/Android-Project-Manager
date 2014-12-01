@@ -53,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String PROJECTS_COLUMN_PROJECT_STATUS = "Status";
 	public static final String PROJECTS_COLUMN_OPEN_TASKS = "OpenTasks";
 	public static final String PROJECTS_COLUMN_TOTAL_TASK = "TotalTasks";
-	public static final String PROJECTS_COLUMN_COVER_PATH = "CoverPath";
+	public static final String PROJECTS_COLUMN_CONTENT_PATH = "ContentPath";
 	//Task Table Constants
 	public static final String TABLE_TASKS = "tasks";
 	public static final String TASKS_COLUMN_TASK_ID = "taskID";
@@ -70,6 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String TASKS_COLUMN_DUEDATE_DAY = "dayDueDate";
 	public static final String TASKS_COLUMN_PHOTO_PATH = "photoPath";
 	public static final String TASKS_COLUMN_DESCRIPTION = "description";
+	public static final String TASKS_COLUMN_CONTENT_PATH = "contentPath";
 	//Photos table Constants
 	public static final String TABLE_PHOTOS = "PHOTOs";
 	public static final String PHOTOS_COLUMN_PHOTO_ID = "_photoID";
@@ -95,7 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 											PROJECTS_COLUMN_PROJECT_STATUS + " TEXT, " + 
 											PROJECTS_COLUMN_OPEN_TASKS + " INTEGER, " + 
 											PROJECTS_COLUMN_TOTAL_TASK + " INTEGER, " +
-											PROJECTS_COLUMN_COVER_PATH + " TEXT)";
+											PROJECTS_COLUMN_CONTENT_PATH + " TEXT)";
 		
 		String CREATE_TASKS_TABLE = "CREATE TABLE " + TABLE_TASKS + " ( " + 
 											TASKS_COLUMN_TASK_ID + " INTEGER PRIMARY KEY, " + 
@@ -111,7 +112,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 											TASKS_COLUMN_DUEDATE_MONTH + " INTEGER, " + 
 											TASKS_COLUMN_DUEDATE_DAY + " INTEGER, " + 
 											TASKS_COLUMN_PHOTO_PATH + " TEXT, " + 
-											TASKS_COLUMN_DESCRIPTION + " TEXT);";
+											TASKS_COLUMN_DESCRIPTION + " TEXT, " +
+											TASKS_COLUMN_CONTENT_PATH + " TEXT);";
 
 		String CREATE_PHOTOS_TABLE = "CREATE TABLE " + TABLE_PHOTOS + " ( " + 
 											PHOTOS_COLUMN_PHOTO_ID + " INTEGER PRIMARY KEY, " + 
