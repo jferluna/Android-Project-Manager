@@ -89,7 +89,6 @@ public class TaskList extends Activity {
 		db = new ProjectOperations(this);
 		db.open();
 		
-		
 		//Get projectId and projectName from ProjectList
 		Bundle data = getIntent().getExtras();
 		projectId = data.getInt("ProjectID");
@@ -99,18 +98,6 @@ public class TaskList extends Activity {
 		final ListView taskListView = (ListView) findViewById(R.id.listTask_TaskList);
 		taskAdapter = new TaskListViewAdapter(getApplicationContext(), R.layout.listrow_task, getTasksForListView());
 		taskListView.setAdapter(taskAdapter);
-		
-		taskListView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Task task = (Task) taskAdapter.getItem(position);
-//				if(selectedRow != null) {
-//					selectedRow.findViewById(R.id.list)
-//				}
-			}
-			
-		});
 		
 		//onClickListeners
 //		cancelSearch.setOnClickListener(new OnClickListener() {
@@ -159,6 +146,11 @@ public class TaskList extends Activity {
 					selectedRow.setBackgroundColor(Color.TRANSPARENT);
 				selectedRow = taskAdapter.getView(position, view, null);
 				selectedRow.setBackgroundColor(Color.LTGRAY);
+				
+				//Open activity of content task
+				Intent ContentTaskItent = new Intent(TaskList.this, ContentTask.class);
+				ContentTaskItent.putExtra("taskId",	selectedTask.getTaskId());
+				startActivity(ContentTaskItent);
 			}
 		});
 		
@@ -171,8 +163,6 @@ public class TaskList extends Activity {
 		
 	public List<Task> getTasksForListView() {
 		List<Task> list = db.getAllTasks(projectId);
-		if(list.isEmpty())
-			Log.i("Debug", "Lista vacia");
 		return list;
 	}
 	

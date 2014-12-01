@@ -16,7 +16,7 @@ public class CustomStatus extends DialogFragment {
 	CustomStatusInterface statusDialogListener;
 	
 	public interface CustomStatusInterface {
-		public void onDialogPositiveClick(DialogFragment dialog, String status);
+		public void onDialogPositiveClick(DialogFragment dialog, String statusOption);
 		public void onDialogNegativeClick(DialogFragment dialog);
 	}
 	
@@ -25,9 +25,12 @@ public class CustomStatus extends DialogFragment {
         super.onAttach(activity);
         
         try {
-            statusDialogListener = (CustomStatusInterface) activity;
+        	if(getTargetFragment() == null)
+        		statusDialogListener = (CustomStatusInterface) activity;
+        	else
+        		statusDialogListener = (CustomStatusInterface) getTargetFragment();
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement NoticeDialogListener");
+            e.getStackTrace();
         }
     }
 	

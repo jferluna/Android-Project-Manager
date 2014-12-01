@@ -14,11 +14,8 @@ import com.vaquerosisd.object.User;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -335,21 +332,8 @@ public class ProjectList extends Activity implements WebserviceCallback {
 			return true;
 
 		case R.id.actionBar_DeleteProjectIcon:
-			if(selectedProject != null){
-				Log.i("Debug", "entro");
-				AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-				builder.setTitle("Delete project");
-				builder.setMessage("Are you sure to delete project: " + selectedProject.getName());
-				builder.setPositiveButton(R.string.dialogOk, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						deleteProject();
-					}
-				});
-				builder.create();
-				Log.i("Debug", "entro2");
-			}
-//				DeleteProjectDialog.newInstance().show(getFragmentManager(), "dialog");
+			if(selectedProject != null)
+				DeleteProjectDialog.newInstance().show(getFragmentManager(), "dialog");
 			return true;
 			
 		case R.id.actionBar_AddProjectIcon:

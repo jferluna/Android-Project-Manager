@@ -30,6 +30,7 @@ Authors:
 
 package com.vaquerosisd.projectmanager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -40,9 +41,11 @@ import com.vaquerosisd.utils.FileOperations;
 
 import android.app.Activity;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -127,6 +130,7 @@ public class NewTask extends Activity {
 			public void onClick(View arg0) {
 				
 				//Get values for the add task
+				String projectDir = db.getProjectContentPath(projectId);
 				String taskName = taskNameEditText.getText().toString();
 				String status = statusSpinner.getSelectedItem().toString();
 				String priority = prioritySpinner.getSelectedItem().toString();
@@ -136,11 +140,15 @@ public class NewTask extends Activity {
 				String dueDate =dueDateEditText.getText().toString();
 				String photoPath = "";
 				String description = descriptionEditText.getText().toString();
+				String contentPath = projectDir + "/" + taskName;
+				Log.i("DEBUG", contentPath);
+				File taskContentPath = new File(contentPath);
+				taskContentPath.mkdir();
 				if(startDate.compareTo(dueDate) > 0) {
 					Toast.makeText(getApplicationContext(), R.string.dueDateError, Toast.LENGTH_SHORT).show();
 					return;
 				} else if(!taskName.equals("") && !startDate.equals("") && !dueDate.equals("")){
-					db.addTask(projectId, taskName, status, priority, percentageDone, startDateStrings, dueDateStrings, photoPath, description);
+					db.addTask(projectId, taskName, status, priority, percentageDone, startDateStrings, dueDateStrings, photoPath, description, contentPath);
 					Toast.makeText(getApplicationContext(), R.string.taskAdded, Toast.LENGTH_SHORT).show();
 				} else {
 					Toast.makeText(getApplicationContext(), R.string.incomplete, Toast.LENGTH_SHORT).show();

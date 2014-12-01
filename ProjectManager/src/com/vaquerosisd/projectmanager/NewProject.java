@@ -30,10 +30,10 @@ Authors:
 
 package com.vaquerosisd.projectmanager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Random;
 
 import com.vaquerosisd.database.ProjectOperations;
 import com.vaquerosisd.dialog.CustomStatus;
@@ -43,8 +43,10 @@ import com.vaquerosisd.utils.FileOperations;
 import android.app.Activity;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -143,9 +145,11 @@ public class NewProject extends Activity implements CustomStatus.CustomStatusInt
 					return;
 				}
 				else if(!projectNameString.equals("") && !projectStartDateString.equals("") && !projectDueDateString.equals("")) {
-					Random n = new Random();
-					String coverPath = "project" + String.valueOf(Math.abs(n.nextInt()%4));
-					db.addProject(projectNameString, projectStatusString, startDateStrings, dueDateStrings, coverPath);
+					File file = getDir("content", Context.MODE_PRIVATE);
+					String path = file.getAbsolutePath();
+					File contentDir = new File(Environment.getExternalStorageDirectory().getPath() + "/ProjectManager/" + projectNameString);
+					contentDir.mkdirs();
+					db.addProject(projectNameString, projectStatusString, startDateStrings, dueDateStrings, contentDir.getAbsolutePath());
 					Toast.makeText(getApplicationContext(), R.string.projectAdded, Toast.LENGTH_SHORT).show();
 				} else {
 					Toast.makeText(getApplicationContext(), R.string.incomplete, Toast.LENGTH_LONG).show();
