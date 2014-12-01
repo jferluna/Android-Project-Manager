@@ -60,6 +60,15 @@ public class JsonWrapper {
 			json.put("name", p.getName());
 			json.put("status", p.getStatus());
 			json.put("id", p.getId());
+			json.put("yearstart", p.getYearStartDate());
+			json.put("monthstart", p.getMonthStartDate());
+			json.put("daystart", p.getDayStartDate());
+			json.put("yeardue", p.getYearDueDate());
+			json.put("monthdue", p.getMonthDueDate());
+			json.put("daydue", p.getDayDueDate());
+			json.put("opentasks", p.getOpenTasks());
+			json.put("totaltasks", p.getTotalTasks());
+			json.put("coverpath", p.getCoverPath());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,9 +85,19 @@ public class JsonWrapper {
 		
 		try {
 			json.put("name", t.getTaskName());
-			//json.put("status", t.getStatus());
+			json.put("status", t.getStatus());
 			json.put("id", t.getTaskId());
-			json.put("projec_id", t.getProjectId());
+			json.put("project_id", t.getProjectId());
+			json.put("priority", t.getPriority());
+			json.put("percentage", t.getPercentage());
+			json.put("yearstart", t.getYearStartDate());
+			json.put("monthstart", t.getMonthStartDate());
+			json.put("daystart", t.getDayStartDate());
+			json.put("yeardue", t.getYearDueDate());
+			json.put("monthdue", t.getMonthDueDate());
+			json.put("daydue", t.getDayDueDate());
+			json.put("photopath", t.getPhotoPath());
+			json.put("description", t.getDescription());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
