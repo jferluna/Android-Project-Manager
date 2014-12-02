@@ -36,6 +36,8 @@ public class JsonWrapper {
 		return r;
 	}
 	
+	// get project en formato project, regresa objeto project
+	// get task, iterar sobre el arreglo para obtener la lista
 	
 	// Regresa codigo de respuesta de API
 	public int getCode(){
