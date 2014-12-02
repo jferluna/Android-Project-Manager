@@ -14,14 +14,15 @@ public final class R {
         /**  ActionBar Colors 
          */
         public static final int actionBarColor=0x7f040004;
-        public static final int actionBarTabTextColor=0x7f040005;
+        public static final int actionBarTabColor=0x7f040005;
+        public static final int actionBarTabTextColor=0x7f040006;
         public static final int black_overlay=0x7f040000;
         public static final int celeste=0x7f040002;
         /**  ListProject Colors 
          */
-        public static final int listProject_ImageBackgroundColor=0x7f040006;
-        public static final int listProject_NameBackgroundColor=0x7f040007;
-        public static final int listProject_NameColor=0x7f040008;
+        public static final int listProject_ImageBackgroundColor=0x7f040007;
+        public static final int listProject_NameBackgroundColor=0x7f040008;
+        public static final int listProject_NameColor=0x7f040009;
         public static final int warning=0x7f040003;
         public static final int white=0x7f040001;
     }
@@ -304,7 +305,12 @@ public final class R {
     }
     public static final class style {
         public static final int ActionBar=0x7f070001;
-        public static final int ActionBarTab=0x7f070002;
+        /**          <item name="android:background">@color/actionBarTabColor</item> 
+         */
+        public static final int ActionBarTab=0x7f070003;
+        /**          <item name="android:background">@color/actionBarTabColor</item> 
+         */
+        public static final int ActionBarTabText=0x7f070002;
         /** 
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
@@ -317,7 +323,7 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070003;
+        public static final int AppBaseTheme=0x7f070004;
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
