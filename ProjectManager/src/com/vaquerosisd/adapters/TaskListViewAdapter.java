@@ -50,7 +50,7 @@ public class TaskListViewAdapter extends ArrayAdapter<Task> {
 			taskName.setText(task.getTaskName());
 			status.setText(task.getStatus());
 			priority.setText(task.getPriority());
-			percentajeDone.setText(String.valueOf(task.getPercentage()));
+			percentajeDone.setText("Done:" + String.valueOf(task.getPercentage()) + "%");
 			startDate.setText("Start Date: " + task.getYearStartDate() + "/" + task.getMonthStartDate() + "/" + task.getDayStartDate());
 			dueDate.setText("Due Date: " + task.getYearDueDate() + "/" + task.getMonthDueDate() + "/" + task.getDayDueDate());
 			

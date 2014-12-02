@@ -305,8 +305,6 @@ public final class R {
     }
     public static final class style {
         public static final int ActionBar=0x7f070001;
-        /**          <item name="android:background">@color/actionBarTabColor</item> 
-         */
         public static final int ActionBarTab=0x7f070003;
         /**          <item name="android:background">@color/actionBarTabColor</item> 
          */
