@@ -14,8 +14,11 @@ import com.vaquerosisd.object.User;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -61,10 +64,9 @@ public class ProjectList extends Activity implements WebserviceCallback {
 
 	//Defined functions	
 	public void syncAll(){
-		Toast.makeText(ProjectList.this, "Sincronizar todo", Toast.LENGTH_SHORT).show();
+		Toast.makeText(ProjectList.this, "Syncing Everything", Toast.LENGTH_SHORT).show();
 		
 		currentUser.sync();
-		
 	}
 	
 	@Override
@@ -214,7 +216,12 @@ public class ProjectList extends Activity implements WebserviceCallback {
 		currentUser = User.getUser(ProjectList.this);
 
 		if (currentUser == null) // no hay sesion logeada
-			Toast.makeText(getApplicationContext(), "Currently Logged Off", Toast.LENGTH_SHORT).show();
+		{
+			//Toast.makeText(getApplicationContext(), "Currently Logged Off", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(ProjectList.this, MainActivity.class);
+			startActivity(intent);
+			finish();
+		}
 
 	}
 	
@@ -364,10 +371,9 @@ public class ProjectList extends Activity implements WebserviceCallback {
 		case R.id.actionBar_Menu_User:
 			if(currentUser != null)
 				currentUser.logOut();
-			else {
-				Intent intentLogin = new Intent(ProjectList.this, Login.class);
-				startActivityForResult(intentLogin, LOGIN);
-			}
+			
+			//checkUser();
+			
 			return true;
 			
 		default:
@@ -407,10 +413,10 @@ public class ProjectList extends Activity implements WebserviceCallback {
 		}
 		
 		MenuItem logMenuItem = menu.findItem(R.id.actionBar_Menu_User);
-		if (currentUser == null) {
-        	logMenuItem.setTitle("Log In");
-        } else {
+		if (currentUser != null) {
         	logMenuItem.setTitle("Log Out from " + currentUser.getUsername());
+        } else {
+        	checkUser();
         }
 		
 		return true;

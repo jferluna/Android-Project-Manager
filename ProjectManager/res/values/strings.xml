@@ -100,4 +100,8 @@
     
     <!-- VoiceNote Fragment -->
     <string name="voiceAppChooser">Open voice note with</string>
+    <string name="loginToAccount">Log In:</string>
+    <string name="log_in">Log In</string>
+    <string name="addPassword">Password</string>
+    <string name="loginToExistent">Log In to Existent Account</string>
 </resources>
