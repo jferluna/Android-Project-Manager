@@ -58,13 +58,13 @@ public class PhotoManager extends Activity {
 			@Override
 		    public void onSwipeRight() {
 				moveToPreviousPhoto();
-		        Toast.makeText(PhotoManager.this, "right", Toast.LENGTH_SHORT).show();
+//		        Toast.makeText(PhotoManager.this, "right", Toast.LENGTH_SHORT).show();
 		    }
 			
 			@Override
 		    public void onSwipeLeft() {
 				moveToNextPhoto();
-		        Toast.makeText(PhotoManager.this, "left", Toast.LENGTH_SHORT).show();
+//		        Toast.makeText(PhotoManager.this, "left", Toast.LENGTH_SHORT).show();
 		    }
 		});
 		

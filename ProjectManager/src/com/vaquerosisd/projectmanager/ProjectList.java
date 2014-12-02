@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -142,6 +143,7 @@ public class ProjectList extends Activity implements WebserviceCallback {
 	//Searches the project name in the project 
 	public void searchProject(String projectName) {
 		List<Project> searchProjectsList = db.searchProjects(projectName);
+		Log.i("Debug", "Entro");
 		projectAdapter.clear();
 		projectAdapter.addAll(searchProjectsList);
 		projectAdapter.notifyDataSetChanged();
@@ -301,7 +303,7 @@ public class ProjectList extends Activity implements WebserviceCallback {
 			
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				if(actionId == EditorInfo.IME_ACTION_DONE){
+				if(actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_GO){
 					String project = searchProject.getText().toString();
 					searchProject(project);
 					
