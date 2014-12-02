@@ -13,7 +13,8 @@
             backward-compatibility can go here.
         -->
         <item name="android:actionBarStyle">@style/ActionBar</item>
-        <item name="android:actionBarTabTextStyle">@style/ActionBarTab</item>
+        <item name="android:actionBarTabBarStyle">@style/ActionBarTab</item>
+        <item name="android:actionBarTabTextStyle">@style/ActionBarTabText</item>
         
     </style>
 
@@ -22,9 +23,15 @@
         <item name="android:background">@color/actionBarColor</item>
     </style>
     
-    <style name="ActionBarTab"
+    <style name="ActionBarTabText"
         	parent="@android:style/Widget.Holo.Light.ActionBar.TabText" >
         <item name="android:textColor">@android:color/white</item>
+<!--         <item name="android:background">@color/actionBarTabColor</item> -->
+    </style>
+    
+    <style name="ActionBarTab"
+        	parent="@android:style/Widget.Holo.Light.ActionBar.TabBar" >
+        <item name="android:background">@color/actionBarTabColor</item>
     </style>
 
 </resources>

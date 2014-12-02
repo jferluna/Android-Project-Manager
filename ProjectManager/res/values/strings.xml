@@ -33,6 +33,7 @@
     <string name="projectDueDate">Due Date:</string>
     <string name="addProjectButton">Add Project</string>
     
+    <string name="update">Update task</string>
     
     <!-- TaskList Activity/Layout Strings -->
     <string name="taskFindHint">Find Task</string>

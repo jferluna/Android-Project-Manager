@@ -41,7 +41,6 @@ import com.vaquerosisd.utils.FileOperations;
 
 import android.app.Activity;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;

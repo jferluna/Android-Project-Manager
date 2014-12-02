@@ -1,4 +1,4 @@
-package Fragments;
+package com.vaquerosisd.fragments;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,13 +15,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.GridView;
 
 public class VoiceNotesFragment extends Fragment {
@@ -30,6 +32,8 @@ public class VoiceNotesFragment extends Fragment {
 	FileOperations fO;
 	ProjectOperations db;
 	Task task;
+	VoiceNoteGridViewAdapter voiceNoteAdapter;
+	GridView voiceNotesGridView;
 	
 	int RECORD_SOUND_REQUEST = 55;
 	int PLAY_VOICE_NOTE = 95;
@@ -49,20 +53,10 @@ public class VoiceNotesFragment extends Fragment {
 		db.open();
 		task = db.getTaskById(taskId);
 		
-		final Button voice = (Button) view.findViewById(R.id.voice);
-		final GridView voiceNotesGridView = (GridView) view.findViewById(R.id.fragmentVoiceNote_GridView);
+		voiceNotesGridView = (GridView) view.findViewById(R.id.fragmentVoiceNote_GridView);
 		ArrayList<String> voiceFiles = FileOperations.getFilesByExtension(db.getTaskContentPath(task.getTaskId()), ".3gpp");
-		final VoiceNoteGridViewAdapter voiceNoteAdapter = new VoiceNoteGridViewAdapter(this.getActivity(), R.layout.gridview_object, voiceFiles);
+		voiceNoteAdapter = new VoiceNoteGridViewAdapter(this.getActivity(), R.layout.gridview_object, voiceFiles);
 		voiceNotesGridView.setAdapter(voiceNoteAdapter);
-		
-		//Intent for voice record
-		voice.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION); 
-				startActivityForResult(intent, RECORD_SOUND_REQUEST);			
-			}
-		});
 		
 		voiceNotesGridView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -78,7 +72,40 @@ public class VoiceNotesFragment extends Fragment {
 				startActivityForResult(voiceNoteAppChooserIntent, PLAY_VOICE_NOTE);
 			}
 		});
+		
+		setHasOptionsMenu(true);
     }
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+	    inflater.inflate(R.menu.voice_note_menu, menu);
+	    super.onCreateOptionsMenu(menu,inflater);
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		ArrayList<String> voiceFiles = FileOperations.getFilesByExtension(db.getTaskContentPath(task.getTaskId()), ".3gpp");
+		voiceNoteAdapter = new VoiceNoteGridViewAdapter(this.getActivity(), R.layout.gridview_object, voiceFiles);
+		voiceNotesGridView.setAdapter(voiceNoteAdapter);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.		
+		switch (item.getItemId())
+		{
+		case R.id.actionBar_CaptureVoiceNote:
+			Intent intent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION); 
+			startActivityForResult(intent, RECORD_SOUND_REQUEST);	
+			return true;
+			
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
 	
 	@Override
 	public void onActivityResult( int requestCode, int resultCode, Intent data) {
@@ -87,6 +114,7 @@ public class VoiceNotesFragment extends Fragment {
 				Uri uri = data.getData();
 				String filePath = fO.getAudioFilePathFromUri(uri);
 				String taskDir = db.getTaskContentPath(task.getTaskId()) + "/VoiceNote_" + System.currentTimeMillis() + ".3gpp";
+				Log.i("Debug", taskDir);
 				FileOperations.moveFile(filePath, taskDir);
 			}
       	}

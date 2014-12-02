@@ -8,6 +8,7 @@
     
     <!-- ActionBar Colors -->
     <color name="actionBarColor">#388E3C</color>
+    <color name="actionBarTabColor">#4CAF50</color>
     <color name="actionBarTabTextColor">#FFFFFF</color>
     
     <!-- ListProject Colors -->
