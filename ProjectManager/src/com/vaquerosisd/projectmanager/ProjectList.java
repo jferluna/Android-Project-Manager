@@ -64,10 +64,9 @@ public class ProjectList extends Activity implements WebserviceCallback {
 
 	//Defined functions	
 	public void syncAll(){
-		Toast.makeText(ProjectList.this, "Sincronizar todo", Toast.LENGTH_SHORT).show();
+		Toast.makeText(ProjectList.this, "Syncing Everything", Toast.LENGTH_SHORT).show();
 		
 		currentUser.sync();
-		
 	}
 	
 	@Override
@@ -217,7 +216,12 @@ public class ProjectList extends Activity implements WebserviceCallback {
 		currentUser = User.getUser(ProjectList.this);
 
 		if (currentUser == null) // no hay sesion logeada
-			Toast.makeText(getApplicationContext(), "Currently Logged Off", Toast.LENGTH_SHORT).show();
+		{
+			//Toast.makeText(getApplicationContext(), "Currently Logged Off", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(ProjectList.this, MainActivity.class);
+			startActivity(intent);
+			finish();
+		}
 
 	}
 	
@@ -335,21 +339,8 @@ public class ProjectList extends Activity implements WebserviceCallback {
 			return true;
 
 		case R.id.actionBar_DeleteProjectIcon:
-			if(selectedProject != null){
-				Log.i("Debug", "entro");
-				AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-				builder.setTitle("Delete project");
-				builder.setMessage("Are you sure to delete project: " + selectedProject.getName());
-				builder.setPositiveButton(R.string.dialogOk, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						deleteProject();
-					}
-				});
-				builder.create();
-				Log.i("Debug", "entro2");
-			}
-//				DeleteProjectDialog.newInstance().show(getFragmentManager(), "dialog");
+			if(selectedProject != null)
+				DeleteProjectDialog.newInstance().show(getFragmentManager(), "dialog");
 			return true;
 			
 		case R.id.actionBar_AddProjectIcon:
@@ -380,10 +371,9 @@ public class ProjectList extends Activity implements WebserviceCallback {
 		case R.id.actionBar_Menu_User:
 			if(currentUser != null)
 				currentUser.logOut();
-			else {
-				Intent intentLogin = new Intent(ProjectList.this, Login.class);
-				startActivityForResult(intentLogin, LOGIN);
-			}
+			
+			//checkUser();
+			
 			return true;
 			
 		default:
@@ -423,10 +413,10 @@ public class ProjectList extends Activity implements WebserviceCallback {
 		}
 		
 		MenuItem logMenuItem = menu.findItem(R.id.actionBar_Menu_User);
-		if (currentUser == null) {
-        	logMenuItem.setTitle("Log In");
-        } else {
+		if (currentUser != null) {
         	logMenuItem.setTitle("Log Out from " + currentUser.getUsername());
+        } else {
+        	checkUser();
         }
 		
 		return true;

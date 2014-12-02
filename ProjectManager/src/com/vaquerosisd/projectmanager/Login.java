@@ -4,6 +4,7 @@ import com.vaquerosisd.object.JsonWrapper;
 import com.vaquerosisd.object.User;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,8 +37,7 @@ public class Login extends Activity implements WebserviceCallback{
 	
 	@Override
 	public void onBackPressed() {
-		setResult(RESULT_CANCELED);
-		finish();
+		moveTaskToBack(true);
 	}
 	
 	@Override
@@ -45,28 +45,38 @@ public class Login extends Activity implements WebserviceCallback{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
-		final Button btnSignIn = (Button)findViewById(R.id.btnSignIn);
+		final Button logIn = (Button)findViewById(R.id.btnLogIn);
+		final Button newAccount = (Button) findViewById(R.id.btnCreateAccount);
+		
 		editUsername = (EditText) findViewById(R.id.editUsername);
 		final EditText editPassword = (EditText) findViewById(R.id.editPassword);
 		
-		force_login=false;
+		force_login = false;
 		
-		//onClickListeners
-		btnSignIn.setOnClickListener(new OnClickListener() {
+		logIn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(v.getId() == R.id.btnSignIn) {
-					User user = new User(Login.this, editUsername.getText().toString());
-					//user.setNombre(editUsername.getText().toString());
-					
-					if (force_login)
-						user.forceLogIn(editPassword.getText().toString());
-					else
-						user.logIn(editPassword.getText().toString());
-					
-				}
+				User user = new User(Login.this, editUsername.getText().toString());
+				//user.setNombre(editUsername.getText().toString());
+				
+				if (force_login)
+					user.forceLogIn(editPassword.getText().toString());
+				else
+					user.logIn(editPassword.getText().toString());
 			}
 		});
+		
+		newAccount.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent returnIntent = new Intent();
+				returnIntent.putExtra("Create", true);
+				setResult(RESULT_CANCELED, returnIntent);
+				finish();
+			}
+		});
+		
+		
 		
 	}	// en onCreate
 	

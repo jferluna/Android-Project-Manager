@@ -25,43 +25,65 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="20dp"
 	        android:maxLines="1"
-	        android:text="@string/addAccountName" />
+	        android:text="@string/addAccountName"
+	        android:textAppearance="?android:attr/textAppearanceLarge"  />
 	
 	    <EditText
 	        android:id="@+id/newAccount_AccountName"
-	        android:layout_width="wrap_content"
+	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:ems="10"
-	        android:hint="@string/addTaskHint"
-	        android:text="@string/addAccountName" >
+	        android:inputType="text"
+	        android:ems="10" >
 	
 	        <requestFocus />
 	    </EditText>
+	    
+	    <TextView
+	        android:id="@+id/uselessId_password"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="20dp"
+	        android:maxLines="1"
+	        android:text="@string/addPassword"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
 	
+	    <EditText
+	        android:id="@+id/newAccount_Password"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:inputType="textPassword" >
+	    </EditText>
+	    
 	    <TextView
 	        android:id="@+id/uselessId_email"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="20dp"
 	        android:maxLines="1"
-	        android:text="@string/addEmail" />
+	        android:text="@string/addEmail"
+	        android:textAppearance="?android:attr/textAppearanceLarge"  />
 	
 	    <EditText
 	        android:id="@+id/newAccount_Email"
-	        android:layout_width="wrap_content"
+	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:ems="10"
-	        android:inputType="textEmailAddress"
-	        android:hint="@string/addTaskHint"
-	        android:text="@string/addEmail" >
+	        android:inputType="textEmailAddress" >
 	    </EditText>
-	    
+
 	    <Button
-	        android:id="@+id/newTask_AddTask"
-	        android:layout_width="wrap_content"
+	        android:id="@+id/newAccount_RegisterAccount"
+	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="30dp"
 	        android:text="@string/registerAccountButton" />
+
+	    <Button
+	        android:id="@+id/newAccount_GoToLogin"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/loginToExistent" />
 	
 	</LinearLayout>
     

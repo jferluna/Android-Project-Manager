@@ -45,16 +45,15 @@ public class Task {
 	private int dayDueDate;
 	private String photoPath;
 	private String description;
+	private String contentPath;
 	
 	public Task() {
 		
 	}
 
-	public Task(int taskId, int projectId, String taskName, String status,
-			String priority, int percentage, int yearStartDate,
-			int monthStartDate, int dayStartDate, int yearDueDate,
-			int monthDueDate, int dayDueDate, String photoPath,
-			String description) {
+	public Task(int taskId, int projectId, String taskName, String status, String priority, int percentage, int yearStartDate,
+			int monthStartDate, int dayStartDate, int yearDueDate, int monthDueDate, int dayDueDate, String photoPath, 
+			String description, String contentPath) {
 		super();
 		this.taskId = taskId;
 		this.projectId = projectId;
@@ -70,6 +69,15 @@ public class Task {
 		this.dayDueDate = dayDueDate;
 		this.photoPath = photoPath;
 		this.description = description;
+		this.contentPath = contentPath;
+	}
+
+	public String getContentPath() {
+		return contentPath;
+	}
+
+	public void setContentPath(String contentPath) {
+		this.contentPath = contentPath;
 	}
 
 	public int getTaskId() {

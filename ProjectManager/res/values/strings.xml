@@ -9,6 +9,8 @@
     <string name="title_activity_new_task">NewTask</string>
     <string name="title_activity_task">Task</string>
     
+    <string name="currentStatus">Status:</string>
+    
     <!-- Generic Strings -->
     <string name="dateHint">--/--/----</string>
 
@@ -96,4 +98,10 @@
     <string name="addEmail">Email Address</string>
     <string name="registerAccountButton">Register Account</string>
     
+    <!-- VoiceNote Fragment -->
+    <string name="voiceAppChooser">Open voice note with</string>
+    <string name="loginToAccount">Log In:</string>
+    <string name="log_in">Log In</string>
+    <string name="addPassword">Password</string>
+    <string name="loginToExistent">Log In to Existent Account</string>
 </resources>

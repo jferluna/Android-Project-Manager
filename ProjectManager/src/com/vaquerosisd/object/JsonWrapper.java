@@ -70,7 +70,7 @@ public class JsonWrapper {
 			json.put("daydue", p.getDayDueDate());
 			json.put("opentasks", p.getOpenTasks());
 			json.put("totaltasks", p.getTotalTasks());
-			json.put("coverpath", p.getCoverPath());
+			json.put("coverpath", p.getContentPath());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
