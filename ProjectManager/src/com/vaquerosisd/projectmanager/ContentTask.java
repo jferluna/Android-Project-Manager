@@ -1,9 +1,9 @@
 package com.vaquerosisd.projectmanager;
 
+import com.vaquerosisd.fragments.TaskDescriptionFragment;
+import com.vaquerosisd.fragments.VoiceNotesFragment;
 import com.vaquerosisd.utils.TabListener;
 
-import Fragments.TaskDescriptionFragment;
-import Fragments.VoiceNotesFragment;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;

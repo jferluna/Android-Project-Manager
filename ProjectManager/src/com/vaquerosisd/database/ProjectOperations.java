@@ -383,9 +383,9 @@ public class ProjectOperations {
 			index = cursor.getColumnIndex(TASKS_COLUMN_DUEDATE_YEAR);
 			task.setYearDueDate(cursor.getInt(index));
 			index = cursor.getColumnIndex(TASKS_COLUMN_DUEDATE_MONTH);
-			task.setYearDueDate(cursor.getInt(index));
+			task.setMonthDueDate(cursor.getInt(index));
 			index = cursor.getColumnIndex(TASKS_COLUMN_DUEDATE_DAY);
-			task.setYearDueDate(cursor.getInt(index));
+			task.setDayDueDate(cursor.getInt(index));
 			
 			index = cursor.getColumnIndex(TASKS_COLUMN_PHOTO_PATH);
 			task.setPhotoPath(cursor.getString(index));
@@ -439,9 +439,9 @@ public class ProjectOperations {
 			index = cursor.getColumnIndex(TASKS_COLUMN_DUEDATE_YEAR);
 			task.setYearDueDate(cursor.getInt(index));
 			index = cursor.getColumnIndex(TASKS_COLUMN_DUEDATE_MONTH);
-			task.setYearDueDate(cursor.getInt(index));
+			task.setMonthDueDate(cursor.getInt(index));
 			index = cursor.getColumnIndex(TASKS_COLUMN_DUEDATE_DAY);
-			task.setYearDueDate(cursor.getInt(index));
+			task.setDayDueDate(cursor.getInt(index));
 			
 			index = cursor.getColumnIndex(TASKS_COLUMN_PHOTO_PATH);
 			task.setPhotoPath(cursor.getString(index));
@@ -514,9 +514,9 @@ public class ProjectOperations {
 			index = cursor.getColumnIndex(TASKS_COLUMN_DUEDATE_YEAR);
 			task.setYearDueDate(cursor.getInt(index));
 			index = cursor.getColumnIndex(TASKS_COLUMN_DUEDATE_MONTH);
-			task.setYearDueDate(cursor.getInt(index));
+			task.setMonthDueDate(cursor.getInt(index));
 			index = cursor.getColumnIndex(TASKS_COLUMN_DUEDATE_DAY);
-			task.setYearDueDate(cursor.getInt(index));
+			task.setDayDueDate(cursor.getInt(index));
 			
 			index = cursor.getColumnIndex(TASKS_COLUMN_PHOTO_PATH);
 			task.setPhotoPath(cursor.getString(index));
@@ -535,6 +535,16 @@ public class ProjectOperations {
 		Cursor cursor = db.rawQuery(query, null);
 		cursor.moveToFirst();
 		return cursor.getString(0);
+	}
+	
+	public void updateTask(int id, String status, String priority, int percentage, String description) {
+		ContentValues arg = new ContentValues();
+		String whereClause = TASKS_COLUMN_TASK_ID + " = " + id;
+		arg.put(TASKS_COLUMN_STATUS, status);
+		arg.put(TASKS_COLUMN_PRIORITY, priority);
+		arg.put(TASKS_COLUMN_PERCENTAJE_DONE, percentage);
+		arg.put(TASKS_COLUMN_DESCRIPTION, description);
+		db.update(TABLE_TASKS, arg, whereClause, null);
 	}
 	
 	//--------------------------------------------------------------------------------

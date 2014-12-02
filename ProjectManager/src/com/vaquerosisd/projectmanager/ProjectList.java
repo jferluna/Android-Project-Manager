@@ -20,7 +20,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -120,11 +119,15 @@ public class ProjectList extends Activity implements WebserviceCallback {
 		
 	} //End of onCreate
 	
+	
 	//Defined functions	
 	@Override
 	protected void onResume() {
-		checkUser();
 		super.onResume();
+		checkUser();
+		projectAdapter.clear();
+		projectAdapter.addAll(getProjectsForListView());
+		projectAdapter.notifyDataSetChanged();
 	}
 	
 	//Gets all projects in a list object.

@@ -42,9 +42,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -155,6 +153,14 @@ public class TaskList extends Activity {
 		});
 		
 	} //End of onCreate method
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		taskAdapter.clear();
+		taskAdapter.addAll(getTasksForListView());
+		taskAdapter.notifyDataSetChanged();
+	}
 	
 	//Defined functions	
 	public void syncAll(){

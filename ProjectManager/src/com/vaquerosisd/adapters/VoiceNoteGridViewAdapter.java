@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import com.vaquerosisd.projectmanager.R;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class VoiceNoteGridViewAdapter extends BaseAdapter {
 	private Context context;
@@ -34,24 +36,35 @@ public class VoiceNoteGridViewAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-//		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		ImageView imageView;
-        if (convertView == null) {  // if it's not recycled, initialize some attributes
-            imageView = new ImageView(context);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
-        } else {
-            imageView = (ImageView) convertView;
-        }
-        imageView.setImageResource(R.drawable.project2);
-        return imageView;
+		View row = convertView;
+		RecordHolder holder = null;
+		if(row == null) {
+			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		 	row = inflater.inflate(layoutResourceId, parent, false);
+		 	
+		 	holder = new RecordHolder();
+		 	holder.txtTitle = (TextView) row.findViewById(R.id.gridView_Text);
+		   	holder.imageItem = (ImageView) row.findViewById(R.id.gridView_Image);
+		   	row.setTag(holder);
+		} else {
+			holder = (RecordHolder) row.getTag();
+		}
+		Log.i("Debug1", String.valueOf(position));
+		Log.i("Debug2", files.get(position));
+	  	holder.txtTitle.setText(files.get(position));
+	  	return row;
 	}
+	
+	static class RecordHolder {
+		TextView txtTitle;
+		ImageView imageItem;
+	 }
 
 }
+
+

@@ -4,17 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/voice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Voice" />
-
     <GridView
         android:id="@+id/fragmentVoiceNote_GridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="5" >
+        android:verticalSpacing="15dp"
+    android:horizontalSpacing="15dp"
+        android:numColumns="3" >
     </GridView>
 
 </LinearLayout>

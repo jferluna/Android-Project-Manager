@@ -4,7 +4,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -41,12 +40,8 @@ public class User {
 	private static User user = null;
 
 	private static final String SESSION_PREFS = "session";
-	private JSONObject jsonResult;
 
-	private Activity activity;
 	private String auth_token;
-
-	private static final int NO_USER = -1;
 
 	// Constructores
 
@@ -60,7 +55,7 @@ public class User {
 		context = activity;
 
 		prefs = activity.getSharedPreferences(SESSION_PREFS,
-				activity.MODE_PRIVATE);
+				Context.MODE_PRIVATE);
 	}
 
 	public User(String nombre, Context context) {
@@ -69,24 +64,22 @@ public class User {
 	}
 
 	public User(Activity activity, String nombre, String token) {
-		this.activity = activity;
 		this.auth_token = token;
 		this.nombre = nombre;
 		callerActivity = (WebserviceCallback) activity;
 		context = activity;
 
 		prefs = activity.getSharedPreferences(SESSION_PREFS,
-				activity.MODE_PRIVATE);
+				Context.MODE_PRIVATE);
 	}
 
 	public User(Activity activity, String nombre) {
-		this.activity = activity;
 		this.nombre = nombre;
 		callerActivity = (WebserviceCallback) activity;
 		context = activity;
 
 		prefs = activity.getSharedPreferences(SESSION_PREFS,
-				activity.MODE_PRIVATE);
+				Context.MODE_PRIVATE);
 	}
 
 	public User(int id, String nombre, Context context) {
@@ -153,7 +146,7 @@ public class User {
 		User user = null;
 
 		prefs = activity.getSharedPreferences(SESSION_PREFS,
-				activity.MODE_PRIVATE);
+				Context.MODE_PRIVATE);
 
 		String nom = prefs.getString("nombre", "");
 		String token = prefs.getString("auth_token", "");
@@ -430,7 +423,6 @@ public class User {
 				if (json == null)
 					System.out.println("User: NULL JSON response");
 
-				String status = json.getString("status");
 				int code = Integer.parseInt(json.getString("code"));
 				String string_code = json.getString("code");
 
