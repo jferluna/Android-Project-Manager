@@ -48,8 +48,8 @@
         <activity
             android:name=".ContentTask"
             android:label="@string/title_activity_task"
-			android:windowSoftInputMode="stateHidden" 
-            android:exported="true" >
+			android:windowSoftInputMode="stateHidden"
+			android:parentActivityName="com.vaquerosisd.projectmanager.TaskList" >
         </activity>
         <activity
             android:name=".TaskList"
@@ -74,7 +74,8 @@
         <activity
             android:name=".PhotoManager"
             android:label="@string/title_activity_pictures_manager"
-            android:windowSoftInputMode="stateHidden" >
+            android:windowSoftInputMode="stateHidden" 
+            android:parentActivityName="com.vaquerosisd.projectmanager.TaskList" >
         </activity>
     </application>
 

@@ -32,6 +32,7 @@ package com.vaquerosisd.dialog;
 
 import com.vaquerosisd.projectmanager.ProjectList;
 import com.vaquerosisd.projectmanager.R;
+import com.vaquerosisd.projectmanager.TaskList;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -43,10 +44,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class DeleteProjectDialog extends DialogFragment {
+public class DeleteDialog extends DialogFragment {
 	
-	public static DeleteProjectDialog newInstance() {
-        return new DeleteProjectDialog();
+	public static DeleteDialog newInstance() {
+        return new DeleteDialog();
     }
 
     @Override
@@ -61,12 +62,12 @@ public class DeleteProjectDialog extends DialogFragment {
         positive.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
 				Activity callerActivity = getActivity();
 				
-				if(callerActivity instanceof ProjectList)
-				{
+				if(callerActivity instanceof ProjectList) {
 					((ProjectList)callerActivity).deleteProject();
+				} else if(callerActivity instanceof TaskList) {
+					((TaskList) callerActivity).deleteTask();
 				}
 				
 				dismiss();
@@ -77,11 +78,8 @@ public class DeleteProjectDialog extends DialogFragment {
 			@Override
 			public void onClick(View v) {
 				dismiss();
-				
 			}
 		});
-        
         return rootView;
     }
-
 }

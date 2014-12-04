@@ -42,7 +42,7 @@ public class TaskDescriptionFragment extends Fragment implements CustomStatus.Cu
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		
-		final int taskId = bundle.getInt("taskId");
+		final int taskId = bundle.getInt("TaskId");
 		final ProjectOperations db = new ProjectOperations(getActivity());
 		fO = new FileOperations(getActivity());
 		db.open();

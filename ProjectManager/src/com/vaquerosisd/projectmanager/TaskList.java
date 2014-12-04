@@ -34,24 +34,30 @@ import java.util.List;
 
 import com.vaquerosisd.adapters.TaskListViewAdapter;
 import com.vaquerosisd.database.ProjectOperations;
-import com.vaquerosisd.dialog.DeleteProjectDialog;
+import com.vaquerosisd.dialog.DeleteDialog;
+import com.vaquerosisd.object.JsonWrapper;
 import com.vaquerosisd.object.Task;
+import com.vaquerosisd.object.User;
+import com.vaquerosisd.utils.FileOperations;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -61,7 +67,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class TaskList extends Activity {
+public class TaskList extends Activity implements WebserviceCallback {
 	
 	ProjectOperations db;				//Database Operations
 	Task selectedTask;					//Last selected Task on ListView
@@ -73,10 +79,18 @@ public class TaskList extends Activity {
 	
 	boolean taskSelected = false;
 	boolean searching = false;
+	
+	//User Logging
+	private User currentUser;
 		  
 	static private final int ADD_TASK_REQUEST = 6;
 	static private final int VIEW_PICTURES = 7;
 	
+	//**************************************************************************************
+	//
+	//Activity LifeCycle methods
+	//
+	//**************************************************************************************
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -97,75 +111,57 @@ public class TaskList extends Activity {
 		taskAdapter = new TaskListViewAdapter(getApplicationContext(), R.layout.listrow_task, getTasksForListView());
 		taskListView.setAdapter(taskAdapter);
 		
-		//onClickListeners
-//		cancelSearch.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				if(searching) {
-//					taskAdapter.clear();
-//					taskAdapter.addAll(getTasksForListView());
-//					taskAdapter.notifyDataSetChanged();
-//					cancelSearch.setVisibility(View.GONE);
-//					searching = false;
-//				}
-//			}
-//		});
-		
-//		searchTask.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View arg0) {
-//				String task = searchTaskEditText.getText().toString();
-//				searchTask(task);
-//				cancelSearch.setVisibility(View.VISIBLE);
-//				searching = true;
-//			}
-//		});
-		
-		//SetOnItemListener of task
-//		gotoTask.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				if(selectedTask != null) {
-//					Intent intent = new Intent(TaskList.this, ContentTask.class);
-//					startActivity(intent);
-//				}
-//			}
-//		});
-		
+		//Go to content task
 		taskListView.setOnItemClickListener(new OnItemClickListener() {
-			
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				selectedTask = (Task) taskAdapter.getItem(position);
-				if(selectedRow != null)
+				//Remove selected color on selected item in ListView
+				if(selectedRow != null) {
 					selectedRow.setBackgroundColor(Color.TRANSPARENT);
-				selectedRow = taskAdapter.getView(position, view, null);
-				selectedRow.setBackgroundColor(Color.LTGRAY);
-				
-				//Open activity of content task
+					selectedRow = null;
+				}
+				//Get selected task information and send a ContentTask intent
+				Task task = (Task) taskAdapter.getItem(position);
 				Intent ContentTaskItent = new Intent(TaskList.this, ContentTask.class);
-				ContentTaskItent.putExtra("taskId",	selectedTask.getTaskId());
+				ContentTaskItent.putExtra("TaskId",	task.getTaskId());
+				ContentTaskItent.putExtra("ProjectId", projectId);
+				ContentTaskItent.putExtra("ProjectName", projectName);
 				startActivity(ContentTaskItent);
 			}
 		});
 		
+		//Select task and obtain reference to selected item on ListView
+		taskListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+				//Change color background on selectedItem
+				if(selectedRow != null)
+					selectedRow.setBackgroundColor(Color.TRANSPARENT);
+				selectedRow = taskAdapter.getView(position, view, null);
+				selectedRow.setBackgroundColor(Color.parseColor("#42A5F5"));
+				
+				//Get information of selected task
+				selectedTask = (Task) taskAdapter.getItem(position);
+				taskSelected = true;
+        		invalidateOptionsMenu();
+				return true;
+			}
+		});		
 	} //End of onCreate method
 	
 	@Override
 	public void onResume() {
 		super.onResume();
+		checkUser();
 		taskAdapter.clear();
 		taskAdapter.addAll(getTasksForListView());
 		taskAdapter.notifyDataSetChanged();
-	}
+	} // End of onResume method
 	
-	//Defined functions	
-	public void syncAll(){
-		Toast.makeText(TaskList.this, "Sincronizar todo", Toast.LENGTH_SHORT).show();
-	}
+	//*********************************************************************************************************************
+	//Activity methods
+	//*********************************************************************************************************************
 		
 	public List<Task> getTasksForListView() {
 		List<Task> list = db.getAllTasks(projectId);
@@ -174,26 +170,28 @@ public class TaskList extends Activity {
 	
 	//Searches the task name in the task list
 	public void searchTask(String taskName) {
-		List<Task> searchTaskList = db.searchTasks(projectId, searchTaskEditText.getText().toString());
+		Log.i("Debug", taskName);
+		List<Task> searchTaskList = db.searchTasks(projectId, taskName);
 		taskAdapter.clear();
 		taskAdapter.addAll(searchTaskList);
 		taskAdapter.notifyDataSetChanged();
 	}
 	
-	//Delete the task and refresh the listView
+	//Delete the task and refresh the listView. Called by the DeleteDialog
 	public void deleteTask() {
 		String taskName = selectedTask.getTaskName();
 		int taskId = selectedTask.getTaskId();
 		
+		FileOperations.deleteFolder(selectedTask.getContentPath());
 		db.deleteTask(taskId, taskName);
 		taskAdapter.clear();
 		taskAdapter.addAll(getTasksForListView());
 		taskAdapter.notifyDataSetChanged();
 		taskSelected = false;
 		selectedTask = null;
-//		selectedRow.findViewById(R.id.listTask_information).setBackgroundColor(Color.TRANSPARENT);
-//		selectedRow = null;
-//		invalidateOptionsMenu();
+		selectedRow.setBackgroundColor(Color.TRANSPARENT);
+		selectedRow = null;
+		invalidateOptionsMenu();
 	}
 	
 	@Override
@@ -208,63 +206,104 @@ public class TaskList extends Activity {
 		}    
     }
 	
+	@Override
+	public void onBackPressed(){
+		if(searching) {
+			//Clears the searched projects
+			taskAdapter.clear();
+			taskAdapter.addAll(getTasksForListView());
+			taskAdapter.notifyDataSetChanged();
+			searching = false;
+			invalidateOptionsMenu();
+			return;
+		} else if (taskSelected) {
+			//Clears pointer to selected row and removes all enhanced view properties
+			selectedRow.setBackgroundColor(Color.TRANSPARENT);
+			selectedRow = null;
+			taskSelected = false;
+			invalidateOptionsMenu();
+			return;
+		} else {
+			//Default onBackPressed action
+			super.onBackPressed();
+		}
+	}	
+	
+	//*********************************************************************************************************************
+	//Sync WebService methods
+	//*********************************************************************************************************************
+	public void checkUser() {
+		currentUser = User.getUser(TaskList.this);
+		if (currentUser == null) {
+			Intent intent = new Intent(TaskList.this, MainActivity.class);
+			startActivity(intent);
+			finish();
+		}
+	}
+	public void callback(JsonWrapper response){
+		System.out.println("Webserive code response: " + response.getCode());
+		if (response.getCode() == 6) {
+			Toast.makeText(getApplicationContext(), "Content Synced", Toast.LENGTH_SHORT).show();
+		}
+		checkUser();
+	}
+
+	//Defined functions	
+	public void syncAll(){
+		Toast.makeText(TaskList.this, "Sincronizar todo", Toast.LENGTH_SHORT).show();
+	}
+	
 	//**************************************************************************************
-	//Menu methods
+	//ActionBar methods
 	//**************************************************************************************
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu
 		getMenuInflater().inflate(R.menu.task_menu, menu);
 		
-		//Get view references to the search elements, searchEditText and clearSearch from the menu view
-		MenuItem searchItem =
-				menu.findItem(R.id.actionBar_searchTaskItem);
-		Button clearSearchTask = 
-				(Button) searchItem.getActionView().findViewById(R.id.actionBar_ClearSearch);
-		final AutoCompleteTextView searchTask = 
-				(AutoCompleteTextView) searchItem.getActionView().findViewById(R.id.actionBar_SearchItemEditText);
+		MenuItem searchItem = menu.findItem(R.id.actionBar_SearchTaskItem);
+		Button clearSearchTask =  (Button) searchItem.getActionView().findViewById(R.id.actionBar_ClearSearch);
+		final AutoCompleteTextView searchTask = (AutoCompleteTextView) searchItem.getActionView().findViewById(R.id.actionBar_SearchItemEditText);
 		
 		//Get all tasks names and add them to an adapter for the AutoCompleteTextView
-		//in order to show the suggested tasks on a drop-down list
 		List<Task> allTasks = db.getAllTasks(projectId);
 		String[] tasksNames = new String[allTasks.size()];
-		
 		for(int i = 0; i < allTasks.size(); i++)
 			tasksNames[i] = allTasks.get(i).getTaskName();
 
-		ArrayAdapter<String> tasksAdapter = 
-				new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tasksNames);
+		ArrayAdapter<String> tasksAdapter =  new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tasksNames);
 		searchTask.setAdapter(tasksAdapter);
-		//Set letter threshold in order to start showing the suggested tasks in the drop-down list
 		searchTask.setThreshold(1);
-		
-		//Shows keyboard input on screen when click on search EditText
-		if(searching) {
-			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-			imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,0);
-		}
 		
 		//Clear text of search AutoCompleteTextView
 		clearSearchTask.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				searchTask.setText("");
-				
 			}
-			
 		});
 		
+		searchTask.setOnFocusChangeListener(new OnFocusChangeListener() {
+			
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if(hasFocus) {
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,0);
+				} else {
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY,0);
+				}
+			} 
+		}); 
+
 		//Search task
 		searchTask.setOnEditorActionListener(new OnEditorActionListener() {
-			
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 				//When the user press "DONE" key, select the task
 				if(actionId == EditorInfo.IME_ACTION_DONE){
 					String project = searchTask.getText().toString();
 					searchTask(project);
-					
 					//Hide keyboard
 					InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 					imm.hideSoftInputFromWindow(searchTask.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
@@ -272,75 +311,99 @@ public class TaskList extends Activity {
 				}
 				return false;
 			}
-		});
-				
+		});	
 		return true;
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.		
 		switch (item.getItemId())
 		{
-//		case android.R.id.home:
-//			taskAdapter.clear();
-//			taskAdapter.addAll(getProjectsForListView());
-//			taskAdapter.notifyDataSetChanged();
-//			ActionBar actionBarHome = getActionBar();
-//		    actionBarHome.setDisplayHomeAsUpEnabled(false);
-//			searching = false;
-//			invalidateOptionsMenu();
-//			return true;
+		case android.R.id.home:
+			if(searching) {
+				taskAdapter.clear();
+				taskAdapter.addAll(getTasksForListView());
+				taskAdapter.notifyDataSetChanged();
+				searching = false;
+				invalidateOptionsMenu();
+				return true;
+			}
+			 NavUtils.navigateUpFromSameTask(this);
+			 return true;
 			
-		case R.id.actionBar_searchTaskIcon:
-			ActionBar actionBar = getActionBar();
-		    actionBar.setDisplayHomeAsUpEnabled(true);
+		case R.id.actionBar_SearchTaskIcon:
+			getActionBar().setDisplayHomeAsUpEnabled(true);
 			searching = true;
 			invalidateOptionsMenu();
 			return true;
 
-		case R.id.actionBar_deleteTaskIcon:
+		case R.id.actionBar_DeleteTaskIcon:
 			if(selectedTask != null)
-				DeleteProjectDialog.newInstance().show(getFragmentManager(), "dialog");
+				DeleteDialog.newInstance().show(getFragmentManager(), "dialog");
 			return true;
 			
-		case R.id.actionBar_addTaskIcon:
+		case R.id.actionBar_AddTaskIcon:
 			Intent addTaskIntent = new Intent(TaskList.this, NewTask.class);
 			addTaskIntent.putExtra("ProjectID", projectId);
 			addTaskIntent.putExtra("ProjectName", projectName);
 			startActivityForResult(addTaskIntent, ADD_TASK_REQUEST);
 			return true;
 			
-		case R.id.actionBar_projectPhotos:
+		case R.id.actionBar_ProjectPhotos:
 			Intent intent = new Intent(TaskList.this, PhotoManager.class);
 			intent.putExtra("ProjectID", projectId);
 			intent.putExtra("ProjectName", projectName);
 			startActivityForResult(intent, VIEW_PICTURES);
 			return true;
 			
-		case R.id.actionBar_menu_about:
-			//start about activity
+		case R.id.actionBar_Menu_about:
 			Intent intentAbout = new Intent(TaskList.this, About.class);
 			startActivity(intentAbout);
 			return true;
 			
-//		case R.id.actionBar_menu_syncall:
-//			syncAll();
-//			return true;
+		case R.id.actionBar_Menu_syncall:
+			syncAll();
+			return true;
 			
-//		case R.id.actionBar_menu_user:
-//			if(currentUser != null)
-//				currentUser.logOut();
-//			else {
-//				Intent intentLogin = new Intent(ProjectList.this, Login.class);
-//				startActivityForResult(intentLogin, LOGIN);
-//			}
-//			return true;
+		case R.id.actionBar_Menu_user:
+			if(currentUser != null)
+				currentUser.logOut();
+			return true;
 			
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	@Override
+	public boolean onPrepareOptionsMenu (Menu menu){
+		if(taskSelected)
+			menu.findItem(R.id.actionBar_DeleteTaskIcon).setVisible(true);
+		else
+			menu.findItem(R.id.actionBar_DeleteTaskIcon).setVisible(false);
+		
+		if (searching) {
+			getActionBar().setDisplayShowTitleEnabled(false);
+			menu.findItem(R.id.actionBar_SearchTaskIcon).setVisible(false);
+			menu.findItem(R.id.actionBar_SearchTaskItem).setVisible(true);
+			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,0);
+		} else {
+			getActionBar().setDisplayShowTitleEnabled(true);
+			MenuItem searchItem = menu.findItem(R.id.actionBar_SearchTaskItem);
+			final EditText searchProject = (EditText) searchItem.getActionView().findViewById(R.id.actionBar_SearchItemEditText);
+			searchProject.setText("");
+			menu.findItem(R.id.actionBar_SearchTaskIcon).setVisible(true);
+			menu.findItem(R.id.actionBar_SearchTaskItem).setVisible(false);
+		}
+		
+		MenuItem logMenuItem = menu.findItem(R.id.actionBar_Menu_user);
+		if (currentUser != null) {
+        	logMenuItem.setTitle("Log Out from " + currentUser.getUsername());
+        } else {
+        	checkUser();
+        }
+		
+		return true;
 	}
 }

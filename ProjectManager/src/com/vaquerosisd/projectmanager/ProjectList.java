@@ -5,31 +5,29 @@ import java.util.List;
 
 import com.vaquerosisd.adapters.ProjectListViewAdapter;
 import com.vaquerosisd.database.ProjectOperations;
-import com.vaquerosisd.dialog.DeleteProjectDialog;
+import com.vaquerosisd.dialog.DeleteDialog;
 import com.vaquerosisd.dialog.EditProject;
 import com.vaquerosisd.object.JsonWrapper;
 import com.vaquerosisd.object.PhotoRef;
 import com.vaquerosisd.object.Project;
 import com.vaquerosisd.object.User;
+import com.vaquerosisd.utils.FileOperations;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -65,7 +63,6 @@ public class ProjectList extends Activity implements WebserviceCallback {
 	//Defined functions	
 	public void syncAll(){
 		Toast.makeText(ProjectList.this, "Syncing Everything", Toast.LENGTH_SHORT).show();
-		
 		currentUser.sync();
 	}
 	
@@ -110,7 +107,7 @@ public class ProjectList extends Activity implements WebserviceCallback {
 				//Gets pointer to project object and row view. Launch request to refresh actionBar UI according to selected context.
 				selectedProject = (Project) projectAdapter.getItem(position);
 				if(selectedRow != null)
-					selectedRow.findViewById(R.id.listProject_information).setBackgroundColor(Color.WHITE);
+					selectedRow.findViewById(R.id.listProject_information).setBackgroundColor(Color.TRANSPARENT);
 				selectedRow = projectAdapter.getView(position, view, null);
         		selectedRow.findViewById(R.id.listProject_information).setBackgroundColor(Color.parseColor("#42A5F5"));
 				projectSelected = true;
@@ -143,7 +140,6 @@ public class ProjectList extends Activity implements WebserviceCallback {
 	//Searches the project name in the project 
 	public void searchProject(String projectName) {
 		List<Project> searchProjectsList = db.searchProjects(projectName);
-		Log.i("Debug", "Entro");
 		projectAdapter.clear();
 		projectAdapter.addAll(searchProjectsList);
 		projectAdapter.notifyDataSetChanged();
@@ -154,7 +150,7 @@ public class ProjectList extends Activity implements WebserviceCallback {
 		
 		String projectName = selectedProject.getName();
 		int projectID = selectedProject.getId();
-
+		FileOperations.deleteFolder(selectedProject.getContentPath());
 		deleteProjectPhotos();		
 		db.deleteProjectPhotos(projectID);
 		db.deleteProject(projectName, projectID);
@@ -217,17 +213,14 @@ public class ProjectList extends Activity implements WebserviceCallback {
 	}
 	
 	public void checkUser() {
-		
 		currentUser = User.getUser(ProjectList.this);
 
-		if (currentUser == null) // no hay sesion logeada
-		{
-			//Toast.makeText(getApplicationContext(), "Currently Logged Off", Toast.LENGTH_SHORT).show();
+		//There is no session logged
+		if (currentUser == null) {
 			Intent intent = new Intent(ProjectList.this, MainActivity.class);
 			startActivity(intent);
 			finish();
 		}
-
 	}
 	
 	//Action Bar Menu
@@ -238,10 +231,8 @@ public class ProjectList extends Activity implements WebserviceCallback {
 			projectAdapter.clear();
 			projectAdapter.addAll(getProjectsForListView());
 			projectAdapter.notifyDataSetChanged();
-			//Clears up navigation
 			getActionBar().setDisplayHomeAsUpEnabled(false);
 			searching = false;
-			//Request to refresh ActionBar UI
 			invalidateOptionsMenu();
 			return;
 		} else if (projectSelected) {
@@ -249,7 +240,6 @@ public class ProjectList extends Activity implements WebserviceCallback {
 			selectedRow.findViewById(R.id.listProject_information).setBackgroundColor(Color.WHITE);
 			selectedRow = null;
 			projectSelected = false;
-			//Request to refresh ActionBar UI
 			invalidateOptionsMenu();
 			return;
 		} else {
@@ -290,12 +280,24 @@ public class ProjectList extends Activity implements WebserviceCallback {
 		
 		//Clear text of search AutoCompleteTextView
 		clearSearchProject.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				searchProject.setText("");
 			}
+		});
+		
+		searchProject.setOnFocusChangeListener(new OnFocusChangeListener() {
 			
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if(hasFocus) {
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,0);
+				} else {
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY,0);
+				}
+			} 
 		});
 		
 		//Search project
@@ -330,8 +332,7 @@ public class ProjectList extends Activity implements WebserviceCallback {
 			projectAdapter.clear();
 			projectAdapter.addAll(getProjectsForListView());
 			projectAdapter.notifyDataSetChanged();
-			ActionBar actionBarHome = getActionBar();
-		    actionBarHome.setDisplayHomeAsUpEnabled(false);
+			getActionBar().setDisplayHomeAsUpEnabled(false);
 			searching = false;
 			invalidateOptionsMenu();
 			return true;
@@ -345,7 +346,7 @@ public class ProjectList extends Activity implements WebserviceCallback {
 
 		case R.id.actionBar_DeleteProjectIcon:
 			if(selectedProject != null)
-				DeleteProjectDialog.newInstance().show(getFragmentManager(), "dialog");
+				DeleteDialog.newInstance().show(getFragmentManager(), "dialog");
 			return true;
 			
 		case R.id.actionBar_AddProjectIcon:
@@ -375,10 +376,7 @@ public class ProjectList extends Activity implements WebserviceCallback {
 			
 		case R.id.actionBar_Menu_User:
 			if(currentUser != null)
-				currentUser.logOut();
-			
-			//checkUser();
-			
+				currentUser.logOut();			
 			return true;
 			
 		default:
@@ -402,19 +400,15 @@ public class ProjectList extends Activity implements WebserviceCallback {
 		
 		if (searching) {
 			getActionBar().setDisplayShowTitleEnabled(false);
-			MenuItem searchProjectIcon = menu.findItem(R.id.actionBar_SearchProjectIcon);
-			searchProjectIcon.setVisible(false);
-			MenuItem searchProjectEditText = menu.findItem(R.id.actionBar_SearchProjectItem);
-			searchProjectEditText.setVisible(true);
+			menu.findItem(R.id.actionBar_SearchProjectIcon).setVisible(false);
+			menu.findItem(R.id.actionBar_SearchProjectItem).setVisible(true);
 		} else {
 			getActionBar().setDisplayShowTitleEnabled(true);
 			MenuItem searchItem = menu.findItem(R.id.actionBar_SearchProjectItem);
 			final EditText searchProject = (EditText) searchItem.getActionView().findViewById(R.id.actionBar_SearchItemEditText);
 			searchProject.setText("");
-			MenuItem searchProjectIcon = menu.findItem(R.id.actionBar_SearchProjectIcon);
-			searchProjectIcon.setVisible(true);
-			MenuItem searchProjectEditText = menu.findItem(R.id.actionBar_SearchProjectItem);
-			searchProjectEditText.setVisible(false);
+			menu.findItem(R.id.actionBar_SearchProjectIcon).setVisible(true);
+			menu.findItem(R.id.actionBar_SearchProjectItem).setVisible(false);
 		}
 		
 		MenuItem logMenuItem = menu.findItem(R.id.actionBar_Menu_User);
