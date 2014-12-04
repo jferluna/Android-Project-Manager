@@ -24,6 +24,8 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="10dp"
 	        android:ems="10"
+	        android:inputType="text"
+	        android:imeOptions="actionDone"
 	        android:hint="@string/addTaskHint" >
 	        <requestFocus />
 	    </EditText>
@@ -131,7 +133,8 @@
 	        android:layout_marginTop="10dp"
 	        android:ems="10"
 	        android:hint="@string/descriptionHint"
-	        android:inputType="textMultiLine"
+	        android:inputType="text"
+	        android:imeOptions="actionDone"
 	        android:text="" >
 	    </EditText>
 	

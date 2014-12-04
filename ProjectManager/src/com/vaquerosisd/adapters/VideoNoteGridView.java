@@ -12,12 +12,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class VoiceNoteGridViewAdapter extends BaseAdapter {
+public class VideoNoteGridView extends BaseAdapter {
 	private Context context;
 	int layoutResourceId;
 	private ArrayList<String> files;
 	
-	public VoiceNoteGridViewAdapter(Context context,int layoutResourceId, ArrayList<String> files){
+	public VideoNoteGridView(Context context,int layoutResourceId, ArrayList<String> files){
 		this.context = context;
 		this.layoutResourceId = layoutResourceId;
 		this.files = files;
@@ -61,7 +61,4 @@ public class VoiceNoteGridViewAdapter extends BaseAdapter {
 		TextView txtTitle;
 		ImageView imageItem;
 	 }
-
 }
-
-

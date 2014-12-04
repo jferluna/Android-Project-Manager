@@ -23,6 +23,8 @@
 	        android:layout_height="wrap_content"
 	        android:ems="10"
 	        android:hint="@string/addProjectHint"
+	        android:inputType="text"
+	        android:imeOptions="actionDone"
 	        android:paddingTop="20dp" >
 	
 	        <requestFocus />

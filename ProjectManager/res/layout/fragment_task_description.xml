@@ -73,7 +73,8 @@
          android:layout_alignLeft="@id/useless_Description"
         android:layout_below="@id/useless_Description"
          android:layout_marginTop="10dp"
-         android:inputType="textMultiLine" >
+         android:inputType="text"
+         android:imeOptions="actionDone" >
 
          <requestFocus />
      </EditText>
