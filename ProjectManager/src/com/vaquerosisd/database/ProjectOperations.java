@@ -349,8 +349,8 @@ public class ProjectOperations {
 		List<Task> taskList = new ArrayList<Task>();
 		Task task;
 		
-		String query = "Select * FROM " + TABLE_TASKS + " WHERE " + TASKS_COLUMN_TASK_NAME + " LIKE \"%" + 
-				taskName + "%\" AND " + TASKS_COLUMN_PROJECT_ID + " = \"" + projectId + "\";";
+		String query = "Select * FROM " + TABLE_TASKS + " WHERE " + TASKS_COLUMN_TASK_NAME + " = \"" + 
+				taskName + "\" AND " + TASKS_COLUMN_PROJECT_ID + " = \"" + projectId + "\";";
 		Log.i("DB searchTasks query", query);
 		Cursor cursor =  db.rawQuery(query, null);
 		cursor.moveToPosition(-1);
@@ -531,7 +531,8 @@ public class ProjectOperations {
 	}
 	
 	public String getTaskContentPath (int id) {
-		String query = "SELECT " + TASKS_COLUMN_CONTENT_PATH + " FROM " + TABLE_TASKS + " WHERE " + TASKS_COLUMN_PROJECT_ID + " = " + id + ";";
+		String query = "SELECT " + TASKS_COLUMN_CONTENT_PATH + " FROM " + TABLE_TASKS + " WHERE " + TASKS_COLUMN_TASK_ID + " = " + id + ";";
+		Log.i("DB getTaskContentPath ", query);
 		Cursor cursor = db.rawQuery(query, null);
 		cursor.moveToFirst();
 		return cursor.getString(0);

@@ -143,7 +143,16 @@ public class NewTask extends Activity {
 				Log.i("DEBUG", contentPath);
 				File taskContentPath = new File(contentPath);
 				taskContentPath.mkdir();
-				if(startDate.compareTo(dueDate) > 0) {
+				
+				boolean dueDateBeforeStartDate = true;
+				if(startDateStrings[0] <= dueDateStrings[0]){
+					if(startDateStrings[1] <= dueDateStrings[1]){
+						if(startDateStrings[2] <= dueDateStrings[2])
+							dueDateBeforeStartDate = false;
+					}
+				}
+				
+				if(dueDateBeforeStartDate) {
 					Toast.makeText(getApplicationContext(), R.string.dueDateError, Toast.LENGTH_SHORT).show();
 					return;
 				} else if(!taskName.equals("") && !startDate.equals("") && !dueDate.equals("")){

@@ -4,51 +4,51 @@
     tools:context="com.projectmanager.Projects" >
     
     <item 
-        android:id="@+id/actionBar_searchTaskItem"
+        android:id="@+id/actionBar_SearchTaskItem"
         android:title="@string/searchTaskItem"
         android:showAsAction="always"
         android:visible="false"
        	android:actionLayout="@layout/menu_search"/>
     
 	<item 
-	    android:id="@+id/actionBar_searchTaskIcon"
+	    android:id="@+id/actionBar_SearchTaskIcon"
 	    android:icon="@drawable/ic_action_search"
 	    android:title="@string/searchTaskMenu"
 	    android:showAsAction="always" />
 	
 	<item 
-	    android:id="@+id/actionBar_deleteTaskIcon"
+	    android:id="@+id/actionBar_DeleteTaskIcon"
 	    android:icon="@drawable/ic_action_discard"
 	    android:title="@string/deleteTaskMenu"
 	    android:visible="false"
 	    android:showAsAction="always"/>
 	
 	<item 
-	    android:id="@+id/actionBar_addTaskIcon"
+	    android:id="@+id/actionBar_AddTaskIcon"
 	    android:icon="@drawable/ic_action_new"
 	    android:title="@string/addTaskMenu"
 	    android:showAsAction="always"/>
 	
 	<item 
-	    android:id="@+id/actionBar_projectPhotos"
+	    android:id="@+id/actionBar_ProjectPhotos"
 	    android:icon="@drawable/ic_action_camera"
 	    android:title="@string/projectPhotos"
 	    android:showAsAction="always"/>
 	
 	<item
-        android:id="@+id/actionBar_menu_syncall"
+        android:id="@+id/actionBar_Menu_syncall"
         android:icon="@drawable/ic_launcher"
         android:title="@string/syncall"
         android:showAsAction="collapseActionView" />
         
     <item
-        android:id="@+id/actionBar_menu_user"
+        android:id="@+id/actionBar_Menu_user"
         android:icon="@drawable/ic_launcher"
         android:title="@string/user"
         android:showAsAction="collapseActionView" />
                 
     <item
-        android:id="@+id/actionBar_menu_about"
+        android:id="@+id/actionBar_Menu_about"
         android:icon="@drawable/ic_launcher"
         android:title="@string/about"
         android:showAsAction="collapseActionView" />

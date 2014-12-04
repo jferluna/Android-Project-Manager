@@ -16,8 +16,8 @@ import com.vaquerosisd.projectmanager.TaskList;
 
 public class DeleteTaskDialog extends DialogFragment {
 	
-	public static DeleteProjectDialog newInstance() {
-        return new DeleteProjectDialog();
+	public static DeleteDialog newInstance() {
+        return new DeleteDialog();
     }
 
     @Override

@@ -69,7 +69,8 @@ public class VoiceNotesFragment extends Fragment {
 				File voiceNoteFile = new File(fileDir + "/" + fileName);;
 				playVoiceNoteIntent.setDataAndType(Uri.fromFile(voiceNoteFile), "audio/3gpp");
 				Intent voiceNoteAppChooserIntent = Intent.createChooser(playVoiceNoteIntent, getResources().getString(R.string.voiceAppChooser));
-				startActivityForResult(voiceNoteAppChooserIntent, PLAY_VOICE_NOTE);
+				if (voiceNoteAppChooserIntent.resolveActivity(getActivity().getPackageManager()) != null)
+					startActivityForResult(voiceNoteAppChooserIntent, PLAY_VOICE_NOTE);
 			}
 		});
 		
@@ -98,10 +99,11 @@ public class VoiceNotesFragment extends Fragment {
 		switch (item.getItemId())
 		{
 		case R.id.actionBar_CaptureVoiceNote:
-			Intent intent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION); 
-			startActivityForResult(intent, RECORD_SOUND_REQUEST);	
+			Intent recordVoiceNoteIntent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION); 
+			Intent recordVoiceNoteIntentChooser = Intent.createChooser(recordVoiceNoteIntent, getResources().getString(R.string.voiceAppChooser));
+			if (recordVoiceNoteIntentChooser.resolveActivity(this.getActivity().getPackageManager()) != null)
+				startActivityForResult(recordVoiceNoteIntentChooser, RECORD_SOUND_REQUEST);
 			return true;
-			
 		default:
 			return super.onOptionsItemSelected(item);
 		}
