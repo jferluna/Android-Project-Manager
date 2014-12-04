@@ -67,7 +67,15 @@ public class TaskListViewAdapter extends ArrayAdapter<Task> {
 			taskDueDateWarning.set(task.getYearDueDate(), task.getMonthDueDate() - 1, task.getDayDueDate());
 			taskDueDateWarning.add(Calendar.DAY_OF_MONTH, -3);
 			
-			if(taskDueDate.before(today)) {
+			if(task.getStatus().equals("Completed")) {
+				layout.setBackgroundColor(Color.parseColor("#4CAF50"));
+				taskName.setTextColor(Color.parseColor("#FFFFFF"));
+				status.setTextColor(Color.parseColor("#FFFFFF"));
+				priority.setTextColor(Color.parseColor("#FFFFFF"));
+				percentajeDone.setTextColor(Color.parseColor("#FFFFFF"));
+				startDate.setTextColor(Color.parseColor("#FFFFFF"));
+				dueDate.setTextColor(Color.parseColor("#FFFFFF"));
+			} else if(taskDueDate.before(today)) {
 				layout.setBackgroundColor(Color.parseColor("#D32F2F"));
 				taskName.setTextColor(Color.parseColor("#FFFFFF"));
 				status.setTextColor(Color.parseColor("#FFFFFF"));

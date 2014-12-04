@@ -18,7 +18,10 @@ import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -54,6 +57,8 @@ public class PhotoManager extends Activity {
 		projectName = data.getString("ProjectName");
 		
 		photoDisplay = (ImageView)findViewById(R.id.photoDisplay);
+		ImageButton previousPhoto = (ImageButton) findViewById(R.id.photoManger_PreviousPhoto);
+		ImageButton nextPhoto = (ImageButton) findViewById(R.id.photoManger_NextPhoto);
 		
 		photoDisplay.setOnTouchListener(new OnSwipeListener(this) {
 			@Override
@@ -64,6 +69,20 @@ public class PhotoManager extends Activity {
 		    public void onSwipeLeft() {
 				moveToNextPhoto();
 		    }
+		});
+		
+		previousPhoto.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				moveToPreviousPhoto();
+			}
+		});
+		
+		nextPhoto.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				moveToNextPhoto();	
+			}
 		});
 		
 		getPhotosList();	
@@ -121,6 +140,7 @@ public class PhotoManager extends Activity {
 		else
 		{
 			photoContent = false;
+			photoDisplay.setImageResource(android.R.color.transparent);
 			invalidateOptionsMenu();
 		}
 	}
