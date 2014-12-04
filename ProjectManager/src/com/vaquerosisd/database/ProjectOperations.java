@@ -315,6 +315,14 @@ public class ProjectOperations {
 		return cursor.getString(0);
 	}
 	
+	public boolean deleteAllProjects()
+	{
+		boolean result = false;
+		db.delete(TABLE_PROJECTS, null, null);
+		result = true;
+		return result;
+	}
+	
 	//--------------------------------------------------------------------------------
 	//Tasks Table Operations
 	//--------------------------------------------------------------------------------
@@ -548,6 +556,14 @@ public class ProjectOperations {
 		db.update(TABLE_TASKS, arg, whereClause, null);
 	}
 	
+	public boolean deleteAllTasks()
+	{
+		boolean result = false;
+		db.delete(TABLE_TASKS, null, null);
+		result = true;
+		return result;
+	}
+	
 	//--------------------------------------------------------------------------------
 	//PHOTOs Table Operations
 	//--------------------------------------------------------------------------------
@@ -588,6 +604,7 @@ public class ProjectOperations {
 		result = true;
 		return result;
 	}
+	
 	
 	public List<PhotoRef> getAllPhotos(int projectId){
 		List<PhotoRef> fileList = new ArrayList<PhotoRef>();

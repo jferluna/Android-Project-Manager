@@ -205,7 +205,7 @@ public class ProjectList extends Activity implements WebserviceCallback {
 	public void callback(JsonWrapper response){
 		System.out.println("Webserive code response: " + response.getCode());
 		
-		if (response.getCode() == 6){
+		if (response.getCode() == 6 || response.getCode() == 8){
 			Toast.makeText(getApplicationContext(), "Content Synced", Toast.LENGTH_SHORT).show();
 		}
 		
