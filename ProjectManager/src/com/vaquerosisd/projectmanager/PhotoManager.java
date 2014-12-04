@@ -103,8 +103,8 @@ public class PhotoManager extends Activity {
 		if(photoFile.exists())
 		{
 			photoFile.delete();			
-			Intent intent = new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" +  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)));
-			sendBroadcast(intent);
+			//Intent intent = new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" +  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)));
+			//sendBroadcast(intent);
 		}
 		
 	}
@@ -121,6 +121,7 @@ public class PhotoManager extends Activity {
 		else
 		{
 			photoContent = false;
+			photoDisplay.setImageBitmap(null);
 			invalidateOptionsMenu();
 		}
 	}
