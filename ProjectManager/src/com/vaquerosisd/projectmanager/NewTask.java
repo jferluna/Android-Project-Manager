@@ -145,12 +145,14 @@ public class NewTask extends Activity {
 				taskContentPath.mkdir();
 				
 				boolean dueDateBeforeStartDate = true;
-				if(startDateStrings[0] <= dueDateStrings[0]){
-					if(startDateStrings[1] <= dueDateStrings[1]){
-						if(startDateStrings[2] <= dueDateStrings[2])
-							dueDateBeforeStartDate = false;
-					}
-				}
+				
+				Calendar startDateCalendar = Calendar.getInstance();
+				startDateCalendar.set(startDateStrings[0], startDateStrings[1], startDateStrings[2]);
+				Calendar dueDateCalendar = Calendar.getInstance();
+				dueDateCalendar.set(dueDateStrings[0], dueDateStrings[1], dueDateStrings[2]);
+				
+				if(startDateCalendar.before(dueDateCalendar) || startDateCalendar.equals(dueDateCalendar))
+					dueDateBeforeStartDate = false;
 				
 				if(dueDateBeforeStartDate) {
 					Toast.makeText(getApplicationContext(), R.string.dueDateError, Toast.LENGTH_SHORT).show();

@@ -338,9 +338,9 @@ public class ProjectOperations {
 		values.put(TASKS_COLUMN_STARTDATE_YEAR, startDate[0]);
 		values.put(TASKS_COLUMN_STARTDATE_MONTH, startDate[1]);
 		values.put(TASKS_COLUMN_STARTDATE_DAY, startDate[2]);
-		values.put(TASKS_COLUMN_DUEDATE_YEAR, startDate[0]);
-		values.put(TASKS_COLUMN_DUEDATE_MONTH, startDate[1]);
-		values.put(TASKS_COLUMN_DUEDATE_DAY, startDate[2]);
+		values.put(TASKS_COLUMN_DUEDATE_YEAR, dueDate[0]);
+		values.put(TASKS_COLUMN_DUEDATE_MONTH, dueDate[1]);
+		values.put(TASKS_COLUMN_DUEDATE_DAY, dueDate[2]);
 		values.put(TASKS_COLUMN_PHOTO_PATH, photoPath);
 		values.put(TASKS_COLUMN_DESCRIPTION, description);
 		values.put(TASKS_COLUMN_CONTENT_PATH, contentPath);
@@ -413,7 +413,8 @@ public class ProjectOperations {
 		List<Task> taskList = new ArrayList<Task>();
 		Task task;
 		
-		String query = "Select * FROM " + TABLE_TASKS + " WHERE " + TASKS_COLUMN_PROJECT_ID + " = " + projectId + ";";
+		String query = "Select * FROM " + TABLE_TASKS + " WHERE " + TASKS_COLUMN_PROJECT_ID + " = " + projectId + " ORDER BY " + 
+				TASKS_COLUMN_DUEDATE_YEAR + ", " + TASKS_COLUMN_DUEDATE_MONTH + ", " + TASKS_COLUMN_DUEDATE_DAY + ";";
 		Log.i("DB getAllTasks", query);
 		Cursor cursor = db.rawQuery(query, null);
 		cursor.moveToPosition(-1);
