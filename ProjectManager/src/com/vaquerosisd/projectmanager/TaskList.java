@@ -38,12 +38,14 @@ import com.vaquerosisd.dialog.DeleteDialog;
 import com.vaquerosisd.object.JsonWrapper;
 import com.vaquerosisd.object.Task;
 import com.vaquerosisd.object.User;
+import com.vaquerosisd.utils.FileOperations;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -121,7 +123,9 @@ public class TaskList extends Activity implements WebserviceCallback {
 				//Get selected task information and send a ContentTask intent
 				Task task = (Task) taskAdapter.getItem(position);
 				Intent ContentTaskItent = new Intent(TaskList.this, ContentTask.class);
-				ContentTaskItent.putExtra("taskId",	task.getTaskId());
+				ContentTaskItent.putExtra("TaskId",	task.getTaskId());
+				ContentTaskItent.putExtra("ProjectId", projectId);
+				ContentTaskItent.putExtra("ProjectName", projectName);
 				startActivity(ContentTaskItent);
 			}
 		});
@@ -178,6 +182,7 @@ public class TaskList extends Activity implements WebserviceCallback {
 		String taskName = selectedTask.getTaskName();
 		int taskId = selectedTask.getTaskId();
 		
+		FileOperations.deleteFolder(selectedTask.getContentPath());
 		db.deleteTask(taskId, taskName);
 		taskAdapter.clear();
 		taskAdapter.addAll(getTasksForListView());
@@ -208,7 +213,6 @@ public class TaskList extends Activity implements WebserviceCallback {
 			taskAdapter.clear();
 			taskAdapter.addAll(getTasksForListView());
 			taskAdapter.notifyDataSetChanged();
-			getActionBar().setDisplayHomeAsUpEnabled(false);
 			searching = false;
 			invalidateOptionsMenu();
 			return;
@@ -316,13 +320,16 @@ public class TaskList extends Activity implements WebserviceCallback {
 		switch (item.getItemId())
 		{
 		case android.R.id.home:
-			taskAdapter.clear();
-			taskAdapter.addAll(getTasksForListView());
-			taskAdapter.notifyDataSetChanged();
-			getActionBar().setDisplayHomeAsUpEnabled(false);
-			searching = false;
-			invalidateOptionsMenu();
-			return true;
+			if(searching) {
+				taskAdapter.clear();
+				taskAdapter.addAll(getTasksForListView());
+				taskAdapter.notifyDataSetChanged();
+				searching = false;
+				invalidateOptionsMenu();
+				return true;
+			}
+			 NavUtils.navigateUpFromSameTask(this);
+			 return true;
 			
 		case R.id.actionBar_SearchTaskIcon:
 			getActionBar().setDisplayHomeAsUpEnabled(true);

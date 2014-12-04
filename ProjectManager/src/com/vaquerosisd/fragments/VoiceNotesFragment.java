@@ -47,7 +47,7 @@ public class VoiceNotesFragment extends Fragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		
-		int taskId = bundle.getInt("taskId");
+		int taskId = bundle.getInt("TaskId");
 		db = new ProjectOperations(getActivity());
 		fO = new FileOperations(getActivity());
 		db.open();

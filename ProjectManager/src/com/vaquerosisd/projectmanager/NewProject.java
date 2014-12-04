@@ -45,6 +45,8 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -183,6 +185,21 @@ public class NewProject extends Activity implements CustomStatus.CustomStatusInt
 		statusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		statusSpinnerAdapter.addAll(statusOptionsArray);
 		statusSpinner.setAdapter(statusSpinnerAdapter);
+	}
+	
+	//***********************************************************************************************
+	// ActionBar Methods
+	//***********************************************************************************************
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId())
+		{
+		case android.R.id.home:
+			 NavUtils.navigateUpFromSameTask(this);
+			 return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 	
 	//***********************************************************************************************

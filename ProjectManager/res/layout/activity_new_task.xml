@@ -25,7 +25,6 @@
 	        android:layout_marginTop="10dp"
 	        android:ems="10"
 	        android:hint="@string/addTaskHint" >
-	
 	        <requestFocus />
 	    </EditText>
 	
@@ -127,15 +126,13 @@
 	
 	    <EditText
 	        android:id="@+id/newTask_Description"
-	        android:layout_width="wrap_content"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="10dp"
 	        android:ems="10"
 	        android:hint="@string/descriptionHint"
 	        android:inputType="textMultiLine"
 	        android:text="" >
-	
-	        <requestFocus />
 	    </EditText>
 	
 	    <Button

@@ -11,6 +11,7 @@ import com.vaquerosisd.object.JsonWrapper;
 import com.vaquerosisd.object.PhotoRef;
 import com.vaquerosisd.object.Project;
 import com.vaquerosisd.object.User;
+import com.vaquerosisd.utils.FileOperations;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -149,7 +150,7 @@ public class ProjectList extends Activity implements WebserviceCallback {
 		
 		String projectName = selectedProject.getName();
 		int projectID = selectedProject.getId();
-
+		FileOperations.deleteFolder(selectedProject.getContentPath());
 		deleteProjectPhotos();		
 		db.deleteProjectPhotos(projectID);
 		db.deleteProject(projectName, projectID);

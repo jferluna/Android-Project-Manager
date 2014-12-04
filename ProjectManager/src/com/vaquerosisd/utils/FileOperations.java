@@ -157,4 +157,15 @@ public class FileOperations {
 		return filteredFiles;
 	}
 	
+	public static void deleteFolder(String path) {
+		File directory = new File(path);
+		if(directory.isDirectory()) {
+			String[] children = directory.list();
+			for (int i = 0; i < children.length; i++) {
+	            new File(path, children[i]).delete();
+	        }
+		}
+		directory.delete();
+	}
+	
 }
