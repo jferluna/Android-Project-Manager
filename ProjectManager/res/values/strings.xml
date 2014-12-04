@@ -10,7 +10,7 @@
     <string name="title_activity_task">Task</string>
     
     <string name="currentStatus">Status:</string>
-    
+    <string name="videoAppChooser">Record video with</string>
     <!-- Generic Strings -->
     <string name="dateHint">--/--/----</string>
 
@@ -100,7 +100,7 @@
     <string name="registerAccountButton">Register Account</string>
     
     <!-- VoiceNote Fragment -->
-    <string name="voiceAppChooser">Open voice note with</string>
+    <string name="voiceAppChooser">Record voice note with</string>
     <string name="loginToAccount">Log In:</string>
     <string name="log_in">Log In</string>
     <string name="addPassword">Password</string>

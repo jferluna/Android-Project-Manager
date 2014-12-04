@@ -3,7 +3,7 @@ package com.vaquerosisd.fragments;
 import java.io.File;
 import java.util.ArrayList;
 
-import com.vaquerosisd.adapters.VoiceNoteGridViewAdapter;
+import com.vaquerosisd.adapters.VideoNoteGridViewAdapter;
 import com.vaquerosisd.database.ProjectOperations;
 import com.vaquerosisd.object.Task;
 import com.vaquerosisd.projectmanager.R;
@@ -15,7 +15,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,16 +30,16 @@ public class VideoNotesFragment extends Fragment {
 	FileOperations fO;
 	ProjectOperations db;
 	Task task;
-	VoiceNoteGridViewAdapter voiceNoteAdapter;
-	GridView voiceNotesGridView;
+	VideoNoteGridViewAdapter videoNoteAdapter;
+	GridView videoNotesGridView;
 	
-	int RECORD_SOUND_REQUEST = 55;
-	int PLAY_VOICE_NOTE = 95;
+	int RECORD_VIDEO_REQUEST = 55;
+	int PLAY_VIDEO_NOTE = 95;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		bundle = getArguments();
-        return inflater.inflate(R.layout.fragment_task_voice_notes, container, false);
+        return inflater.inflate(R.layout.fragment_task_video_notes, container, false);
     }
 	
 	@Override
@@ -52,24 +51,24 @@ public class VideoNotesFragment extends Fragment {
 		db.open();
 		task = db.getTaskById(taskId);
 		
-		voiceNotesGridView = (GridView) view.findViewById(R.id.fragmentVoiceNote_GridView);
-		ArrayList<String> voiceFiles = FileOperations.getFilesByExtension(db.getTaskContentPath(task.getTaskId()), ".3gpp");
-		voiceNoteAdapter = new VoiceNoteGridViewAdapter(this.getActivity(), R.layout.gridview_object, voiceFiles);
-		voiceNotesGridView.setAdapter(voiceNoteAdapter);
+		videoNotesGridView = (GridView) view.findViewById(R.id.fragmentVideoNote_GridView);
+		ArrayList<String> videoFiles = FileOperations.getFilesByExtension(db.getTaskContentPath(task.getTaskId()), ".mp4");
+		videoNoteAdapter = new VideoNoteGridViewAdapter(this.getActivity(), R.layout.gridview_video_object, videoFiles);
+		videoNotesGridView.setAdapter(videoNoteAdapter);
 		
-		voiceNotesGridView.setOnItemClickListener(new OnItemClickListener() {
+		videoNotesGridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				String fileDir = db.getTaskContentPath(task.getTaskId());
-				String fileName = voiceNotesGridView.getItemAtPosition(position).toString();
+				String fileName = videoNotesGridView.getItemAtPosition(position).toString();
 				
-				Intent playVoiceNoteIntent = new Intent(Intent.ACTION_VIEW);
+				Intent playVideoNoteIntent = new Intent(Intent.ACTION_VIEW);
 				File voiceNoteFile = new File(fileDir + "/" + fileName);;
-				playVoiceNoteIntent.setDataAndType(Uri.fromFile(voiceNoteFile), "audio/3gpp");
-				Intent voiceNoteAppChooserIntent = Intent.createChooser(playVoiceNoteIntent, getResources().getString(R.string.voiceAppChooser));
-				if (voiceNoteAppChooserIntent.resolveActivity(getActivity().getPackageManager()) != null)
-					startActivityForResult(voiceNoteAppChooserIntent, PLAY_VOICE_NOTE);
+				playVideoNoteIntent.setDataAndType(Uri.fromFile(voiceNoteFile), "video/mp4");
+				Intent videoNoteAppChooserIntent = Intent.createChooser(playVideoNoteIntent, getResources().getString(R.string.videoAppChooser));
+				if (videoNoteAppChooserIntent.resolveActivity(getActivity().getPackageManager()) != null)
+					startActivityForResult(videoNoteAppChooserIntent, PLAY_VIDEO_NOTE);
 			}
 		});
 		
@@ -78,16 +77,16 @@ public class VideoNotesFragment extends Fragment {
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-	    inflater.inflate(R.menu.voice_note_menu, menu);
+	    inflater.inflate(R.menu.video_note_menu, menu);
 	    super.onCreateOptionsMenu(menu,inflater);
 	}
 	
 	@Override
 	public void onResume(){
 		super.onResume();
-		ArrayList<String> voiceFiles = FileOperations.getFilesByExtension(db.getTaskContentPath(task.getTaskId()), ".3gpp");
-		voiceNoteAdapter = new VoiceNoteGridViewAdapter(this.getActivity(), R.layout.gridview_object, voiceFiles);
-		voiceNotesGridView.setAdapter(voiceNoteAdapter);
+		ArrayList<String> videoFiles = FileOperations.getFilesByExtension(db.getTaskContentPath(task.getTaskId()), ".mp4");
+		videoNoteAdapter = new VideoNoteGridViewAdapter(this.getActivity(), R.layout.gridview_video_object, videoFiles);
+		videoNotesGridView.setAdapter(videoNoteAdapter);
 	}
 	
 	@Override
@@ -97,11 +96,11 @@ public class VideoNotesFragment extends Fragment {
 		// as you specify a parent activity in AndroidManifest.xml.		
 		switch (item.getItemId())
 		{
-		case R.id.actionBar_CaptureVoiceNote:
-			Intent recordVoiceNoteIntent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION); 
-			Intent recordVoiceNoteIntentChooser = Intent.createChooser(recordVoiceNoteIntent, getResources().getString(R.string.voiceAppChooser));
-			if (recordVoiceNoteIntentChooser.resolveActivity(this.getActivity().getPackageManager()) != null)
-				startActivityForResult(recordVoiceNoteIntentChooser, RECORD_SOUND_REQUEST);
+		case R.id.actionBar_CaptureVideoNote:
+			Intent recordVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE); 
+			Intent recordVideoIntentChooser = Intent.createChooser(recordVideoIntent, getResources().getString(R.string.videoAppChooser));
+			if (recordVideoIntentChooser.resolveActivity(this.getActivity().getPackageManager()) != null)
+				startActivityForResult(recordVideoIntentChooser, RECORD_VIDEO_REQUEST);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -110,12 +109,11 @@ public class VideoNotesFragment extends Fragment {
 	
 	@Override
 	public void onActivityResult( int requestCode, int resultCode, Intent data) {
-		if(requestCode == RECORD_SOUND_REQUEST) {
+		if(requestCode == RECORD_VIDEO_REQUEST) {
 			if (resultCode == Activity.RESULT_OK) {
 				Uri uri = data.getData();
 				String filePath = fO.getAudioFilePathFromUri(uri);
-				String taskDir = db.getTaskContentPath(task.getTaskId()) + "/VoiceNote_" + System.currentTimeMillis() + ".3gpp";
-				Log.i("Debug", taskDir);
+				String taskDir = db.getTaskContentPath(task.getTaskId()) + "/Video_" + System.currentTimeMillis() + ".mp4";
 				FileOperations.moveFile(filePath, taskDir);
 			}
       	}

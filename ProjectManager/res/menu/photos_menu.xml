@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.projectmanager.Projects" >
+	
+	<item 
+	    android:id="@+id/actionBar_DeletePhotoIcon"
+	    android:icon="@drawable/ic_action_discard"
+	    android:title="@string/deleteTaskMenu"
+	    android:visible="false"
+	    android:showAsAction="always"/>
+	
+	<item 
+	    android:id="@+id/actionBar_AddPhotoIcon"
+	    android:icon="@drawable/ic_action_camera"
+	    android:title="@string/addTaskMenu"
+	    android:showAsAction="always"/>
+	
+</menu>
+

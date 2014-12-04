@@ -1,6 +1,7 @@
 package com.vaquerosisd.projectmanager;
 
 import com.vaquerosisd.fragments.TaskDescriptionFragment;
+import com.vaquerosisd.fragments.VideoNotesFragment;
 import com.vaquerosisd.fragments.VoiceNotesFragment;
 import com.vaquerosisd.utils.TabListener;
 
@@ -36,6 +37,12 @@ public class ContentTask extends Activity {
 	    tab.setText("Voice Notes");
 	    tab.setTag(bundle);
 	    tab.setTabListener(new TabListener<VoiceNotesFragment>(this, "Voice Notes", VoiceNotesFragment.class));
+	    actionBar.addTab(tab);
+	    
+	    tab = actionBar.newTab();
+	    tab.setText("Videos");
+	    tab.setTag(bundle);
+	    tab.setTabListener(new TabListener<VideoNotesFragment>(this, "Videos", VideoNotesFragment.class));
 	    actionBar.addTab(tab);
 	}
 	

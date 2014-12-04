@@ -48,86 +48,93 @@ public final class R {
         public static final int ic_action_next_item=0x7f020007;
         public static final int ic_action_overflow=0x7f020008;
         public static final int ic_action_search=0x7f020009;
-        public static final int ic_launcher=0x7f02000a;
-        public static final int mic=0x7f02000b;
-        public static final int project1=0x7f02000c;
-        public static final int project2=0x7f02000d;
-        public static final int project3=0x7f02000e;
-        public static final int project4=0x7f02000f;
-        public static final int shadow_box_corner=0x7f020010;
-        public static final int shadow_box_horizontal=0x7f020011;
-        public static final int shadow_box_left=0x7f020012;
-        public static final int shadow_box_vertical=0x7f020013;
+        public static final int ic_action_video=0x7f02000a;
+        public static final int ic_launcher=0x7f02000b;
+        public static final int mic=0x7f02000c;
+        public static final int project1=0x7f02000d;
+        public static final int project2=0x7f02000e;
+        public static final int project3=0x7f02000f;
+        public static final int project4=0x7f020010;
+        public static final int shadow_box_corner=0x7f020011;
+        public static final int shadow_box_horizontal=0x7f020012;
+        public static final int shadow_box_left=0x7f020013;
+        public static final int shadow_box_vertical=0x7f020014;
+        public static final int video_icon=0x7f020015;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f090010;
-        public static final int RelativeLayout1=0x7f090042;
+        public static final int RelativeLayout1=0x7f09003e;
         public static final int ScrollView1=0x7f090018;
-        public static final int actionBar_AddProjectIcon=0x7f09006c;
-        public static final int actionBar_AddTaskIcon=0x7f090074;
-        public static final int actionBar_CaptureVoiceNote=0x7f090079;
-        public static final int actionBar_ClearSearch=0x7f090067;
-        public static final int actionBar_DeleteProjectIcon=0x7f09006b;
-        public static final int actionBar_DeleteTaskIcon=0x7f090073;
-        public static final int actionBar_EditProjectIcon=0x7f09006d;
-        public static final int actionBar_Menu_About=0x7f090070;
-        public static final int actionBar_Menu_Syncall=0x7f09006e;
-        public static final int actionBar_Menu_User=0x7f09006f;
-        public static final int actionBar_Menu_about=0x7f090078;
-        public static final int actionBar_Menu_syncall=0x7f090076;
-        public static final int actionBar_Menu_user=0x7f090077;
-        public static final int actionBar_ProjectPhotos=0x7f090075;
-        public static final int actionBar_SearchItemEditText=0x7f090066;
-        public static final int actionBar_SearchProjectIcon=0x7f09006a;
-        public static final int actionBar_SearchProjectItem=0x7f090069;
-        public static final int actionBar_SearchTaskIcon=0x7f090072;
-        public static final int actionBar_SearchTaskItem=0x7f090071;
-        public static final int action_settings=0x7f090068;
+        public static final int actionBar_AddPhotoIcon=0x7f090069;
+        public static final int actionBar_AddProjectIcon=0x7f09006d;
+        public static final int actionBar_AddTaskIcon=0x7f090075;
+        public static final int actionBar_CaptureVideoNote=0x7f09007a;
+        public static final int actionBar_CaptureVoiceNote=0x7f09007b;
+        public static final int actionBar_ClearSearch=0x7f090066;
+        public static final int actionBar_DeletePhotoIcon=0x7f090068;
+        public static final int actionBar_DeleteProjectIcon=0x7f09006c;
+        public static final int actionBar_DeleteTaskIcon=0x7f090074;
+        public static final int actionBar_EditProjectIcon=0x7f09006e;
+        public static final int actionBar_Menu_About=0x7f090071;
+        public static final int actionBar_Menu_Syncall=0x7f09006f;
+        public static final int actionBar_Menu_User=0x7f090070;
+        public static final int actionBar_Menu_about=0x7f090079;
+        public static final int actionBar_Menu_syncall=0x7f090077;
+        public static final int actionBar_Menu_user=0x7f090078;
+        public static final int actionBar_ProjectPhotos=0x7f090076;
+        public static final int actionBar_SearchItemEditText=0x7f090065;
+        public static final int actionBar_SearchProjectIcon=0x7f09006b;
+        public static final int actionBar_SearchProjectItem=0x7f09006a;
+        public static final int actionBar_SearchTaskIcon=0x7f090073;
+        public static final int actionBar_SearchTaskItem=0x7f090072;
+        public static final int action_settings=0x7f090067;
         public static final int addProject=0x7f090029;
         public static final int btnCreateAccount=0x7f090015;
         public static final int btnLogIn=0x7f090014;
         public static final int btnSignIn=0x7f090009;
         public static final int button2=0x7f09000a;
         public static final int buttons=0x7f090008;
-        public static final int deletePhoto=0x7f09003b;
-        public static final int dialogStatus_customStatusOption=0x7f09003f;
-        public static final int dialog_EditProject_DueDate=0x7f09004a;
-        public static final int dialog_EditProject_Project=0x7f090044;
-        public static final int dialog_EditProject_StartDate=0x7f090048;
-        public static final int dialog_EditProject_Status=0x7f090046;
+        public static final int dialogStatus_customStatusOption=0x7f09003b;
+        public static final int dialog_EditProject_DueDate=0x7f090046;
+        public static final int dialog_EditProject_Project=0x7f090040;
+        public static final int dialog_EditProject_StartDate=0x7f090044;
+        public static final int dialog_EditProject_Status=0x7f090042;
         public static final int editDescription=0x7f09000f;
         public static final int editDueDate=0x7f09000d;
         public static final int editPassword=0x7f090013;
         public static final int editStartDate=0x7f09000b;
         public static final int editUsername=0x7f090012;
-        public static final int fragmentGeneral_Description=0x7f090052;
-        public static final int fragmentGeneral_PercentageDone=0x7f09004f;
-        public static final int fragmentGeneral_PercentageDoneSeekBar=0x7f090050;
-        public static final int fragmentGeneral_Priority=0x7f09004e;
-        public static final int fragmentGeneral_Status=0x7f09004c;
-        public static final int fragmentGeneral_Update=0x7f090053;
-        public static final int fragmentVoiceNote_GridView=0x7f090054;
-        public static final int gridView_Image=0x7f090055;
-        public static final int gridView_Text=0x7f090056;
-        public static final int listProject_DueDate=0x7f09005b;
-        public static final int listProject_OpenTasks=0x7f09005d;
-        public static final int listProject_ProjectImage=0x7f090057;
-        public static final int listProject_ProjectList=0x7f09003c;
-        public static final int listProject_ProjectName=0x7f090058;
-        public static final int listProject_ProjectStatus=0x7f09005c;
-        public static final int listProject_StartDate=0x7f09005a;
-        public static final int listProject_TotalTasks=0x7f09005e;
-        public static final int listProject_information=0x7f090059;
-        public static final int listTask_DueDate=0x7f090065;
-        public static final int listTask_PercentajeDone=0x7f090063;
-        public static final int listTask_Priority=0x7f090062;
-        public static final int listTask_StartDate=0x7f090064;
-        public static final int listTask_Status=0x7f090061;
-        public static final int listTask_TaskList=0x7f09003e;
-        public static final int listTask_TaskName=0x7f090060;
-        public static final int listTask_row=0x7f09005f;
+        public static final int fragmentGeneral_Description=0x7f09004e;
+        public static final int fragmentGeneral_PercentageDone=0x7f09004b;
+        public static final int fragmentGeneral_PercentageDoneSeekBar=0x7f09004c;
+        public static final int fragmentGeneral_Priority=0x7f09004a;
+        public static final int fragmentGeneral_Status=0x7f090048;
+        public static final int fragmentGeneral_Update=0x7f09004f;
+        public static final int fragmentVideoNote_GridView=0x7f090050;
+        public static final int fragmentVoiceNote_GridView=0x7f090051;
+        public static final int gridView_Image=0x7f090052;
+        public static final int gridView_Text=0x7f090053;
+        public static final int gridView_Video_Image=0x7f090054;
+        public static final int gridView_Video_Text=0x7f090055;
+        public static final int listProject_DueDate=0x7f09005a;
+        public static final int listProject_OpenTasks=0x7f09005c;
+        public static final int listProject_ProjectImage=0x7f090056;
+        public static final int listProject_ProjectList=0x7f090038;
+        public static final int listProject_ProjectName=0x7f090057;
+        public static final int listProject_ProjectStatus=0x7f09005b;
+        public static final int listProject_StartDate=0x7f090059;
+        public static final int listProject_TotalTasks=0x7f09005d;
+        public static final int listProject_information=0x7f090058;
+        public static final int listTask_DueDate=0x7f090064;
+        public static final int listTask_PercentajeDone=0x7f090062;
+        public static final int listTask_Priority=0x7f090061;
+        public static final int listTask_StartDate=0x7f090063;
+        public static final int listTask_Status=0x7f090060;
+        public static final int listTask_TaskList=0x7f09003a;
+        public static final int listTask_TaskName=0x7f09005f;
+        public static final int listTask_row=0x7f09005e;
         public static final int logo=0x7f090017;
-        public static final int negative=0x7f090041;
+        public static final int negative=0x7f09003d;
         public static final int newAccount_AccountName=0x7f09001a;
         public static final int newAccount_Email=0x7f09001e;
         public static final int newAccount_GoToLogin=0x7f090020;
@@ -146,12 +153,9 @@ public final class R {
         public static final int newTask_StartDate=0x7f090032;
         public static final int newTask_StatusSpinner=0x7f09002c;
         public static final int newTask_TaskName=0x7f09002b;
-        public static final int nextPhoto=0x7f090039;
-        public static final int parentView=0x7f09003d;
-        public static final int photoDisplay=0x7f09003a;
-        public static final int positive=0x7f090040;
-        public static final int previousPhoto=0x7f090038;
-        public static final int takePhoto=0x7f090037;
+        public static final int parentView=0x7f090039;
+        public static final int photoDisplay=0x7f090037;
+        public static final int positive=0x7f09003c;
         public static final int textNombre=0x7f090002;
         public static final int textPassword=0x7f090000;
         public static final int textProyectos=0x7f090005;
@@ -175,13 +179,13 @@ public final class R {
         public static final int uselessId_TaskName=0x7f09002a;
         public static final int uselessId_email=0x7f09001d;
         public static final int uselessId_password=0x7f09001b;
-        public static final int useless_Description=0x7f090051;
-        public static final int useless_EditDueDate=0x7f090049;
-        public static final int useless_EditProject=0x7f090043;
-        public static final int useless_EditStartDate=0x7f090047;
-        public static final int useless_EditStatus=0x7f090045;
-        public static final int useless_Priority=0x7f09004d;
-        public static final int useless_Status=0x7f09004b;
+        public static final int useless_Description=0x7f09004d;
+        public static final int useless_EditDueDate=0x7f090045;
+        public static final int useless_EditProject=0x7f09003f;
+        public static final int useless_EditStartDate=0x7f090043;
+        public static final int useless_EditStatus=0x7f090041;
+        public static final int useless_Priority=0x7f090049;
+        public static final int useless_Status=0x7f090047;
     }
     public static final class layout {
         public static final int activity_about=0x7f030000;
@@ -199,120 +203,125 @@ public final class R {
         public static final int dialog_delete_project=0x7f03000c;
         public static final int dialog_edit_project=0x7f03000d;
         public static final int fragment_task_description=0x7f03000e;
-        public static final int fragment_task_voice_notes=0x7f03000f;
-        public static final int gridview_object=0x7f030010;
-        public static final int listrow_project=0x7f030011;
-        public static final int listrow_task=0x7f030012;
-        public static final int menu_search=0x7f030013;
+        public static final int fragment_task_video_notes=0x7f03000f;
+        public static final int fragment_task_voice_notes=0x7f030010;
+        public static final int gridview_object=0x7f030011;
+        public static final int gridview_video_object=0x7f030012;
+        public static final int listrow_project=0x7f030013;
+        public static final int listrow_task=0x7f030014;
+        public static final int menu_search=0x7f030015;
     }
     public static final class menu {
         public static final int main=0x7f080000;
-        public static final int project_menu=0x7f080001;
-        public static final int task_menu=0x7f080002;
-        public static final int users=0x7f080003;
-        public static final int voice_note_menu=0x7f080004;
+        public static final int photos_menu=0x7f080001;
+        public static final int project_menu=0x7f080002;
+        public static final int task_menu=0x7f080003;
+        public static final int users=0x7f080004;
+        public static final int video_note_menu=0x7f080005;
+        public static final int voice_note_menu=0x7f080006;
     }
     public static final class string {
         /**  Project Menu strings 
          */
-        public static final int about=0x7f06001e;
+        public static final int about=0x7f06001f;
         public static final int action_settings=0x7f060002;
-        public static final int addAccountName=0x7f060042;
-        public static final int addEmail=0x7f060043;
-        public static final int addPassword=0x7f060048;
-        public static final int addProjectButton=0x7f060013;
-        public static final int addProjectHint=0x7f06000e;
-        public static final int addProjectMenu=0x7f060035;
-        public static final int addTaskButton=0x7f06001c;
-        public static final int addTaskHint=0x7f060018;
-        public static final int addTaskMenu=0x7f060036;
-        public static final int addTaskName=0x7f060017;
-        public static final int addstatusHint=0x7f060010;
+        public static final int addAccountName=0x7f060043;
+        public static final int addEmail=0x7f060044;
+        public static final int addPassword=0x7f060049;
+        public static final int addProjectButton=0x7f060014;
+        public static final int addProjectHint=0x7f06000f;
+        public static final int addProjectMenu=0x7f060036;
+        public static final int addTaskButton=0x7f06001d;
+        public static final int addTaskHint=0x7f060019;
+        public static final int addTaskMenu=0x7f060037;
+        public static final int addTaskName=0x7f060018;
+        public static final int addstatusHint=0x7f060011;
         public static final int app_name=0x7f060000;
-        public static final int createAccount=0x7f060041;
+        public static final int createAccount=0x7f060042;
         public static final int currentStatus=0x7f060007;
         /**  Generic Strings 
          */
-        public static final int dateHint=0x7f060008;
-        public static final int deleteProjectMenu=0x7f060033;
-        public static final int deleteTaskMenu=0x7f060034;
-        public static final int descriptionHint=0x7f06002e;
-        public static final int dialogCancel=0x7f06003a;
-        public static final int dialogOk=0x7f060039;
-        public static final int dueDateError=0x7f06003f;
+        public static final int dateHint=0x7f060009;
+        public static final int deleteProjectMenu=0x7f060034;
+        public static final int deleteTaskMenu=0x7f060035;
+        public static final int descriptionHint=0x7f06002f;
+        public static final int dialogCancel=0x7f06003b;
+        public static final int dialogOk=0x7f06003a;
+        public static final int dueDateError=0x7f060040;
         public static final int hello_world=0x7f060001;
         public static final int imageDesc=0x7f060003;
-        public static final int incomplete=0x7f060040;
-        public static final int log_in=0x7f060047;
-        public static final int loginToAccount=0x7f060046;
-        public static final int loginToExistent=0x7f060049;
-        public static final int nestUnder=0x7f06001a;
-        public static final int nestUnderHint=0x7f06001b;
+        public static final int incomplete=0x7f060041;
+        public static final int log_in=0x7f060048;
+        public static final int loginToAccount=0x7f060047;
+        public static final int loginToExistent=0x7f06004a;
+        public static final int nestUnder=0x7f06001b;
+        public static final int nestUnderHint=0x7f06001c;
         /**  NewProject Activity/Layout String 
          */
-        public static final int new_project=0x7f06000c;
+        public static final int new_project=0x7f06000d;
         /**  New Task Activity/Layout Strings 
          */
-        public static final int new_task=0x7f060016;
-        public static final int password=0x7f060026;
-        public static final int percentage=0x7f06002a;
-        public static final int photos=0x7f060028;
+        public static final int new_task=0x7f060017;
+        public static final int password=0x7f060027;
+        public static final int percentage=0x7f06002b;
+        public static final int photos=0x7f060029;
         /**  NewTask Strings 
          */
-        public static final int priority=0x7f060029;
-        public static final int projectAdded=0x7f06003d;
-        public static final int projectDueDate=0x7f060012;
+        public static final int priority=0x7f06002a;
+        public static final int projectAdded=0x7f06003e;
+        public static final int projectDueDate=0x7f060013;
         /**  ProjectList Activity/Layout Strings 
          */
-        public static final int projectFindHint=0x7f06000a;
-        public static final int projectPhotos=0x7f060037;
-        public static final int projectStartDate=0x7f060011;
+        public static final int projectFindHint=0x7f06000b;
+        public static final int projectPhotos=0x7f060038;
+        public static final int projectStartDate=0x7f060012;
         /**  Warnings Toast 
          */
-        public static final int projectUpdated=0x7f06003c;
-        public static final int project_name=0x7f06000d;
-        public static final int registerAccountButton=0x7f060044;
+        public static final int projectUpdated=0x7f06003d;
+        public static final int project_name=0x7f06000e;
+        public static final int registerAccountButton=0x7f060045;
         /**  Menus Strings 
          */
-        public static final int searchProjectItem=0x7f06002f;
-        public static final int searchProjectMenu=0x7f060031;
-        public static final int searchTaskItem=0x7f060030;
-        public static final int searchTaskMenu=0x7f060032;
-        public static final int sign_in=0x7f060027;
-        public static final int status=0x7f06000f;
+        public static final int searchProjectItem=0x7f060030;
+        public static final int searchProjectMenu=0x7f060032;
+        public static final int searchTaskItem=0x7f060031;
+        public static final int searchTaskMenu=0x7f060033;
+        public static final int sign_in=0x7f060028;
+        public static final int status=0x7f060010;
         /**  Dialog 
          */
-        public static final int statusHint=0x7f060038;
-        public static final int subtask=0x7f060019;
-        public static final int syncall=0x7f06001f;
-        public static final int taskAdded=0x7f06003e;
-        public static final int taskDescription=0x7f06002d;
-        public static final int taskDueDate=0x7f06002c;
+        public static final int statusHint=0x7f060039;
+        public static final int subtask=0x7f06001a;
+        public static final int syncall=0x7f060020;
+        public static final int taskAdded=0x7f06003f;
+        public static final int taskDescription=0x7f06002e;
+        public static final int taskDueDate=0x7f06002d;
         /**  TaskList Activity/Layout Strings 
          */
-        public static final int taskFindHint=0x7f060015;
-        public static final int taskStartDate=0x7f06002b;
-        public static final int title_activity_about=0x7f060021;
-        public static final int title_activity_login=0x7f060023;
-        public static final int title_activity_main=0x7f060024;
+        public static final int taskFindHint=0x7f060016;
+        public static final int taskStartDate=0x7f06002c;
+        public static final int title_activity_about=0x7f060022;
+        public static final int title_activity_login=0x7f060024;
+        public static final int title_activity_main=0x7f060025;
         public static final int title_activity_new_project=0x7f060004;
         public static final int title_activity_new_task=0x7f060005;
-        public static final int title_activity_pictures_manager=0x7f06001d;
+        public static final int title_activity_pictures_manager=0x7f06001e;
         /**  MainActivity Activity/Layout Strings 
          */
-        public static final int title_activity_project_list=0x7f060009;
+        public static final int title_activity_project_list=0x7f06000a;
         public static final int title_activity_task=0x7f060006;
         /**  Add Task Name Activity/Layout Strings 
          */
-        public static final int title_activity_tasks_list=0x7f06000b;
-        public static final int title_activity_users=0x7f060022;
-        public static final int update=0x7f060014;
-        public static final int updateDialog=0x7f06003b;
-        public static final int user=0x7f060020;
-        public static final int username=0x7f060025;
+        public static final int title_activity_tasks_list=0x7f06000c;
+        public static final int title_activity_users=0x7f060023;
+        public static final int update=0x7f060015;
+        public static final int updateDialog=0x7f06003c;
+        public static final int user=0x7f060021;
+        public static final int username=0x7f060026;
+        public static final int videoAppChooser=0x7f060008;
         /**  VoiceNote Fragment 
          */
-        public static final int voiceAppChooser=0x7f060045;
+        public static final int voiceAppChooser=0x7f060046;
     }
     public static final class style {
         public static final int ActionBar=0x7f070001;

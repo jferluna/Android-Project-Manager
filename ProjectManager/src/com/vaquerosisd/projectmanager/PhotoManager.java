@@ -16,9 +16,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -28,7 +28,7 @@ public class PhotoManager extends Activity {
 	ProjectOperations db;		//Database Operations
 	int projectId;			//Project ID where the picture belong
 	String projectName;			//Project name associated to the Project ID
-	
+	boolean photoContent;
 	List<PhotoRef> photosList;
 	
 	ImageView photoDisplay;
@@ -60,52 +60,15 @@ public class PhotoManager extends Activity {
 			@Override
 		    public void onSwipeRight() {
 				moveToPreviousPhoto();
-//		        Toast.makeText(PhotoManager.this, "right", Toast.LENGTH_SHORT).show();
-		    }
-			
+		    }			
 			@Override
 		    public void onSwipeLeft() {
 				moveToNextPhoto();
-//		        Toast.makeText(PhotoManager.this, "left", Toast.LENGTH_SHORT).show();
 		    }
 		});
 		
-		Button takePhoto = (Button) findViewById(R.id.takePhoto);
-		nextPhoto = (Button) findViewById(R.id.nextPhoto);
-		previousPhoto = (Button) findViewById(R.id.previousPhoto);
-		deletePhoto = (Button) findViewById(R.id.deletePhoto);
-		
 		getPhotosList();	
-		setPhoto();
-		
-		takePhoto.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				takePhoto();
-			}
-		});
-		
-		nextPhoto.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				moveToNextPhoto();
-			}
-		});
-		
-		previousPhoto.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				moveToPreviousPhoto();
-			}
-		});
-		
-		deletePhoto.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				DeletePhotoDialog.newInstance().show(getFragmentManager(), "dialog");
-			}
-		});
-		
+		setPhoto();		
 	}
 	
 	private final int REQUEST_IMAGE_CAPTURE = 0;
@@ -119,7 +82,6 @@ public class PhotoManager extends Activity {
 	    	
 	    	File photoFile = null;
 	        try {
-	        	//The file name needs to be more than 3 characters long
 	            photoFile = createImageFile(projectName + "_Photo");
 	        } catch (IOException ex) {}
 	        
@@ -127,7 +89,6 @@ public class PhotoManager extends Activity {
 	            takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
 	            startActivityForResult(takePhotoIntent, REQUEST_IMAGE_CAPTURE);
 	        }
-	        
 	    }
     }
 	
@@ -142,9 +103,7 @@ public class PhotoManager extends Activity {
 		
 		if(photoFile.exists())
 		{
-			photoFile.delete();
-			
-			//Notify gallery manager
+			photoFile.delete();			
 			Intent intent = new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" +  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)));
 			sendBroadcast(intent);
 		}
@@ -155,20 +114,15 @@ public class PhotoManager extends Activity {
 	{
 		if(photosList.size() > 0 && photoIndex < photosList.size())
 		{
-			previousPhoto.setVisibility(View.VISIBLE);
-			nextPhoto.setVisibility(View.VISIBLE);
-			photoDisplay.setVisibility(View.VISIBLE);
-			deletePhoto.setVisibility(View.VISIBLE);
-			
+			photoContent = true; 			
 			currentPhotoPath = photosList.get(photoIndex).getPhotoPath();
 			photoDisplay.setImageURI(Uri.parse("file:" + storageDir + "/" + currentPhotoPath));
+			invalidateOptionsMenu();
 		}
 		else
 		{
-			previousPhoto.setVisibility(View.INVISIBLE);
-			nextPhoto.setVisibility(View.INVISIBLE);
-			photoDisplay.setVisibility(View.INVISIBLE);
-			deletePhoto.setVisibility(View.INVISIBLE);
+			photoContent = false;
+			invalidateOptionsMenu();
 		}
 	}
 	
@@ -232,10 +186,6 @@ public class PhotoManager extends Activity {
     		db.addPhoto(currentPhotoPath, projectId);
     		getPhotosList();
     		setPhoto();
-    		
-    		//Testing
-    		//Intent selectPictureIntent = new Intent(Intent.ACTION_PICK);
-            //selectPictureIntent.setType("image/*");
             
     		Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file:" + storageDir + "/" + currentPhotoPath));     
     		sendBroadcast(intent);
@@ -261,6 +211,12 @@ public class PhotoManager extends Activity {
     }
 	
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu)  {
+		getMenuInflater().inflate(R.menu.photos_menu, menu);
+	    return true;
+	}
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	    
@@ -271,8 +227,24 @@ public class PhotoManager extends Activity {
 			navigationIntent.putExtra("ProjectName", projectName);
 	        NavUtils.navigateUpTo(this, navigationIntent);
 	        return true;
+	    case R.id.actionBar_AddPhotoIcon:
+	    	takePhoto();
+	    	return true;
+	    case R.id.actionBar_DeletePhotoIcon:
+	    	DeletePhotoDialog.newInstance().show(getFragmentManager(), "dialog");
+	    	return true;
+	    	
 	    }
 	    return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public boolean onPrepareOptionsMenu (Menu menu){
+		if(photoContent)
+			menu.findItem(R.id.actionBar_DeletePhotoIcon).setVisible(true);
+		else
+			menu.findItem(R.id.actionBar_DeletePhotoIcon).setVisible(false);
+		return true;
 	}
 }
 

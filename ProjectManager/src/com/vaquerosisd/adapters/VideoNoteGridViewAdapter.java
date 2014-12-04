@@ -12,12 +12,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class VideoNoteGridView extends BaseAdapter {
+public class VideoNoteGridViewAdapter extends BaseAdapter {
 	private Context context;
 	int layoutResourceId;
 	private ArrayList<String> files;
 	
-	public VideoNoteGridView(Context context,int layoutResourceId, ArrayList<String> files){
+	public VideoNoteGridViewAdapter(Context context,int layoutResourceId, ArrayList<String> files){
 		this.context = context;
 		this.layoutResourceId = layoutResourceId;
 		this.files = files;
@@ -47,8 +47,8 @@ public class VideoNoteGridView extends BaseAdapter {
 		 	row = inflater.inflate(layoutResourceId, parent, false);
 		 	
 		 	holder = new RecordHolder();
-		 	holder.txtTitle = (TextView) row.findViewById(R.id.gridView_Text);
-		   	holder.imageItem = (ImageView) row.findViewById(R.id.gridView_Image);
+		 	holder.txtTitle = (TextView) row.findViewById(R.id.gridView_Video_Text);
+		   	holder.imageItem = (ImageView) row.findViewById(R.id.gridView_Video_Image);
 		   	row.setTag(holder);
 		} else {
 			holder = (RecordHolder) row.getTag();

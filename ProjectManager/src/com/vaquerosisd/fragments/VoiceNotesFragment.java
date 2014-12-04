@@ -15,7 +15,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -116,7 +115,6 @@ public class VoiceNotesFragment extends Fragment {
 				Uri uri = data.getData();
 				String filePath = fO.getAudioFilePathFromUri(uri);
 				String taskDir = db.getTaskContentPath(task.getTaskId()) + "/VoiceNote_" + System.currentTimeMillis() + ".3gpp";
-				Log.i("Debug", taskDir);
 				FileOperations.moveFile(filePath, taskDir);
 			}
       	}

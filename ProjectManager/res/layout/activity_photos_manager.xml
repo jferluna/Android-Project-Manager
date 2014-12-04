@@ -6,51 +6,14 @@
     android:orientation="vertical"
     tools:context="${relativePackage}.${activityClass}" >
 
-    <Button
-        android:id="@+id/takePhoto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Take New Photo" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <Button
-            android:id="@+id/previousPhoto"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Previous" />
-
-        <Button
-            android:id="@+id/nextPhoto"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Next" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-        <ImageView
+   	<ImageView
             android:id="@+id/photoDisplay"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="#222222"
-            android:scaleType="fitCenter" />
-
-        <Button
-            android:id="@+id/deletePhoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Delete Photo" />
-
-    </LinearLayout>
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/imageDesc" />
 
 </LinearLayout>

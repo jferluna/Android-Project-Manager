@@ -49,7 +49,6 @@ import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -64,8 +63,8 @@ public class NewProject extends Activity implements CustomStatus.CustomStatusInt
 	ProjectOperations db;										//Instance of the class that provides the database operations
 	FileOperations fO;											//Instance of the class that provides the file operations
 	String statusFileName = "StatusTags";						//File name for the status options			
-	int[] startDateStrings = new int[3];					//String array to store year, month and day of start date picker
-	int[] dueDateStrings = new int[3];					//String array to store year, month and day of due date picker
+	int[] startDateStrings = new int[3];						//String array to store year, month and day of start date picker
+	int[] dueDateStrings = new int[3];							//String array to store year, month and day of due date picker
 	static String STARTDATE_DIALOG_TAG = "startDate Dialog";	//Tag used to identify start date picker dialog
 	static String DUEDATE_DIALOG_TAG = "dueDate Dialog";		//Tag used to identify due date picker dialog
 	
