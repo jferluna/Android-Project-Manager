@@ -1,19 +1,25 @@
 package com.vaquerosisd.object;
 
+import java.io.File;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+
 import com.vaquerosisd.database.ProjectOperations;
 
 public class JsonWrapper {
 	
 	private JSONObject jsonObject = null;
+	
+	private Context context;
 
-	public JsonWrapper(JSONObject jsonObject){
+	public JsonWrapper(JSONObject jsonObject, Context context){
 		this.jsonObject = jsonObject;
+		this.context = context;
 	}
 	
 	
@@ -63,7 +69,7 @@ public class JsonWrapper {
 	public void getProjects()
 	{
 		
-		ProjectOperations db = null;					//Database Operations
+		ProjectOperations db = new ProjectOperations(context);;					//Database Operations
 		JSONArray projects = null;
 		JSONArray tasks = null;
 		
@@ -73,20 +79,93 @@ public class JsonWrapper {
 		
 		
 		
-		//db.addProject(projectNameString, projectStatusString, startDateStrings, dueDateStrings, contentDir.getAbsolutePath());
+		
 		
 		try {
 			projects = jsonObject.getJSONArray("projects");
 			tasks = jsonObject.getJSONArray("tasks");
 			
+			System.out.println("json projects" + Integer.toString(projects.length()));
 			
 			for (int i = 0; i < projects.length(); i++){
-				System.out.println(projects.getJSONObject(i));
+				System.out.println(projects.getJSONObject(i).getString("name"));
+				
+				JSONObject p = projects.getJSONObject(i);
+				System.out.println(p.toString());
+				String name = p.getString("name");
+				String status = p.getString("status");
+				int id = p.getInt("id");
+				int yearstart = p.getInt("yearstart");
+				int monthstart = p.getInt("monthstart");
+				int daystart = p.getInt("daystart");
+				int yeardue = p.getInt("yeardue");
+				int monthdue = p.getInt("monthdue");
+				int daydue = p.getInt("daydue");
+				int opentasks = p.getInt("opentasks");
+				int totaltasks = p.getInt("totaltasks");
+				String contentpath = p.getString("contentpath");
+				
+				File contentDir = new File("/storage/sdcard0/ProjectManager/" + name);
+				contentDir.mkdirs();
+				
+				int startdate[] = new int[3];
+				int duedate[] = new int[3];
+				
+				startdate[0] = yearstart;
+				startdate[1] = monthstart;
+				startdate[2] = daystart;
+				
+
+				
+				duedate[0] = yeardue;
+				duedate[1] = monthdue;
+				duedate[2] = daydue;
+				
+				
+				db.addProject(name, status, startdate, duedate, contentDir.getAbsolutePath());
 				
 			}
 			
 			for (int i = 0; i < tasks.length(); i++){
 				System.out.println(tasks.getJSONObject(i));
+				
+				JSONObject t = tasks.getJSONObject(i);
+				System.out.println(t.toString());
+				String name = t.getString("name");
+				String status = t.getString("status");
+				int id = t.getInt("id");
+				int project_id = t.getInt("project_id");
+				int yearstart = t.getInt("yearstart");
+				int monthstart = t.getInt("monthstart");
+				int daystart = t.getInt("daystart");
+				int yeardue = t.getInt("yeardue");
+				int monthdue = t.getInt("monthdue");
+				int daydue = t.getInt("daydue");
+				
+				String priority = t.getString("priority");
+				int percentage = t.getInt("status");
+				
+				String description = t.getString("description");
+				String photopath = t.getString("photopath");
+				String contentpath = t.getString("contentpath");
+				
+				File taskContentPath = new File(contentpath);
+				taskContentPath.mkdir();
+				
+				int startdate[] = new int[3];
+				int duedate[] = new int[3];
+				
+				startdate[0] = yearstart;
+				startdate[1] = monthstart;
+				startdate[2] = daystart;
+				
+
+				
+				duedate[0] = yeardue;
+				duedate[1] = monthdue;
+				duedate[2] = daydue;
+				
+				db.addTask(project_id, name, status, priority, percentage, startdate, duedate, photopath, description, contentpath);
 				
 			}
 			

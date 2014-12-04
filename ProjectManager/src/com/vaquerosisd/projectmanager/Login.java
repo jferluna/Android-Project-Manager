@@ -30,6 +30,8 @@ public class Login extends Activity implements WebserviceCallback{
 			editUsername.setBackgroundColor(getResources().getColor(R.color.warning));
 		}
 		else{
+			
+			response.getProjects();
 			setResult(RESULT_OK);
 			finish();
 		}

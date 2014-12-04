@@ -254,7 +254,6 @@ public class User {
 	// Obtiene arreglo de projects para el user
 	public void getProjects(String token) {
 		
-		System.out.println("entra getprojectssss" + token);
 
 
 		String urlString = api_host + route_get;
@@ -266,7 +265,7 @@ public class User {
 		JSONObject json = new JSONObject();
 
 		try {
-			request.put("auth_token", auth_token);
+			request.put("auth_token", token);
 			json.put("request", request);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -275,7 +274,6 @@ public class User {
 
 		db.close();
 		
-		System.out.println("sale getprojects, va  getdata");
 
 		new GetData(context).execute(urlString, json.toString());
 
@@ -462,7 +460,7 @@ public class User {
 					editor = prefs.edit();
 					editor.clear();
 					editor.commit();
-					callerActivity.callback(new JsonWrapper(json));
+					callerActivity.callback(new JsonWrapper(json, context));
 
 					break;
 
@@ -472,12 +470,12 @@ public class User {
 					
 				case 8:
 					System.out.println("USER: getprojects call succeded:");
-					callerActivity.callback(new JsonWrapper(json));
+					callerActivity.callback(new JsonWrapper(json, context));
 					break;
 
 				default: // Status ERROR
 					System.out.println("ERROR IN API CALL: " + string_code);
-					callerActivity.callback(new JsonWrapper(json));
+					callerActivity.callback(new JsonWrapper(json, context));
 					break;
 
 				} // end switch
