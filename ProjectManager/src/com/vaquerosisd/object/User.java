@@ -252,7 +252,10 @@ public class User {
 
 	//
 	// Obtiene arreglo de projects para el user
-	public void getProjects() {
+	public void getProjects(String token) {
+		
+		System.out.println("entra getprojectssss" + token);
+
 
 		String urlString = api_host + route_get;
 
@@ -271,6 +274,8 @@ public class User {
 		}
 
 		db.close();
+		
+		System.out.println("sale getprojects, va  getdata");
 
 		new GetData(context).execute(urlString, json.toString());
 
@@ -442,8 +447,12 @@ public class User {
 					editor.putString("nombre", nombre);
 					editor.putString("auth_token", json.getString("auth_token"));
 					editor.commit();
+					
+					System.out.println("getprojects en 4 repsonse");
 
-					callerActivity.callback(new JsonWrapper(json));
+					getProjects(json.getString("auth_token"));
+
+					//callerActivity.callback(new JsonWrapper(json));
 
 					break;
 
@@ -459,6 +468,11 @@ public class User {
 
 				case 6: // Status OK, API succeded
 					System.out.println("USER: API call succeded:");
+					break;
+					
+				case 8:
+					System.out.println("USER: getprojects call succeded:");
+					callerActivity.callback(new JsonWrapper(json));
 					break;
 
 				default: // Status ERROR

@@ -1,7 +1,12 @@
 package com.vaquerosisd.object;
 
+import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.vaquerosisd.database.ProjectOperations;
 
 public class JsonWrapper {
 	
@@ -52,6 +57,52 @@ public class JsonWrapper {
 		return r;
 	}
 	
+	
+	//
+	// Regresa projects en lista
+	public void getProjects()
+	{
+		
+		ProjectOperations db = null;					//Database Operations
+		JSONArray projects = null;
+		JSONArray tasks = null;
+		
+		db.open();
+		db.deleteAllProjects();
+		db.deleteAllTasks();
+		
+		
+		
+		//db.addProject(projectNameString, projectStatusString, startDateStrings, dueDateStrings, contentDir.getAbsolutePath());
+		
+		try {
+			projects = jsonObject.getJSONArray("projects");
+			tasks = jsonObject.getJSONArray("tasks");
+			
+			
+			for (int i = 0; i < projects.length(); i++){
+				System.out.println(projects.getJSONObject(i));
+				
+			}
+			
+			for (int i = 0; i < tasks.length(); i++){
+				System.out.println(tasks.getJSONObject(i));
+				
+			}
+			
+			
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		
+	db.close();
+	
+		
+		
+	}
 	
 	//
 	// Crea respuesta JSON objeto con Project
