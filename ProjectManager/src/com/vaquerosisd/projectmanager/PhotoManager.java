@@ -120,12 +120,7 @@ public class PhotoManager extends Activity {
 		setPhoto();
 		
 		if(photoFile.exists())
-		{
 			photoFile.delete();			
-			Intent intent = new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" +  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)));
-			sendBroadcast(intent);
-		}
-		
 	}
 	
 	public void setPhoto()
@@ -140,7 +135,7 @@ public class PhotoManager extends Activity {
 		else
 		{
 			photoContent = false;
-			photoDisplay.setImageResource(android.R.color.transparent);
+			photoDisplay.setImageBitmap(null);
 			invalidateOptionsMenu();
 		}
 	}
